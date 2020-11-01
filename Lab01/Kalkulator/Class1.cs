@@ -3,7 +3,6 @@ using System.Diagnostics;
 
 namespace Kalkulator
 {
-    // public - inne biblioteki moga odwolywac sie do tej biblioteki
     public class Class1
     {
         public Class1() { }
