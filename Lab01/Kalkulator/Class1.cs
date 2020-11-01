@@ -8,7 +8,7 @@ namespace Kalkulator
     {
         public Class1() { }
  
-        public int Add(int v1, int v2)
+        public int add(int v1, int v2)
         {
             return v1 + v2;
         }
