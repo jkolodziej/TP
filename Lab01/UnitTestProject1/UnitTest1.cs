@@ -13,7 +13,7 @@ namespace UnitTestProject1
             Class1 calculator = new Class1();   
             Random random = new Random();
             int y = random.Next();
-            int x = calculator.Add(4, y);
+            int x = calculator.add(4, y);
             Assert.AreEqual(x, 4 + y);    
         }
     }
