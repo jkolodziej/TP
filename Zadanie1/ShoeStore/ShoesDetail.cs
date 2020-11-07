@@ -13,11 +13,12 @@ namespace ShoeStore
         public int StockCount { get; set; }
         public decimal Discount { get; set; }
 
-        public ShoesDetail(Guid id, Shoes shoes, decimal nettoPrice, int stockCount, decimal discount)
+        public ShoesDetail(Guid id, Shoes shoes, decimal nettoPrice, decimal tax, int stockCount, decimal discount)
         {
             Id = id;
             Shoes = shoes;
             NettoPrice = nettoPrice;
+            Tax = tax;
             StockCount = stockCount;
             Discount = discount;
         }

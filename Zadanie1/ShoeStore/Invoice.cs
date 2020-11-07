@@ -21,13 +21,14 @@ namespace ShoeStore
             ShoesDetail = shoesDetail;
             Count = Count;
             ShippingCost = shippingCost;
-            TotalPrice = calculateTotalPrice();
+            TotalPrice = CalculateTotalPrice();
             PurchaseDate = purchaseDate;
         }
 
-        private decimal calculateTotalPrice()
+        private decimal CalculateTotalPrice()
         {
-            decimal price = ShoesDetail.Discount * (ShoesDetail.NettoPrice + ShoesDetail.NettoPrice * ShoesDetail.Tax);
+            decimal price = (ShoesDetail.NettoPrice + ShoesDetail.NettoPrice * ShoesDetail.Tax);
+            price -= price * ShoesDetail.Discount;
             price *= Count;
             price += ShippingCost;
             return price;
