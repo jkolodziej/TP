@@ -26,8 +26,9 @@ namespace ShoeStoreTests
         [TestMethod]
         public void ClientTest()
         {
+            Guid id = Guid.NewGuid();
             Address address = new Address("Pabianice", "Zamkowa", "23b");
-            Client client = new Client("Jan", "Kowalski", "jan.kowalski@gmail.com",address,"+48123456789");
+            Client client = new Client(id, "Jan", "Kowalski", "jan.kowalski@gmail.com",address,"+48123456789");
             Assert.AreEqual("Jan", client.Name);
             Assert.AreEqual("Kowalski", client.Surname);
             Assert.AreEqual("jan.kowalski@gmail.com", client.EmailAddress);
