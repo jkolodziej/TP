@@ -141,10 +141,9 @@ namespace ShoeStore
             return DataContext.ShoesDetailList.FirstOrDefault(sd => sd.Id.Equals(id));
         }
 
-        /*
-        public IEnumerable<Shoes> getAllShoes()
+        public IEnumerable<ShoesDetail> getAllShoesDetails()
         {
-            return DataContext.ShoesDictionary.Values;
+            return DataContext.ShoesDetailList;
         }
 
         public void UpdateShoes(Guid id) //do wypełnienia
@@ -152,14 +151,13 @@ namespace ShoeStore
 
         }
 
-        public void DeleteShoes(Shoes shoes)
+        public void DeleteShoesDetail(ShoesDetail shoesDetail)
         {
-            if (!DataContext.ShoesDictionary.ContainsKey(shoes.Id))
+            if (!DataContext.ShoesDetailList.Any(sd => sd.Id.Equals(shoesDetail.Id)))
             {
-                throw new ArgumentException($"Book with ID: {shoes.Id} doesn't exist.");
+                throw new ArgumentException($"ShoesDetail with ID: {shoesDetail.Id} doesn't exist.");
             }
-            DataContext.ShoesDictionary.Remove(shoes.Id);
+            DataContext.ShoesDetailList.Remove(shoesDetail);
         }
-        */
     }
 }

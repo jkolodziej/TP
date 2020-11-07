@@ -35,8 +35,8 @@ namespace ShoeStore
             else
             {
                 Client i = (Client)obj;
-                return this.Name.Equals(i.Name) && this.Surname.Equals(i.Surname) 
-                       && this.EmailAddress.Equals(i.EmailAddress) &&
+                return this.Name.Equals(i.Name) &&
+                       this.Surname.Equals(i.Surname) && this.EmailAddress.Equals(i.EmailAddress) &&
                        this.Address.Equals(i.Address) && this.PhoneNumber.Equals(i.PhoneNumber);
             }
         }

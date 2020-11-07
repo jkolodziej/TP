@@ -19,7 +19,7 @@ namespace ShoeStore
             Id = id;
             Client = client;
             ShoesDetail = shoesDetail;
-            Count = Count;
+            Count = count;
             ShippingCost = shippingCost;
             TotalPrice = calculateTotalPrice();
             PurchaseDate = purchaseDate;
