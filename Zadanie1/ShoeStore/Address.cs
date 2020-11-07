@@ -16,5 +16,25 @@ namespace ShoeStore
             Street = street;
             HouseNumber = houseNumber;
         }
+
+        public override bool Equals(Object obj)
+        {
+            //Check for null and compare run-time types.
+            if ((obj == null) || !this.GetType().Equals(obj.GetType()))
+            {
+                return false;
+            }
+            else
+            {
+                Address i = (Address)obj;
+                return this.City.Equals(i.City) && this.Street.Equals(i.Street) &&
+                       this.HouseNumber.Equals(i.HouseNumber);
+            }
+        }
+
+        public override int GetHashCode()
+        {
+            return base.GetHashCode();
+        }
     }
 }

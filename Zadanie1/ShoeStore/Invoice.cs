@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Runtime.CompilerServices;
 using System.Text;
 
 namespace ShoeStore
@@ -10,18 +9,28 @@ namespace ShoeStore
         public Guid Id { get; set; }
         public Client Client { get; set; }
         public ShoesDetail ShoesDetail { get; set; }
+        public int Count { get; set; }
         public decimal TotalPrice { get; set; }
         public decimal ShippingCost { get; set; }
         public DateTimeOffset PurchaseDate { get; set; }
 
-        public Invoice(Guid id, Client client, ShoesDetail shoesDetail, decimal shippingCost, DateTimeOffset purchaseDate)
+        public Invoice(Guid id, Client client, ShoesDetail shoesDetail, int count, decimal shippingCost, DateTimeOffset purchaseDate)
         {
             Id = id;
             Client = client;
             ShoesDetail = shoesDetail;
-            TotalPrice = ShoesDetail.Price * ShoesDetail.Discount + ShippingCost;
+            Count = Count;
             ShippingCost = shippingCost;
+            TotalPrice = calculateTotalPrice();
             PurchaseDate = purchaseDate;
+        }
+
+        private decimal calculateTotalPrice()
+        {
+            decimal price = ShoesDetail.Discount * (ShoesDetail.NettoPrice + ShoesDetail.NettoPrice * ShoesDetail.Tax);
+            price *= Count;
+            price += ShippingCost;
+            return price;
         }
 
         public override bool Equals(Object obj)
@@ -38,6 +47,11 @@ namespace ShoeStore
                        this.ShoesDetail.Equals(i.ShoesDetail) && this.TotalPrice.Equals(i.TotalPrice) && 
                        this.ShippingCost.Equals(i.ShippingCost) && this.PurchaseDate.Equals(i.PurchaseDate);
             }
+        }
+
+        public override int GetHashCode()
+        {
+            return base.GetHashCode();
         }
     }
 }

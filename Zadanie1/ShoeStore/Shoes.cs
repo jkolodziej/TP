@@ -1,7 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Drawing;
-using System.Text;
 
 namespace ShoeStore
 {
@@ -45,6 +43,11 @@ namespace ShoeStore
                        this.Size.Equals(i.Size) && this.Brand.Equals(i.Brand) &&
                        this.Color.Equals(i.Color) && this.Sex.Equals(i.Sex);
             }
+        }
+
+        public override int GetHashCode()
+        {
+            return base.GetHashCode();
         }
     }
 }
