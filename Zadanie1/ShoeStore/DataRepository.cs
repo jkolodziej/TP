@@ -4,7 +4,7 @@ using System.Text;
 
 namespace ShoeStore
 {
-    class DataRepository
+    public class DataRepository
     {
     }
 }

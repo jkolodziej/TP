@@ -4,21 +4,44 @@ using System.Text;
 
 namespace ShoeStore
 {
-    class ShoesDetail
+    public class ShoesDetail
     {
         public Guid Id { get; set; }
         public Shoes Shoes { get; set; }
-        public decimal Price { get; set; }
-        public int Count { get; set; }
+        public decimal NettoPrice { get; set; }
+        public decimal Tax { get; set; }
+        public int StockCount { get; set; }
         public decimal Discount { get; set; }
 
-        public ShoesDetail(Guid id, Shoes shoes, decimal price, int count, decimal discount)
+        public ShoesDetail(Guid id, Shoes shoes, decimal nettoPrice, int stockCount, decimal discount)
         {
             Id = id;
             Shoes = shoes;
-            Price = price;
-            Count = count;
+            NettoPrice = nettoPrice;
+            StockCount = stockCount;
             Discount = discount;
         }
+
+        public override bool Equals(Object obj)
+        {
+            //Check for null and compare run-time types.
+            if ((obj == null) || !this.GetType().Equals(obj.GetType()))
+            {
+                return false;
+            }
+            else
+            {
+                ShoesDetail i = (ShoesDetail)obj;
+                return this.Id.Equals(i.Id) && this.Shoes.Equals(i.Shoes) &&
+                       this.NettoPrice.Equals(i.NettoPrice) && this.StockCount.Equals(i.StockCount) &&
+                       this.Discount.Equals(i.Discount) && this.Tax.Equals(i.Tax);
+            }
+        }
+
+        public override int GetHashCode()
+        {
+            return base.GetHashCode();
+        }
+
     }
 }

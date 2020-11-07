@@ -4,8 +4,8 @@ using System.Text;
 
 namespace ShoeStore
 {
-    public class DataContext
+    public interface IDataFiller
     {
-
+        public void Fill(DataContext dataContext);
     }
 }
