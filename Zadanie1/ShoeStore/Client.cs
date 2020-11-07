@@ -6,7 +6,6 @@ namespace ShoeStore
 {
     public class Client
     {
-        public Guid Id { get; set; }
         public string Name { get; set; }
         public string Surname { get; set; }
         public string EmailAddress { get; set; }
@@ -17,9 +16,8 @@ namespace ShoeStore
         {
         }
 
-        public Client(Guid id, string name, string surname, string emailAddress, Address address, string phoneNumber)
+        public Client(string name, string surname, string emailAddress, Address address, string phoneNumber)
         {
-            Id = id;
             Name = name;
             Surname = surname;
             EmailAddress = emailAddress;
@@ -37,9 +35,9 @@ namespace ShoeStore
             else
             {
                 Client i = (Client)obj;
-                return this.Id.Equals(i.Id) && this.Name.Equals(i.Name) &&
-                       this.Surname.Equals(i.Surname) && this.EmailAddress.Equals(i.EmailAddress) &&
-                       this.Address.Equals(i.Address) && this.PhoneNumber.Equals(i.PhoneNumber);
+                return this.Name.Equals(i.Name) && this.Surname.Equals(i.Surname) && 
+                    this.EmailAddress.Equals(i.EmailAddress) &&
+                    this.Address.Equals(i.Address) && this.PhoneNumber.Equals(i.PhoneNumber);
             }
         }
 
