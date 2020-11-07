@@ -73,6 +73,5 @@ namespace ShoeStoreTests
             Assert.AreEqual(new decimal(12.0), invoice.ShippingCost);
             Assert.AreEqual(purchaseDate, invoice.PurchaseDate);
         }
-
     }
 }
