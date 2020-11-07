@@ -4,7 +4,7 @@ using System.Text;
 
 namespace ShoeStore
 {
-    class Client
+    public class Client
     {
         public string Name { get; set; }
         public string Surname { get; set; }

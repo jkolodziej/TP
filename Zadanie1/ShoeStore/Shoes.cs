@@ -5,7 +5,7 @@ using System.Text;
 
 namespace ShoeStore
 {
-    class Shoes
+    public class Shoes
     {
         public Guid Id { get; set; }
         public string ShoesType { get; set; }

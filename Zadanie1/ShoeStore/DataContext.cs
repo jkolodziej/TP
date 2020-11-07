@@ -4,7 +4,7 @@ using System.Text;
 
 namespace ShoeStore
 {
-    class DataContext
+    public class DataContext
     {
 
     }
