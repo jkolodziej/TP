@@ -6,19 +6,19 @@ namespace ShoeStore
 {
     class ShoesDetail
     {
-        private Guid id { get; set; }
-        private Shoes shoes { get; set; }
-        private decimal price { get; set; }
-        private int count { get; set; }
-        private decimal discount { get; set; }
+        public Guid Id { get; set; }
+        public Shoes Shoes { get; set; }
+        public decimal Price { get; set; }
+        public int Count { get; set; }
+        public decimal Discount { get; set; }
 
         public ShoesDetail(Guid id, Shoes shoes, decimal price, int count, decimal discount)
         {
-            this.id = id;
-            this.shoes = shoes;
-            this.price = price;
-            this.count = count;
-            this.discount = discount;
+            Id = id;
+            Shoes = shoes;
+            Price = price;
+            Count = count;
+            Discount = discount;
         }
     }
 }

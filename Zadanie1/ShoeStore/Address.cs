@@ -6,15 +6,15 @@ namespace ShoeStore
 {
     class Address
     {
-        private string city { get; set; }
-        private string street { get; set; }
-        private string houseNumber { get; set; }
+        public string City { get; set; }
+        public string Street { get; set; }
+        public string HouseNumber { get; set; }
 
         public Address(string city, string street, string houseNumber)
         {
-            this.city = city;
-            this.street = street;
-            this.houseNumber = houseNumber;
+            City = city;
+            Street = street;
+            HouseNumber = houseNumber;
         }
     }
 }

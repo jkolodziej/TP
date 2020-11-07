@@ -7,28 +7,44 @@ namespace ShoeStore
 {
     class Shoes
     {
-        private Guid id { get; set; }
-        private string shoesType { get; set; }
-        private int size { get; set; }
-        private string brand { get; set; }
-        private Color color { get; set; }
-        private Sex sex { get; set; }
+        public Guid Id { get; set; }
+        public string ShoesType { get; set; }
+        public int Size { get; set; }
+        public string Brand { get; set; }
+        public Color Color { get; set; }
+        public SexEnum Sex { get; set; }
 
-        public Shoes(Guid id, string shoesType, int size, string brand, Color color, Sex sex)
+        public Shoes(Guid id, string shoesType, int size, string brand, Color color, SexEnum sex)
         {
-            this.id = id;
-            this.shoesType = shoesType;
-            this.size = size;
-            this.brand = brand;
-            this.color = color;
-            this.sex = sex;
+            Id = id;
+            ShoesType = shoesType;
+            Size = size;
+            Brand = brand;
+            Color = color;
+            Sex = sex;
         }
 
-        public enum Sex
+        public enum SexEnum
         {
             Male,
             Female,
             Unisex
+        }
+
+        public override bool Equals(Object obj)
+        {
+            //Check for null and compare run-time types.
+            if ((obj == null) || !this.GetType().Equals(obj.GetType()))
+            {
+                return false;
+            }
+            else
+            {
+                Shoes i = (Shoes)obj;
+                return this.Id.Equals(i.Id) && this.ShoesType.Equals(i.ShoesType) &&
+                       this.Size.Equals(i.Size) && this.Brand.Equals(i.Brand) &&
+                       this.Color.Equals(i.Color) && this.Sex.Equals(i.Sex);
+            }
         }
     }
 }
