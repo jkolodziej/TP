@@ -49,5 +49,11 @@ namespace ShoeStore
         {
             return base.GetHashCode();
         }
+
+        public override string ToString()
+        {
+            return "Shoes type: " + ShoesType + "\nSize: " + Size + "\nBrand: " + Brand +
+                "\nColor: " + Color.ToString() + "\nSex: " + Sex;
+        }
     }
 }
