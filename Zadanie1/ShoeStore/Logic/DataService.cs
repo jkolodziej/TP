@@ -20,7 +20,7 @@ namespace ShoeStore.Logic
             dataRepository.AddShoes(shoes);
         }
 
-        public void AddClient(string name, string surname, string emailAddress, Address address, string phoneNumber)
+        public void AddClient(string name, string surname, string emailAddress, string address, string phoneNumber)
         {
             Client client = new Client(name, surname, emailAddress, address, phoneNumber);
             dataRepository.AddClient(client);

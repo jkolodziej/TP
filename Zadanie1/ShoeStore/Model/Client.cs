@@ -9,14 +9,14 @@ namespace ShoeStore.Model
         public string Name { get; set; }
         public string Surname { get; set; }
         public string EmailAddress { get; set; }
-        public Address Address { get; set; }
+        public string Address { get; set; }
         public string PhoneNumber { get; set; }
 
         public Client()
         {
         }
 
-        public Client(string name, string surname, string emailAddress, Address address, string phoneNumber)
+        public Client(string name, string surname, string emailAddress, string address, string phoneNumber)
         {
             Name = name;
             Surname = surname;

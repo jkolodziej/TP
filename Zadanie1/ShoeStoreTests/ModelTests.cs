@@ -21,12 +21,11 @@ namespace ShoeStoreTests
         [TestMethod]
         public void ClientTest()
         {
-            Address address = new Address("Pabianice", "Zamkowa", "23b");
-            Client client = new Client("Jan", "Kowalski", "jan.kowalski@gmail.com",address,"+48123456789");
+            Client client = new Client("Jan", "Kowalski", "jan.kowalski@gmail.com","Pabianice Zamkowa 23","+48123456789");
             Assert.AreEqual("Jan", client.Name);
             Assert.AreEqual("Kowalski", client.Surname);
             Assert.AreEqual("jan.kowalski@gmail.com", client.EmailAddress);
-            Assert.AreEqual(address, client.Address);
+            Assert.AreEqual("Pabianice Zamkowa 23", client.Address);
             Assert.AreEqual("+48123456789", client.PhoneNumber); 
         }
 
@@ -53,8 +52,7 @@ namespace ShoeStoreTests
             Guid shoesPairId = Guid.NewGuid();
 
             DateTimeOffset purchaseDate = DateTimeOffset.Now;
-            Address address = new Address("Pabianice", "Zamkowa", "23b");
-            Client client = new Client("Jan", "Kowalski", "jan.kowalski@gmail.com", address, "+48123456789");
+            Client client = new Client("Jan", "Kowalski", "jan.kowalski@gmail.com", "Pabianice Zamkowa 23b", "+48123456789");
             Shoes shoes = new Shoes("XC89", 39, "Adidas", Shoes.SexEnum.Female);
             ShoesPair shoesPair = new ShoesPair(shoesPairId, shoes, new decimal(300.0), new decimal(0.22), 20, new decimal(0.1));
             Invoice invoice = new Invoice(id, client, shoesPair, 1, new decimal(12.0), purchaseDate);
