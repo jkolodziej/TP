@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace ShoeStore
+namespace ShoeStore.Model
 {
-    public class ShoesDetail
+    public class ShoesPair
     {
         public Guid Id { get; set; }
         public Shoes Shoes { get; set; }
@@ -13,7 +13,7 @@ namespace ShoeStore
         public int StockCount { get; set; }
         public decimal Discount { get; set; }
 
-        public ShoesDetail(Guid id, Shoes shoes, decimal nettoPrice, decimal tax, int stockCount, decimal discount)
+        public ShoesPair(Guid id, Shoes shoes, decimal nettoPrice, decimal tax, int stockCount, decimal discount)
         {
             Id = id;
             Shoes = shoes;
@@ -32,7 +32,7 @@ namespace ShoeStore
             }
             else
             {
-                ShoesDetail i = (ShoesDetail)obj;
+                ShoesPair i = (ShoesPair)obj;
                 return this.Id.Equals(i.Id) && this.Shoes.Equals(i.Shoes) &&
                        this.NettoPrice.Equals(i.NettoPrice) && this.StockCount.Equals(i.StockCount) &&
                        this.Discount.Equals(i.Discount) && this.Tax.Equals(i.Tax);

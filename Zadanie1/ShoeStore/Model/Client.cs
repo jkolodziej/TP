@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace ShoeStore
+namespace ShoeStore.Model
 {
     public class Client
     {

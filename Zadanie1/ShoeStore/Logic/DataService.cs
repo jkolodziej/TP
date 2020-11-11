@@ -1,10 +1,9 @@
 ﻿using System;
-using System.Collections;
 using System.Collections.Generic;
-using System.Drawing;
 using System.Linq;
+using ShoeStore.Model;
 
-namespace ShoeStore
+namespace ShoeStore.Logic
 {
     public class DataService
     {
@@ -15,28 +14,26 @@ namespace ShoeStore
             this.dataRepository = dataRepository;
         }
 
-        public Shoes AddShoes(Guid id, string shoesType, int size, string brand, Color color, Shoes.SexEnum sex)
+        public void AddShoes(string shoesModel, int size, string brand, Shoes.SexEnum sex)
         {
-            Shoes shoes = new Shoes(id, shoesType, size, brand, color, sex);
+            Shoes shoes = new Shoes(shoesModel, size, brand, sex);
             dataRepository.AddShoes(shoes);
-            return shoes;
         }
 
-        public Client AddClient(string name, string surname, string emailAddress, Address address, string phoneNumber)
+        public void AddClient(string name, string surname, string emailAddress, Address address, string phoneNumber)
         {
             Client client = new Client(name, surname, emailAddress, address, phoneNumber);
             dataRepository.AddClient(client);
-            return client;
         }
 
         // create invoice
-        public void BuyShoes(Guid id, Client client, ShoesDetail shoesDetail, int count, decimal shippingCost, DateTimeOffset purchaseDate)
+        public void BuyShoes(Guid id, Client client, ShoesPair shoesDetail, int count, decimal shippingCost, DateTimeOffset purchaseDate)
         {
             Invoice invoice = new Invoice(id, client, shoesDetail, count, shippingCost, purchaseDate);
             dataRepository.AddInvoice(invoice);
         }
 
-        public void ReturnShoes(ShoesDetail shoesDetail)
+        public void ReturnShoes(ShoesPair shoesDetail)
         {
             //
         }
@@ -52,9 +49,9 @@ namespace ShoeStore
             return dataRepository.getAllInvoices();
         }
 
-        public IEnumerable<ShoesDetail> GetAllShoesDetail(Shoes shoes)
+        public IEnumerable<ShoesPair> GetAllShoesDetail(Shoes shoes)
         {
-            return dataRepository.getAllShoesDetails().Where(x => x.Shoes == shoes);
+            return dataRepository.getAllShoesPairs().Where(x => x.Shoes == shoes);
         }
 
         public List<string> GetListOfShoes()
@@ -68,10 +65,5 @@ namespace ShoeStore
 
             return listOfShoes;
         }
-
-        
-
     }
-
-
 }

@@ -1,24 +1,20 @@
 ﻿using System;
-using System.Drawing;
 
-namespace ShoeStore
+
+namespace ShoeStore.Model
 {
     public class Shoes
     {
-        public Guid Id { get; set; }
-        public string ShoesType { get; set; }
+        public string ShoesModel { get; set; }
         public int Size { get; set; }
         public string Brand { get; set; }
-        public Color Color { get; set; }
         public SexEnum Sex { get; set; }
 
-        public Shoes(Guid id, string shoesType, int size, string brand, Color color, SexEnum sex)
+        public Shoes(string shoesModel, int size, string brand, SexEnum sex)
         {
-            Id = id;
-            ShoesType = shoesType;
+            ShoesModel = shoesModel;
             Size = size;
             Brand = brand;
-            Color = color;
             Sex = sex;
         }
 
@@ -39,9 +35,9 @@ namespace ShoeStore
             else
             {
                 Shoes i = (Shoes)obj;
-                return this.Id.Equals(i.Id) && this.ShoesType.Equals(i.ShoesType) &&
+                return this.ShoesModel.Equals(i.ShoesModel) &&
                        this.Size.Equals(i.Size) && this.Brand.Equals(i.Brand) &&
-                       this.Color.Equals(i.Color) && this.Sex.Equals(i.Sex);
+                       this.Sex.Equals(i.Sex);
             }
         }
 
@@ -52,8 +48,8 @@ namespace ShoeStore
 
         public override string ToString()
         {
-            return "Shoes type: " + ShoesType + "\nSize: " + Size + "\nBrand: " + Brand +
-                "\nColor: " + Color.ToString() + "\nSex: " + Sex;
+            return "Shoes model: " + ShoesModel + "\nSize: " + Size + "\nBrand: " + Brand +
+                   "\nSex: " + Sex;
         }
     }
 }

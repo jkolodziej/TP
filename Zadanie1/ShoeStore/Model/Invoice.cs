@@ -2,19 +2,19 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace ShoeStore
+namespace ShoeStore.Model
 {
     public class Invoice
     {
         public Guid Id { get; set; }
         public Client Client { get; set; }
-        public ShoesDetail ShoesDetail { get; set; }
+        public ShoesPair ShoesDetail { get; set; }
         public int Count { get; set; }
         public decimal TotalPrice { get; set; }
         public decimal ShippingCost { get; set; }
         public DateTimeOffset PurchaseDate { get; set; }
 
-        public Invoice(Guid id, Client client, ShoesDetail shoesDetail, int count, decimal shippingCost, DateTimeOffset purchaseDate)
+        public Invoice(Guid id, Client client, ShoesPair shoesDetail, int count, decimal shippingCost, DateTimeOffset purchaseDate)
         {
             Id = id;
             Client = client;
