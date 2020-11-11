@@ -26,21 +26,13 @@ namespace ShoeStore
             modelKey++;
         }
 
-        public int GetShoes(string shoesModel, int size, string brand, Shoes.SexEnum sex)
+        public Shoes GetShoes(int key)
         {
-            int key = -1;
-            Shoes compare = new Shoes(shoesModel, size, brand, sex);
-
-            foreach(Shoes shoes in DataContext.ShoesDictionary.Values)
+            if (!DataContext.ShoesDictionary.ContainsKey(key))
             {
-                if (shoes.Equals(compare))
-                {
-                    key = DataContext.ShoesDictionary.FirstOrDefault(s => s.Value.Equals(compare)).Key;
-                    return key;
-                }
+                throw new ArgumentException($"Shoes with key: {key} don't exist.");
             }
-
-            return key;
+            return DataContext.ShoesDictionary[key];
         }
 
         public IEnumerable<Shoes> getAllShoes()
@@ -156,14 +148,19 @@ namespace ShoeStore
         {
             if (DataContext.ShoesPairList.Any(sd => sd.Id.Equals(shoesPair.Id)))
             {
-                throw new ArgumentException($"ShoesDetail with ID: {shoesPair.Id} already exist in the repository.");
+                throw new ArgumentException($"ShoesPair with ID: {shoesPair.Id} already exist in the repository.");
             }
             DataContext.ShoesPairList.Add(shoesPair);
         }
 
-        public ShoesPair GetShoesPair(Guid id)
+        public ShoesPair GetShoesPair(int index)
         {
-            return DataContext.ShoesPairList.FirstOrDefault(sd => sd.Id.Equals(id));
+            //return DataContext.ShoesPairList.FirstOrDefault(sd => sd.Id.Equals(id));
+            if(DataContext.ShoesPairList[index] == null)
+            {
+                throw new ArgumentException($"There's no ShoesPair with index: {index}.");
+            }
+            return DataContext.ShoesPairList[index];
         }
 
         public IEnumerable<ShoesPair> getAllShoesPairs()

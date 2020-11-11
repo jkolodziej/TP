@@ -55,6 +55,11 @@ namespace ShoeStore.Logic
             return dataRepository.getAllClients();
         }
 
+        public IEnumerable<ShoesPair> GetAllShoesPairs()
+        {
+            return dataRepository.getAllShoesPairs();
+        }
+
         public IEnumerable<ShoesPair> GetAllShoesPairs(Shoes shoes)
         {
             return dataRepository.getAllShoesPairs().Where(x => x.Shoes == shoes);
