@@ -7,7 +7,7 @@ namespace ShoeStore.Logic
 {
     public class DataService
     {
-        private readonly DataRepository dataRepository;
+        private DataRepository dataRepository;
 
         public DataService(DataRepository dataRepository)
         {
@@ -26,6 +26,12 @@ namespace ShoeStore.Logic
             dataRepository.AddClient(client);
         }
 
+        public void AddShoesPair(Guid id, Shoes shoes, decimal nettoPrice, decimal tax, int stockCount, decimal discount)
+        {
+            ShoesPair shoesPair = new ShoesPair(id, shoes, nettoPrice, tax, stockCount, discount);
+            dataRepository.AddShoesPair(shoesPair);
+        }
+
         // create invoice
         public void BuyShoes(Guid id, Client client, ShoesPair shoesDetail, int count, decimal shippingCost, DateTimeOffset purchaseDate)
         {
@@ -33,7 +39,7 @@ namespace ShoeStore.Logic
             dataRepository.AddInvoice(invoice);
         }
 
-        public void ReturnShoes(ShoesPair shoesDetail)
+        public void ReturnShoes(ShoesPair shoesPair)
         {
             //
         }
@@ -44,14 +50,29 @@ namespace ShoeStore.Logic
             return dataRepository.getAllShoes();
         }
 
+        public IEnumerable<Client> GetAllClients()
+        {
+            return dataRepository.getAllClients();
+        }
+
+        public IEnumerable<ShoesPair> GetAllShoesPairs(Shoes shoes)
+        {
+            return dataRepository.getAllShoesPairs().Where(x => x.Shoes == shoes);
+        }
+
         public IEnumerable<Invoice> GetAllInvoices()
         {
             return dataRepository.getAllInvoices();
         }
 
-        public IEnumerable<ShoesPair> GetAllShoesDetail(Shoes shoes)
+        public IEnumerable<Invoice> GetAllInvoicesForClient(Client client)
         {
-            return dataRepository.getAllShoesPairs().Where(x => x.Shoes == shoes);
+            return GetAllInvoices().Where(invoice => invoice.Client.Equals(client));
+        }
+
+        public IEnumerable<Invoice> GetAllInvoicesBetween(DateTimeOffset startDate, DateTimeOffset endDate)
+        {
+            return dataRepository.getAllInvoices().Where(invoice => invoice.PurchaseDate >= startDate && invoice.PurchaseDate <= endDate);
         }
 
         public List<string> GetListOfShoes()

@@ -1,8 +1,6 @@
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using ShoeStore;
-using System;
-using System.Drawing;
 using ShoeStore.Model;
+using System;
 
 namespace ShoeStoreTests
 {
@@ -23,7 +21,6 @@ namespace ShoeStoreTests
         [TestMethod]
         public void ClientTest()
         {
-            Guid id = Guid.NewGuid();
             Address address = new Address("Pabianice", "Zamkowa", "23b");
             Client client = new Client("Jan", "Kowalski", "jan.kowalski@gmail.com",address,"+48123456789");
             Assert.AreEqual("Jan", client.Name);
@@ -34,38 +31,37 @@ namespace ShoeStoreTests
         }
 
         [TestMethod]
-        public void ShoesDetailTest()
+        public void ShoesPairTest()
         {
             Guid id = Guid.NewGuid();
 
             Shoes shoes = new Shoes("XC89", 39, "Adidas", Shoes.SexEnum.Female);
-            ShoesPair shoesDetail = new ShoesPair(id, shoes, new decimal(300.0), new decimal(0.22), 20, new decimal(0.1));
+            ShoesPair shoesPair = new ShoesPair(id, shoes, new decimal(300.0), new decimal(0.22), 20, new decimal(0.1));
 
-            Assert.AreEqual(id, shoesDetail.Id);
-            Assert.AreEqual(shoes, shoesDetail.Shoes);
-            Assert.AreEqual(new decimal(300.0), shoesDetail.NettoPrice);
-            Assert.AreEqual(new decimal(0.22), shoesDetail.Tax);
-            Assert.AreEqual(20, shoesDetail.StockCount);
-            Assert.AreEqual(new decimal(0.1), shoesDetail.Discount);
+            Assert.AreEqual(id, shoesPair.Id);
+            Assert.AreEqual(shoes, shoesPair.Shoes);
+            Assert.AreEqual(new decimal(300.0), shoesPair.NettoPrice);
+            Assert.AreEqual(new decimal(0.22), shoesPair.Tax);
+            Assert.AreEqual(20, shoesPair.StockCount);
+            Assert.AreEqual(new decimal(0.1), shoesPair.Discount);
         }
 
         [TestMethod]
         public void InvoiceTest()
         {
             Guid id = Guid.NewGuid();
-            Guid shoesId = Guid.NewGuid();
-            Guid shoesDetailId = Guid.NewGuid();
+            Guid shoesPairId = Guid.NewGuid();
 
             DateTimeOffset purchaseDate = DateTimeOffset.Now;
             Address address = new Address("Pabianice", "Zamkowa", "23b");
             Client client = new Client("Jan", "Kowalski", "jan.kowalski@gmail.com", address, "+48123456789");
             Shoes shoes = new Shoes("XC89", 39, "Adidas", Shoes.SexEnum.Female);
-            ShoesPair shoesDetail = new ShoesPair(shoesDetailId, shoes, new decimal(300.0), new decimal(0.22), 20, new decimal(0.1));
-            Invoice invoice = new Invoice(id, client, shoesDetail, 1, new decimal(12.0), purchaseDate);
+            ShoesPair shoesPair = new ShoesPair(shoesPairId, shoes, new decimal(300.0), new decimal(0.22), 20, new decimal(0.1));
+            Invoice invoice = new Invoice(id, client, shoesPair, 1, new decimal(12.0), purchaseDate);
 
             Assert.AreEqual(id, invoice.Id);
             Assert.AreEqual(client, invoice.Client);
-            Assert.AreEqual(shoesDetail, invoice.ShoesDetail);
+            Assert.AreEqual(shoesPair, invoice.ShoesPair);
             Assert.AreEqual(1, invoice.Count);
             Assert.AreEqual(new decimal(12.0), invoice.ShippingCost);
             Assert.AreEqual(purchaseDate, invoice.PurchaseDate);

@@ -8,17 +8,17 @@ namespace ShoeStore.Model
     {
         public Guid Id { get; set; }
         public Client Client { get; set; }
-        public ShoesPair ShoesDetail { get; set; }
+        public ShoesPair ShoesPair { get; set; }
         public int Count { get; set; }
         public decimal TotalPrice { get; set; }
         public decimal ShippingCost { get; set; }
         public DateTimeOffset PurchaseDate { get; set; }
 
-        public Invoice(Guid id, Client client, ShoesPair shoesDetail, int count, decimal shippingCost, DateTimeOffset purchaseDate)
+        public Invoice(Guid id, Client client, ShoesPair shoesPair, int count, decimal shippingCost, DateTimeOffset purchaseDate)
         {
             Id = id;
             Client = client;
-            ShoesDetail = shoesDetail;
+            ShoesPair = shoesPair;
             Count = count;
             ShippingCost = shippingCost;
             TotalPrice = CalculateTotalPrice();
@@ -27,8 +27,8 @@ namespace ShoeStore.Model
 
         private decimal CalculateTotalPrice()
         {
-            decimal price = (ShoesDetail.NettoPrice + ShoesDetail.NettoPrice * ShoesDetail.Tax);
-            price -= price * ShoesDetail.Discount;
+            decimal price = (ShoesPair.NettoPrice + ShoesPair.NettoPrice * ShoesPair.Tax);
+            price -= price * ShoesPair.Discount;
             price *= Count;
             price += ShippingCost;
             return price;
@@ -45,7 +45,7 @@ namespace ShoeStore.Model
             {
                 Invoice i = (Invoice)obj;
                 return this.Id.Equals(i.Id) && this.Client.Equals(i.Client) &&
-                       this.ShoesDetail.Equals(i.ShoesDetail) && this.TotalPrice.Equals(i.TotalPrice) && 
+                       this.ShoesPair.Equals(i.ShoesPair) && this.TotalPrice.Equals(i.TotalPrice) && 
                        this.ShippingCost.Equals(i.ShippingCost) && this.PurchaseDate.Equals(i.PurchaseDate);
             }
         }

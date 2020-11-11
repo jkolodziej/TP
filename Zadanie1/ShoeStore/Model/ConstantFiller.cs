@@ -5,11 +5,11 @@ using ShoeStore.Model;
 
 namespace ShoeStore
 {
-    class ConstantFiller : IDataFiller
+    public class ConstantFiller : IDataFiller
     {
         public void Fill(DataContext dataContext)
         {
-            throw new NotImplementedException();
+            //
         }
     }
 }
