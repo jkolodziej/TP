@@ -2,11 +2,11 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Text;
-using ShoeStore.Model;
+using ShoeStore.Entities;
 
-namespace ShoeStore
+namespace ShoeStore.Fillers
 {
-    class RandomFiller : IDataFiller
+    public class RandomFiller : IDataFiller
     {
         private int ClientsNo;
         private int ShoesNo;
@@ -19,6 +19,11 @@ namespace ShoeStore
         private string[] Cities = { "Warszawa", "Łódź", "Pabianice", "Sieradz", "Zduńska Wola" };
         private string[] Streets = { "Łaska", "Warszawska", "Dobrowolska", "Zamkowa", "Kilińskiego" };
 
+        public RandomFiller(int clientsNo, int shoesNo)
+        {
+            ClientsNo = clientsNo;
+            ShoesNo = shoesNo;
+        }
 
         public DateTimeOffset GenRandomDay()
         {
@@ -154,7 +159,6 @@ namespace ShoeStore
             {
                 shoes.Add(i + 200, CreateShoes());
                 shoesPairs.Add(CreateShoesPair(shoes[i+200]));
-                invoices.Add(CreateInvoice(clients[Rnd.Next(ClientsNo - 1)], shoesPairs[i]));
                 invoices.Add(CreateInvoice(clients[Rnd.Next(ClientsNo - 1)], shoesPairs[i]));
             }
             dataContext.ClientList = clients;

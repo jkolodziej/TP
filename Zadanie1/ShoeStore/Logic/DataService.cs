@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using ShoeStore.Model;
+using ShoeStore.Entities;
 
 namespace ShoeStore.Logic
 {

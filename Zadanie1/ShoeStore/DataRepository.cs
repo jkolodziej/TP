@@ -1,7 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using ShoeStore.Model;
+using ShoeStore.Entities;
+using ShoeStore.Fillers;
 
 namespace ShoeStore
 {

@@ -1,8 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 
-namespace ShoeStore.Model
+namespace ShoeStore.Entities
 {
     public class Client
     {

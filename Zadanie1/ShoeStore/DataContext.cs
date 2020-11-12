@@ -1,8 +1,9 @@
 ﻿using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using ShoeStore.Entities;
 
 
-namespace ShoeStore.Model
+namespace ShoeStore
 {
     public class DataContext
     {

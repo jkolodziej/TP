@@ -1,7 +1,7 @@
 ﻿using System;
 
 
-namespace ShoeStore.Model
+namespace ShoeStore.Entities
 {
     public class Shoes
     {

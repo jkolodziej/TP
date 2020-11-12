@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
-using ShoeStore.Model;
+using ShoeStore.Entities;
 
-namespace ShoeStore
+namespace ShoeStore.Fillers
 {
     public class ConstantFiller : IDataFiller
     {
