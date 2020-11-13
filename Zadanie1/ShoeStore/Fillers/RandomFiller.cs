@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Globalization;
 using System.Text;
 using ShoeStore.Entities;
 
@@ -25,13 +26,10 @@ namespace ShoeStore.Fillers
             ShoesNo = shoesNo;
         }
 
-        public DateTimeOffset GenRandomDay()
+        public DateTimeOffset GenRandomDate()
         {
-            if (DateTimeOffset.Parse("16 / 11 / 18 08:45:00 + 1:00").AddMinutes(Rnd.Next(2000000)) > DateTimeOffset.Now)
-            {
-                return DateTimeOffset.Now;
-            }
-            return DateTimeOffset.Parse("16 / 11 / 18 08:45:00 + 1:00").AddMinutes(Rnd.Next(2000000));
+            TimeSpan ts = new TimeSpan(5000, 0, 0);
+            return DateTimeOffset.Now.Subtract(ts).AddSeconds(Rnd.Next(18000000));
         }
 
         public string GenHouseNumber()
@@ -134,13 +132,13 @@ namespace ShoeStore.Fillers
         public ShoesPair CreateShoesPair(Shoes shoes)
         {
             ShoesPair shoesPair = new ShoesPair(shoes, Rnd.Next(50, 500), new decimal(0.22), 
-                Rnd.Next(1, 1000), new decimal(Rnd.NextDouble() * (0.75 - 0.0) + 0.0));
+                Rnd.Next(10, 1000), new decimal(Rnd.NextDouble() * (0.75 - 0.0) + 0.0));
             return shoesPair;
         }
 
         public Invoice CreateInvoice(Client client, ShoesPair shoesPair)
         {
-            Invoice invoice = new Invoice(client, shoesPair, Rnd.Next(1, 10), new decimal(15.90), GenRandomDay());
+            Invoice invoice = new Invoice(client, shoesPair, Rnd.Next(1, 5), new decimal(15.90), GenRandomDate());
             return invoice;
         }
 
