@@ -36,7 +36,7 @@ namespace ShoeStore.Logic
         public void BuyShoes(Client client, ShoesPair shoesPair, int count, decimal shippingCost)
         {
             Transaction invoice = new Invoice(client, shoesPair, count, shippingCost);
-            dataRepository.IncreaseStockCount(shoesPair, invoice);           
+            dataRepository.DecreaseStockCount(shoesPair, invoice);           
             dataRepository.AddTransaction(invoice);
         }
 
@@ -45,8 +45,7 @@ namespace ShoeStore.Logic
             Transaction ret = new Return(invoice.Client, invoice.ShoesPair, invoice.Count);
             dataRepository.DeleteTransaction(invoice);
             dataRepository.AddTransaction(ret);          
-            dataRepository.AddShoesPair(shoesPair);
-            dataRepository.DecreaseStockCount(shoesPair, ret);           
+            dataRepository.IncreaseStockCount(shoesPair, ret);           
         }
 
         public IEnumerable<Shoes> GetAllShoes()

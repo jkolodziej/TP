@@ -50,15 +50,19 @@ namespace ShoeStore.Logic.Tests
         [TestMethod]
         public void BuyShoesTest()
         {
-            int numberOfInvoices = dataService.GetAllTransactions().Count();
+            int numberOfTransactions = dataService.GetAllTransactions().Count();
             dataService.BuyShoes(dataRepository.GetClient(1), dataRepository.GetShoesPair(1), 1, new decimal(12.0));
-            Assert.AreEqual(numberOfInvoices + 1, dataService.GetAllTransactions().Count());
+            Assert.AreEqual(numberOfTransactions + 1, dataService.GetAllTransactions().Count());
+            Assert.AreEqual(19, dataRepository.GetShoesPair(1).StockCount);
         }
 
         [TestMethod]
         public void ReturnShoesTest()
         {
-            
+            int numberOfTransactions = dataService.GetAllTransactions().Count();
+            dataService.ReturnShoes(dataRepository.GetShoesPair(3), dataRepository.GetTransaction(3));
+            Assert.AreEqual(numberOfTransactions, dataService.GetAllTransactions().Count());
+            Assert.AreEqual(21, dataRepository.GetShoesPair(3).StockCount);
         }
 
         [TestMethod]
@@ -97,7 +101,13 @@ namespace ShoeStore.Logic.Tests
         [TestMethod]
         public void GetAllInvoicesBetweenTest()
         {
-            //
+            Transaction transaction1 = dataRepository.GetTransaction(1);
+            Transaction transaction2 = dataRepository.GetTransaction(2);
+            Transaction transaction3 = dataRepository.GetTransaction(3);
+            DateTimeOffset startDate = DateTimeOffset.Now.Subtract(new TimeSpan(1, 0, 0));
+            DateTimeOffset endDate = DateTimeOffset.Now.AddMinutes(30);
+            CollectionAssert.AreEqual(new List<Transaction> { transaction1, transaction2, transaction3 },
+                dataService.GetAllInvoicesBetween(startDate, endDate).ToList());
         }
 
         [TestMethod]
