@@ -133,14 +133,14 @@ namespace ShoeStore.Fillers
 
         public ShoesPair CreateShoesPair(Shoes shoes)
         {
-            ShoesPair shoesPair = new ShoesPair(Guid.NewGuid(), shoes, Rnd.Next(50, 500), new decimal(0.22), 
+            ShoesPair shoesPair = new ShoesPair(shoes, Rnd.Next(50, 500), new decimal(0.22), 
                 Rnd.Next(1, 1000), new decimal(Rnd.NextDouble() * (0.75 - 0.0) + 0.0));
             return shoesPair;
         }
 
         public Invoice CreateInvoice(Client client, ShoesPair shoesPair)
         {
-            Invoice invoice = new Invoice(Guid.NewGuid(), client, shoesPair, Rnd.Next(1, 10), new decimal(15.90), GenRandomDay());
+            Invoice invoice = new Invoice(client, shoesPair, Rnd.Next(1, 10), new decimal(15.90), GenRandomDay());
             return invoice;
         }
 

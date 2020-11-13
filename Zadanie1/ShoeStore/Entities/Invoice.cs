@@ -6,7 +6,6 @@ namespace ShoeStore.Entities
 {
     public class Invoice
     {
-        public Guid Id { get; set; }
         public Client Client { get; set; }
         public ShoesPair ShoesPair { get; set; }
         public int Count { get; set; }
@@ -14,9 +13,8 @@ namespace ShoeStore.Entities
         public decimal ShippingCost { get; set; }
         public DateTimeOffset PurchaseDate { get; set; }
 
-        public Invoice(Guid id, Client client, ShoesPair shoesPair, int count, decimal shippingCost, DateTimeOffset purchaseDate)
+        public Invoice(Client client, ShoesPair shoesPair, int count, decimal shippingCost, DateTimeOffset purchaseDate)
         {
-            Id = id;
             Client = client;
             ShoesPair = shoesPair;
             Count = count;
@@ -44,9 +42,9 @@ namespace ShoeStore.Entities
             else
             {
                 Invoice i = (Invoice)obj;
-                return this.Id.Equals(i.Id) && this.Client.Equals(i.Client) &&
-                       this.ShoesPair.Equals(i.ShoesPair) && this.TotalPrice.Equals(i.TotalPrice) && 
-                       this.ShippingCost.Equals(i.ShippingCost) && this.PurchaseDate.Equals(i.PurchaseDate);
+                return this.Client.Equals(i.Client) && this.ShoesPair.Equals(i.ShoesPair) 
+                    && this.TotalPrice.Equals(i.TotalPrice) && this.ShippingCost.Equals(i.ShippingCost) 
+                    && this.PurchaseDate.Equals(i.PurchaseDate);
             }
         }
 

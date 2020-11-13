@@ -2,7 +2,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using ShoeStore.Entities;
 using System;
 
-namespace ShoeStoreTests
+namespace ShoeStoreTests.Entities
 {
     [TestClass]
     public class ModelTests
@@ -32,12 +32,9 @@ namespace ShoeStoreTests
         [TestMethod]
         public void ShoesPairTest()
         {
-            Guid id = Guid.NewGuid();
-
             Shoes shoes = new Shoes("XC89", 39, "Adidas", Shoes.SexEnum.Female);
-            ShoesPair shoesPair = new ShoesPair(id, shoes, new decimal(300.0), new decimal(0.22), 20, new decimal(0.1));
+            ShoesPair shoesPair = new ShoesPair(shoes, new decimal(300.0), new decimal(0.22), 20, new decimal(0.1));
 
-            Assert.AreEqual(id, shoesPair.Id);
             Assert.AreEqual(shoes, shoesPair.Shoes);
             Assert.AreEqual(new decimal(300.0), shoesPair.NettoPrice);
             Assert.AreEqual(new decimal(0.22), shoesPair.Tax);
@@ -48,16 +45,12 @@ namespace ShoeStoreTests
         [TestMethod]
         public void InvoiceTest()
         {
-            Guid id = Guid.NewGuid();
-            Guid shoesPairId = Guid.NewGuid();
-
             DateTimeOffset purchaseDate = DateTimeOffset.Now;
             Client client = new Client("Jan", "Kowalski", "jan.kowalski@gmail.com", "Pabianice Zamkowa 23b", "+48123456789");
             Shoes shoes = new Shoes("XC89", 39, "Adidas", Shoes.SexEnum.Female);
-            ShoesPair shoesPair = new ShoesPair(shoesPairId, shoes, new decimal(300.0), new decimal(0.22), 20, new decimal(0.1));
-            Invoice invoice = new Invoice(id, client, shoesPair, 1, new decimal(12.0), purchaseDate);
+            ShoesPair shoesPair = new ShoesPair(shoes, new decimal(300.0), new decimal(0.22), 20, new decimal(0.1));
+            Invoice invoice = new Invoice(client, shoesPair, 1, new decimal(12.0), purchaseDate);
 
-            Assert.AreEqual(id, invoice.Id);
             Assert.AreEqual(client, invoice.Client);
             Assert.AreEqual(shoesPair, invoice.ShoesPair);
             Assert.AreEqual(1, invoice.Count);
