@@ -21,26 +21,26 @@ namespace ShoeStore.Fillers
             dataContext.ClientList.Add(new Client("Anna", "Poniatowska", "anna.poniatowska@gmail.com", "Pabianice Zamkowa 23d", "+48123456783"));
             dataContext.ClientList.Add(new Client("Piotr", "Nowakowski", "piotr.nowakowski@gmail.com", "Pabianice Zamkowa 23e", "+48123456784"));
             
-            dataContext.ShoesPairList.Add(new ShoesPair(Guid.NewGuid(), dataContext.ShoesDictionary[111], new decimal(300.0),
+            dataContext.ShoesPairList.Add(new ShoesPair(dataContext.ShoesDictionary[111], new decimal(300.0),
                             new decimal(0.22), 20, new decimal(0.1)));
-            dataContext.ShoesPairList.Add(new ShoesPair(Guid.NewGuid(), dataContext.ShoesDictionary[112], new decimal(400.0),
+            dataContext.ShoesPairList.Add(new ShoesPair(dataContext.ShoesDictionary[112], new decimal(400.0),
                             new decimal(0.22), 20, new decimal(0.1)));
-            dataContext.ShoesPairList.Add(new ShoesPair(Guid.NewGuid(), dataContext.ShoesDictionary[113], new decimal(300.0),
+            dataContext.ShoesPairList.Add(new ShoesPair(dataContext.ShoesDictionary[113], new decimal(300.0),
                             new decimal(0.22), 20, new decimal(0.1)));
-            dataContext.ShoesPairList.Add(new ShoesPair(Guid.NewGuid(), dataContext.ShoesDictionary[114], new decimal(450.0),
+            dataContext.ShoesPairList.Add(new ShoesPair(dataContext.ShoesDictionary[114], new decimal(450.0),
                             new decimal(0.22), 20, new decimal(0.1)));
-            dataContext.ShoesPairList.Add(new ShoesPair(Guid.NewGuid(), dataContext.ShoesDictionary[115], new decimal(350.0),
+            dataContext.ShoesPairList.Add(new ShoesPair(dataContext.ShoesDictionary[115], new decimal(350.0),
                             new decimal(0.22), 20, new decimal(0.1)));
 
-            dataContext.InvoiceCollection.Add(new Invoice(Guid.NewGuid(), dataContext.ClientList[0], dataContext.ShoesPairList[0], 1,
+            dataContext.InvoiceCollection.Add(new Invoice(dataContext.ClientList[0], dataContext.ShoesPairList[0], 1,
                             new decimal(12.0), DateTimeOffset.Now));
-            dataContext.InvoiceCollection.Add(new Invoice(Guid.NewGuid(), dataContext.ClientList[1], dataContext.ShoesPairList[1], 1,
+            dataContext.InvoiceCollection.Add(new Invoice(dataContext.ClientList[1], dataContext.ShoesPairList[1], 1,
                             new decimal(12.0), DateTimeOffset.Now));
-            dataContext.InvoiceCollection.Add(new Invoice(Guid.NewGuid(), dataContext.ClientList[2], dataContext.ShoesPairList[2], 1,
+            dataContext.InvoiceCollection.Add(new Invoice(dataContext.ClientList[2], dataContext.ShoesPairList[2], 1,
                             new decimal(12.0), DateTimeOffset.Now));
-            dataContext.InvoiceCollection.Add(new Invoice(Guid.NewGuid(), dataContext.ClientList[3], dataContext.ShoesPairList[3], 1,
+            dataContext.InvoiceCollection.Add(new Invoice(dataContext.ClientList[3], dataContext.ShoesPairList[3], 1,
                             new decimal(12.0), DateTimeOffset.Now));
-            dataContext.InvoiceCollection.Add(new Invoice(Guid.NewGuid(), dataContext.ClientList[4], dataContext.ShoesPairList[4], 1,
+            dataContext.InvoiceCollection.Add(new Invoice(dataContext.ClientList[4], dataContext.ShoesPairList[4], 1,
                             new decimal(12.0), DateTimeOffset.Now));
         }
     }

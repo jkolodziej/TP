@@ -28,14 +28,14 @@ namespace ShoeStore.Logic
 
         public void AddShoesPair(Guid id, Shoes shoes, decimal nettoPrice, decimal tax, int stockCount, decimal discount)
         {
-            ShoesPair shoesPair = new ShoesPair(id, shoes, nettoPrice, tax, stockCount, discount);
+            ShoesPair shoesPair = new ShoesPair(shoes, nettoPrice, tax, stockCount, discount);
             dataRepository.AddShoesPair(shoesPair);
         }
 
         // create invoice
         public void BuyShoes(Guid id, Client client, ShoesPair shoesDetail, int count, decimal shippingCost, DateTimeOffset purchaseDate)
         {
-            Invoice invoice = new Invoice(id, client, shoesDetail, count, shippingCost, purchaseDate);
+            Invoice invoice = new Invoice(client, shoesDetail, count, shippingCost, purchaseDate);
             dataRepository.AddInvoice(invoice);
         }
 

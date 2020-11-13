@@ -6,16 +6,14 @@ namespace ShoeStore.Entities
 {
     public class ShoesPair
     {
-        public Guid Id { get; set; }
         public Shoes Shoes { get; set; }
         public decimal NettoPrice { get; set; }
         public decimal Tax { get; set; }
         public int StockCount { get; set; }
         public decimal Discount { get; set; }
 
-        public ShoesPair(Guid id, Shoes shoes, decimal nettoPrice, decimal tax, int stockCount, decimal discount)
+        public ShoesPair(Shoes shoes, decimal nettoPrice, decimal tax, int stockCount, decimal discount)
         {
-            Id = id;
             Shoes = shoes;
             NettoPrice = nettoPrice;
             Tax = tax;
@@ -33,9 +31,9 @@ namespace ShoeStore.Entities
             else
             {
                 ShoesPair i = (ShoesPair)obj;
-                return this.Id.Equals(i.Id) && this.Shoes.Equals(i.Shoes) &&
-                       this.NettoPrice.Equals(i.NettoPrice) && this.StockCount.Equals(i.StockCount) &&
-                       this.Discount.Equals(i.Discount) && this.Tax.Equals(i.Tax);
+                return this.Shoes.Equals(i.Shoes) && this.NettoPrice.Equals(i.NettoPrice) 
+                    && this.StockCount.Equals(i.StockCount) && this.Discount.Equals(i.Discount) 
+                    && this.Tax.Equals(i.Tax);
             }
         }
 

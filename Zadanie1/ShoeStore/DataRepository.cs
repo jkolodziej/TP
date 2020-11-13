@@ -103,19 +103,18 @@ namespace ShoeStore
 
         //INVOICES
 
-
         public void AddInvoice(Invoice newInvoice)
         {
-            if (DataContext.InvoiceCollection.Any(invoice => invoice.Id.Equals(newInvoice.Id)))
+            if (DataContext.InvoiceCollection.Any(invoice => invoice.Equals(newInvoice)))
             {
-                throw new ArgumentException($"Invoice with ID: {newInvoice.Id} already exist in the repository.");
+                throw new ArgumentException($"Invoice: {newInvoice} already exist in the repository.");
             }
             DataContext.InvoiceCollection.Add(newInvoice);
         }
 
-        public Invoice GetInvoice(Guid id)
+        public Invoice GetInvoice(Invoice invoice)
         {
-            return DataContext.InvoiceCollection.FirstOrDefault(invoice => invoice.Id.Equals(invoice.Id));
+            return DataContext.InvoiceCollection.FirstOrDefault(i => i.Equals(invoice));
         }
 
         public IEnumerable<Invoice> getAllInvoices()
@@ -125,20 +124,20 @@ namespace ShoeStore
 
         public void UpdateInvoice(Invoice invoice) //do wypełnienia
         {
-            if (!DataContext.InvoiceCollection.Any(i => i.Id.Equals(invoice.Id)))
+            if (!DataContext.InvoiceCollection.Any(i => i.Equals(invoice)))
             {
-                throw new ArgumentException($"Invoice with ID: {invoice.Id} doesn't exist in the repository");
+                throw new ArgumentException($"Invoice: {invoice} doesn't exist in the repository");
             }
             //do przetestowania
-            int index = DataContext.InvoiceCollection.IndexOf(DataContext.InvoiceCollection.FirstOrDefault(i => i.Id.Equals(i.Id)));
+            int index = DataContext.InvoiceCollection.IndexOf(DataContext.InvoiceCollection.FirstOrDefault(i => i.Equals(invoice)));
             DataContext.InvoiceCollection.Insert(index, invoice);
         }
 
         public void DeleteInvoice(Invoice invoice)
         {
-            if (!DataContext.InvoiceCollection.Any(i => i.Id.Equals(invoice.Id)))
+            if (!DataContext.InvoiceCollection.Any(i => i.Equals(invoice)))
             {
-                throw new ArgumentException($"Invoice with ID: {invoice.Id} doesn't exist.");
+                throw new ArgumentException($"Invoice: {invoice} doesn't exist.");
             }
             DataContext.InvoiceCollection.Remove(invoice);
         }
@@ -147,9 +146,9 @@ namespace ShoeStore
 
         public void AddShoesPair(ShoesPair shoesPair)
         {
-            if (DataContext.ShoesPairList.Any(sd => sd.Id.Equals(shoesPair.Id)))
+            if (DataContext.ShoesPairList.Any(sp => sp.Equals(shoesPair)))
             {
-                throw new ArgumentException($"ShoesPair with ID: {shoesPair.Id} already exist in the repository.");
+                throw new ArgumentException($"ShoesPair: {shoesPair} already exist in the repository.");
             }
             DataContext.ShoesPairList.Add(shoesPair);
         }
@@ -169,24 +168,24 @@ namespace ShoeStore
             return DataContext.ShoesPairList;
         }
 
-        public void UpdateShoesPair(ShoesPair shoesP) //do wypełnienia
+        public void UpdateShoesPair(ShoesPair shoesPair) //do wypełnienia
         {
-            if (!DataContext.ShoesPairList.Any(sp => sp.Id.Equals(sp.Id)))
+            if (!DataContext.ShoesPairList.Any(sp => sp.Equals(shoesPair)))
             {
-                throw new ArgumentException($"Pair of shoes with ID: {shoesP.Id} doesn't exist in the repository");
+                throw new ArgumentException($"Pair of shoes: {shoesPair} doesn't exist in the repository");
             }
             //do przetestowania
-            int index = DataContext.ShoesPairList.IndexOf(DataContext.ShoesPairList.FirstOrDefault(sp => sp.Id.Equals(sp.Id)));
-            DataContext.ShoesPairList.Insert(index, shoesP);
+            int index = DataContext.ShoesPairList.IndexOf(DataContext.ShoesPairList.FirstOrDefault(sp => sp.Equals(shoesPair)));
+            DataContext.ShoesPairList.Insert(index, shoesPair);
         }
 
-        public void DeleteShoesPair(ShoesPair shoesDetail)
+        public void DeleteShoesPair(ShoesPair shoesPair)
         {
-            if (!DataContext.ShoesPairList.Any(sd => sd.Id.Equals(shoesDetail.Id)))
+            if (!DataContext.ShoesPairList.Any(sp => sp.Equals(shoesPair)))
             {
-                throw new ArgumentException($"ShoesDetail with ID: {shoesDetail.Id} doesn't exist.");
+                throw new ArgumentException($"Pair of shoes: {shoesPair} doesn't exist.");
             }
-            DataContext.ShoesPairList.Remove(shoesDetail);
+            DataContext.ShoesPairList.Remove(shoesPair);
         }
     }
 }
