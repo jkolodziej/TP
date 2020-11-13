@@ -18,7 +18,7 @@ namespace ShoeStore.Logic.Tests
         public DataServiceTests()
         {
             constantFiller = new ConstantFiller();
-            dataRepository = new DataRepository(constantFiller);
+            dataRepository = new DataRepository();
             dataService = new DataService(dataRepository);
         }
 

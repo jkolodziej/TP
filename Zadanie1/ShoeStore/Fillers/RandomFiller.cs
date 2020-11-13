@@ -146,25 +146,16 @@ namespace ShoeStore.Fillers
 
         public void Fill(DataContext dataContext)
         {
-            var clients = new List<Client>();
-            var shoes = new Dictionary<int, Shoes>();
-            var invoices = new ObservableCollection<Invoice>();
-            var shoesPairs = new List<ShoesPair>();
-
             for (int i = 0; i < ClientsNo; i++)
             {
-                clients.Add(CreateClient());
+                dataContext.ClientList.Add(CreateClient());
             }
             for (int i = 0; i < ShoesNo; i++)
             {
-                shoes.Add(i + 200, CreateShoes());
-                shoesPairs.Add(CreateShoesPair(shoes[i+200]));
-                invoices.Add(CreateInvoice(clients[Rnd.Next(ClientsNo - 1)], shoesPairs[i]));
+                dataContext.ShoesDictionary.Add(i + 200, CreateShoes());
+                dataContext.ShoesPairList.Add(CreateShoesPair(dataContext.ShoesDictionary[i + 200]));
+                dataContext.InvoiceCollection.Add(CreateInvoice(dataContext.ClientList[Rnd.Next(ClientsNo - 1)], dataContext.ShoesPairList[i]));
             }
-            dataContext.ClientList = clients;
-            dataContext.ShoesDictionary = shoes;
-            dataContext.ShoesPairList = shoesPairs;
-            dataContext.InvoiceCollection = invoices;
         }
     }
 }
