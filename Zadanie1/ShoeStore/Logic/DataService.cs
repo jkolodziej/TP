@@ -33,18 +33,22 @@ namespace ShoeStore.Logic
         }
 
         // create invoice
-        public void BuyShoes(Client client, ShoesPair shoesDetail, int count, decimal shippingCost, DateTimeOffset purchaseDate)
+        public void BuyShoes(Client client, ShoesPair shoesPair, int count, decimal shippingCost, DateTimeOffset purchaseDate)
         {
-            Invoice invoice = new Invoice(client, shoesDetail, count, shippingCost, purchaseDate);
-            dataRepository.AddInvoice(invoice);
+            Transaction invoice = new Invoice(client, shoesPair, count, shippingCost, purchaseDate);
+            dataRepository.IncreaseStockCount(shoesPair, invoice);           
+            dataRepository.AddTransaction(invoice);
         }
 
-        public void ReturnShoes(ShoesPair shoesPair)
+        public void ReturnShoes(ShoesPair shoesPair, Transaction invoice)
         {
-            //
+            Transaction ret = new Return(invoice.Client, invoice.ShoesPair, invoice.Count);
+            dataRepository.DeleteTransaction(invoice);
+            dataRepository.AddTransaction(ret);          
+            dataRepository.AddShoesPair(shoesPair);
+            dataRepository.DecreaseStockCount(shoesPair, ret);           
         }
 
-        //
         public IEnumerable<Shoes> GetAllShoes()
         {
             return dataRepository.getAllShoes();
@@ -65,19 +69,19 @@ namespace ShoeStore.Logic
             return dataRepository.getAllShoesPairs().Where(x => x.Shoes == shoes);
         }
 
-        public IEnumerable<Invoice> GetAllInvoices()
+        public IEnumerable<Transaction> GetAllTransactions()
         {
-            return dataRepository.getAllInvoices();
+            return dataRepository.getAllTransactions();
         }
 
-        public IEnumerable<Invoice> GetAllInvoicesForClient(Client client)
+        public IEnumerable<Transaction> GetAllTransactionsForClient(Client client)
         {
-            return GetAllInvoices().Where(invoice => invoice.Client.Equals(client));
+            return GetAllTransactions().Where(t => t.Client.Equals(client));
         }
 
-        public IEnumerable<Invoice> GetAllInvoicesBetween(DateTimeOffset startDate, DateTimeOffset endDate)
+        public IEnumerable<Transaction> GetAllInvoicesBetween(DateTimeOffset startDate, DateTimeOffset endDate)
         {
-            return dataRepository.getAllInvoices().Where(invoice => invoice.PurchaseDate >= startDate && invoice.PurchaseDate <= endDate);
+            return dataRepository.getAllTransactions().Where(t => t is Invoice).Where(t => t.Date.CompareTo(startDate) >= 0 && t.Date.CompareTo(endDate) <= 0);
         }
 
         public List<string> GetListOfShoes()

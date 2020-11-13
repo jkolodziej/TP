@@ -1,6 +1,4 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using ShoeStore.Fillers;
-using ShoeStore;
 using System.Linq;
 using ShoeStore.Entities;
 using System;
@@ -25,7 +23,7 @@ namespace ShoeStore.Fillers.Tests
             Assert.AreEqual(5, dataRepository.getAllClients().Count());
             Assert.AreEqual(7, dataRepository.getAllShoes().Count());
             Assert.AreEqual(7, dataRepository.getAllShoesPairs().Count());
-            Assert.AreEqual(7, dataRepository.getAllInvoices().Count());
+            Assert.AreEqual(7, dataRepository.getAllTransactions().Count());
         }
 
         [TestMethod]
@@ -93,9 +91,9 @@ namespace ShoeStore.Fillers.Tests
             Invoice created = randomFiller.CreateInvoice(client, shoesPair);
             Assert.IsFalse(created.Client == null);
             Assert.IsFalse(created.ShoesPair == null);
-            Assert.IsTrue(created.Count >= 1 && created.Count <= 5);
+            Assert.AreEqual(created.Count, 1);
             Assert.AreEqual(created.ShippingCost, new decimal(15.90));
-            Assert.IsFalse(created.PurchaseDate == null);
+            Assert.IsFalse(created.Date == null);
         }
     }
 }

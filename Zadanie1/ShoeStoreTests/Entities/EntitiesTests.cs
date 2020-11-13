@@ -55,7 +55,7 @@ namespace ShoeStoreTests.Entities
             Assert.AreEqual(shoesPair, invoice.ShoesPair);
             Assert.AreEqual(1, invoice.Count);
             Assert.AreEqual(new decimal(12.0), invoice.ShippingCost);
-            Assert.AreEqual(purchaseDate, invoice.PurchaseDate);
+            Assert.AreEqual(purchaseDate, invoice.Date);
         }
     }
 }

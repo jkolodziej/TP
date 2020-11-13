@@ -6,7 +6,7 @@ using ShoeStore.Fillers;
 
 namespace ShoeStore
 {
-    public class DataRepository //do zrobienia metody update
+    public class DataRepository : IDataRepository
     {
         private DataContext DataContext = new DataContext();
         private IDataFiller DataFiller;
@@ -107,49 +107,68 @@ namespace ShoeStore
 
         //INVOICES
 
-        public void AddInvoice(Invoice newInvoice)
+        public void AddTransaction(Transaction newTransaction)
         {
-            if (DataContext.InvoiceCollection.Any(invoice => invoice.Equals(newInvoice)))
+            if (DataContext.TransactionCollection.Any(invoice => invoice.Equals(newTransaction)))
             {
-                throw new ArgumentException($"Invoice: {newInvoice} already exist in the repository.");
+                throw new ArgumentException($"Transaction: {newTransaction} already exist in the repository.");
             }
-            DataContext.InvoiceCollection.Add(newInvoice);
+            DataContext.TransactionCollection.Add(newTransaction);
         }
 
-        public Invoice GetInvoice(int index)
+        public Transaction GetTransaction(int index)
         {
-            if (DataContext.InvoiceCollection[index] == null)
+            if (DataContext.TransactionCollection[index] == null)
             {
-                throw new ArgumentException($"There's no ShoesPair with index: {index}.");
+                throw new ArgumentException($"There's no transaction with index: {index}.");
             }
-            return DataContext.InvoiceCollection[index];
+            return DataContext.TransactionCollection[index];
         }
 
-        public IEnumerable<Invoice> getAllInvoices()
+        public IEnumerable<Transaction> getAllTransactions()
         {
-            return DataContext.InvoiceCollection;
+            return DataContext.TransactionCollection;
         }
 
-        public void UpdateInvoice(int index, Invoice invoice) //do wypełnienia
+        public void UpdateTransaction(int index, Transaction transaction)
         {
-            if (DataContext.InvoiceCollection[index] == null)
+            if (DataContext.TransactionCollection[index] == null)
             {
-                throw new ArgumentException($"Invoice with index: {index} doesn't exist in the repository");
+                throw new ArgumentException($"Transaction with index: {index} doesn't exist in the repository");
             }
-            //do przetestowania
-            DataContext.InvoiceCollection.Insert(index, invoice);
+            DataContext.TransactionCollection.Insert(index, transaction);
         }
 
-        public void DeleteInvoice(Invoice invoice)
+        public void DeleteTransaction(Transaction transaction)
         {
-            if (!DataContext.InvoiceCollection.Any(i => i.Equals(invoice)))
+            if (!DataContext.TransactionCollection.Any(i => i.Equals(transaction)))
             {
-                throw new ArgumentException($"Invoice: {invoice} doesn't exist.");
+                throw new ArgumentException($"Transaction: {transaction} doesn't exist.");
             }
-            DataContext.InvoiceCollection.Remove(invoice);
+            DataContext.TransactionCollection.Remove(transaction);
         }
 
         // SHOES_PAIR
+
+        public void IncreaseStockCount(ShoesPair shoesPair, Transaction invoice)
+        {
+            if (!DataContext.ShoesPairList.Any(sp => sp.Equals(shoesPair)))
+            {
+                throw new ArgumentException($"ShoesPair: {shoesPair} doensn't exist in the repository.");
+            }
+            int index = DataContext.ShoesPairList.IndexOf(shoesPair);
+            DataContext.ShoesPairList[index].StockCount += invoice.Count;
+        }
+
+        public void DecreaseStockCount(ShoesPair shoesPair, Transaction ret)
+        {
+            if (!DataContext.ShoesPairList.Any(sp => sp.Equals(shoesPair)))
+            {
+                throw new ArgumentException($"ShoesPair: {shoesPair} doensn't exist in the repository.");
+            }
+            int index = DataContext.ShoesPairList.IndexOf(shoesPair);
+            DataContext.ShoesPairList[index].StockCount -= ret.Count;
+        }
 
         public void AddShoesPair(ShoesPair shoesPair)
         {

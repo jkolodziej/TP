@@ -9,7 +9,7 @@ namespace ShoeStore
     {
         public List<Client> ClientList = new List<Client>();
         public Dictionary<int, Shoes> ShoesDictionary = new Dictionary<int, Shoes>();
-        public ObservableCollection<Invoice> InvoiceCollection = new ObservableCollection<Invoice>();
+        public ObservableCollection<Transaction> TransactionCollection = new ObservableCollection<Transaction>();
         public List<ShoesPair> ShoesPairList = new List<ShoesPair>();
     }
 }

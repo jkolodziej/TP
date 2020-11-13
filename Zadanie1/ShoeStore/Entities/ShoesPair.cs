@@ -31,8 +31,8 @@ namespace ShoeStore.Entities
             else
             {
                 ShoesPair i = (ShoesPair)obj;
-                return this.Shoes.Equals(i.Shoes) && this.NettoPrice.Equals(i.NettoPrice) 
-                    && this.StockCount.Equals(i.StockCount) && this.Discount.Equals(i.Discount) 
+                return this.Shoes.Equals(i.Shoes) && this.NettoPrice.Equals(i.NettoPrice)
+                    && this.StockCount.Equals(i.StockCount) && this.Discount.Equals(i.Discount)
                     && this.Tax.Equals(i.Tax);
             }
         }
@@ -41,6 +41,5 @@ namespace ShoeStore.Entities
         {
             return base.GetHashCode();
         }
-
     }
 }

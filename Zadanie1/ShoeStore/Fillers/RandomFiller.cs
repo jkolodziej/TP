@@ -26,12 +26,6 @@ namespace ShoeStore.Fillers
             ShoesNo = shoesNo;
         }
 
-        public DateTimeOffset GenRandomDate()
-        {
-            TimeSpan ts = new TimeSpan(5000, 0, 0);
-            return DateTimeOffset.Now.Subtract(ts).AddSeconds(Rnd.Next(18000000));
-        }
-
         public string GenHouseNumber()
         {
             int chooser = Rnd.Next(2);
@@ -136,9 +130,9 @@ namespace ShoeStore.Fillers
             return shoesPair;
         }
 
-        public Invoice CreateInvoice(Client client, ShoesPair shoesPair)
+        public Transaction CreateInvoice(Client client, ShoesPair shoesPair)
         {
-            Invoice invoice = new Invoice(client, shoesPair, Rnd.Next(1, 5), new decimal(15.90), GenRandomDate());
+            Transaction invoice = new Invoice(client, shoesPair, 1, new decimal(15.90));
             return invoice;
         }
 
@@ -152,7 +146,7 @@ namespace ShoeStore.Fillers
             {
                 dataContext.ShoesDictionary.Add(i + 200, CreateShoes());
                 dataContext.ShoesPairList.Add(CreateShoesPair(dataContext.ShoesDictionary[i + 200]));
-                dataContext.InvoiceCollection.Add(CreateInvoice(dataContext.ClientList[Rnd.Next(ClientsNo - 1)], dataContext.ShoesPairList[i]));
+                dataContext.TransactionCollection.Add(CreateInvoice(dataContext.ClientList[Rnd.Next(ClientsNo - 1)], dataContext.ShoesPairList[i]));
             }
         }
     }
