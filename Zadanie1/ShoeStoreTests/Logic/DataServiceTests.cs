@@ -42,7 +42,7 @@ namespace ShoeStore.Logic.Tests
         public void AddShoesPairTest()
         {
             int numberOfShoesPairs = dataService.GetAllShoesPairs().Count();
-            dataService.AddShoesPair(Guid.NewGuid(), dataRepository.GetShoes(112), new decimal(300.0),
+            dataService.AddShoesPair(dataRepository.GetShoes(112), new decimal(300.0),
                             new decimal(0.22), 20, new decimal(0.1));
             Assert.AreEqual(numberOfShoesPairs + 1, dataService.GetAllShoesPairs().Count());
         }
@@ -51,8 +51,8 @@ namespace ShoeStore.Logic.Tests
         public void BuyShoesTest()
         {
             int numberOfInvoices = dataService.GetAllInvoices().Count();
-            dataService.BuyShoes(Guid.NewGuid(), dataRepository.GetClient("katarzyna.kowalska@gmail.com"), 
-                            dataRepository.GetShoesPair(1), 1, new decimal(12.0), DateTimeOffset.Now);
+            dataService.BuyShoes(dataRepository.GetClient(1), dataRepository.GetShoesPair(1), 1, 
+                            new decimal(12.0), DateTimeOffset.Now);
             Assert.AreEqual(numberOfInvoices + 1, dataService.GetAllInvoices().Count());
         }
 
@@ -77,19 +77,22 @@ namespace ShoeStore.Logic.Tests
         [TestMethod]
         public void GetAllShoesPairsTest()
         {
-            Assert.AreEqual(5, dataService.GetAllShoesPairs().Count());
+            Assert.AreEqual(6, dataService.GetAllShoesPairs().Count());
         }
 
         [TestMethod]
         public void GetAllInvoicesTest()
         {
-            Assert.AreEqual(5, dataService.GetAllInvoices().Count());
+            Assert.AreEqual(6, dataService.GetAllInvoices().Count());
         }
 
         [TestMethod]
         public void GetAllInvoicesForClientTest()
         {
-            //
+           Client client = dataRepository.GetClient(0);
+           Invoice invoice1 = dataRepository.GetInvoice(0);
+           Invoice invoice2= dataRepository.GetInvoice(5);
+           CollectionAssert.AreEqual(new List<Invoice> { invoice1, invoice2 }, dataService.GetAllInvoicesForClient(client).ToList());
         }
 
         [TestMethod]
@@ -101,7 +104,9 @@ namespace ShoeStore.Logic.Tests
         [TestMethod]
         public void GetListOfShoesTest()
         {
-            //
+            List<string> listOfShoes = dataService.GetListOfShoes();
+            Assert.AreEqual(5, dataService.GetListOfShoes().Count());
+            Assert.AreEqual("Shoes model: AD89\nSize: 39\nBrand: Adidas\nSex: Female", listOfShoes[0]);
         }
     }
 }

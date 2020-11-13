@@ -71,9 +71,13 @@ namespace ShoeStore
             DataContext.ClientList.Add(newClient);
         }
 
-        public Client GetClient(string email)
+        public Client GetClient(int index)
         {
-            return DataContext.ClientList.FirstOrDefault(client => client.EmailAddress.Equals(email));
+            if (DataContext.ClientList[index] == null)
+            {
+                throw new ArgumentException($"Client with index: {index} doesn't exist in the repository");
+            }
+            return DataContext.ClientList[index];
         }
 
         public IEnumerable<Client> getAllClients()
@@ -112,9 +116,13 @@ namespace ShoeStore
             DataContext.InvoiceCollection.Add(newInvoice);
         }
 
-        public Invoice GetInvoice(Invoice invoice)
+        public Invoice GetInvoice(int index)
         {
-            return DataContext.InvoiceCollection.FirstOrDefault(i => i.Equals(invoice));
+            if (DataContext.InvoiceCollection[index] == null)
+            {
+                throw new ArgumentException($"There's no ShoesPair with index: {index}.");
+            }
+            return DataContext.InvoiceCollection[index];
         }
 
         public IEnumerable<Invoice> getAllInvoices()
@@ -122,14 +130,13 @@ namespace ShoeStore
             return DataContext.InvoiceCollection;
         }
 
-        public void UpdateInvoice(Invoice invoice) //do wypełnienia
+        public void UpdateInvoice(int index, Invoice invoice) //do wypełnienia
         {
-            if (!DataContext.InvoiceCollection.Any(i => i.Equals(invoice)))
+            if (DataContext.InvoiceCollection[index] == null)
             {
-                throw new ArgumentException($"Invoice: {invoice} doesn't exist in the repository");
+                throw new ArgumentException($"Invoice with index: {index} doesn't exist in the repository");
             }
             //do przetestowania
-            int index = DataContext.InvoiceCollection.IndexOf(DataContext.InvoiceCollection.FirstOrDefault(i => i.Equals(invoice)));
             DataContext.InvoiceCollection.Insert(index, invoice);
         }
 
@@ -142,7 +149,7 @@ namespace ShoeStore
             DataContext.InvoiceCollection.Remove(invoice);
         }
 
-        //SHOES_DETAILS
+        // SHOES_PAIR
 
         public void AddShoesPair(ShoesPair shoesPair)
         {
@@ -155,7 +162,6 @@ namespace ShoeStore
 
         public ShoesPair GetShoesPair(int index)
         {
-            //return DataContext.ShoesPairList.FirstOrDefault(sd => sd.Id.Equals(id));
             if(DataContext.ShoesPairList[index] == null)
             {
                 throw new ArgumentException($"There's no ShoesPair with index: {index}.");
@@ -168,14 +174,13 @@ namespace ShoeStore
             return DataContext.ShoesPairList;
         }
 
-        public void UpdateShoesPair(ShoesPair shoesPair) //do wypełnienia
+        public void UpdateShoesPair(int index, ShoesPair shoesPair) //do wypełnienia
         {
-            if (!DataContext.ShoesPairList.Any(sp => sp.Equals(shoesPair)))
+            if (DataContext.ShoesPairList[index] == null)
             {
-                throw new ArgumentException($"Pair of shoes: {shoesPair} doesn't exist in the repository");
+                throw new ArgumentException($"Pair of shoes with: {index} doesn't exist in the repository");
             }
             //do przetestowania
-            int index = DataContext.ShoesPairList.IndexOf(DataContext.ShoesPairList.FirstOrDefault(sp => sp.Equals(shoesPair)));
             DataContext.ShoesPairList.Insert(index, shoesPair);
         }
 

@@ -5,7 +5,7 @@ using System;
 namespace ShoeStoreTests.Entities
 {
     [TestClass]
-    public class ModelTests
+    public class EntitiesTests
     {
         [TestMethod]
         public void ShoesTest()
