@@ -41,16 +41,6 @@ namespace ShoeStore.Fillers.Tests
         }
 
         [TestMethod]
-        public void GenRandomDateTest()
-        {
-            DateTimeOffset min = DateTimeOffset.Now.Subtract(new TimeSpan(5000, 0, 0));
-            DateTimeOffset max = min.AddSeconds(18000000);
-            DateTimeOffset generated = randomFiller.GenRandomDate();
-            Assert.IsTrue(min <= generated);
-            Assert.IsTrue(max >= generated);
-        }
-
-        [TestMethod]
         public void CreateShoesTest()
         {
             Shoes created = randomFiller.CreateShoes();
@@ -88,11 +78,10 @@ namespace ShoeStore.Fillers.Tests
             Shoes shoes = randomFiller.CreateShoes();
             ShoesPair shoesPair = randomFiller.CreateShoesPair(shoes);
             Client client = randomFiller.CreateClient();
-            Invoice created = randomFiller.CreateInvoice(client, shoesPair);
+            Transaction created = randomFiller.CreateInvoice(client, shoesPair);
             Assert.IsFalse(created.Client == null);
             Assert.IsFalse(created.ShoesPair == null);
             Assert.AreEqual(created.Count, 1);
-            Assert.AreEqual(created.ShippingCost, new decimal(15.90));
             Assert.IsFalse(created.Date == null);
         }
     }

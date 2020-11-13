@@ -31,17 +31,21 @@ namespace ShoeStore.Fillers
                             new decimal(0.22), 20, new decimal(0.1)));
             dataContext.ShoesPairList.Add(new ShoesPair(dataContext.ShoesDictionary[115], new decimal(350.0),
                             new decimal(0.22), 20, new decimal(0.1)));
+            dataContext.ShoesPairList.Add(new ShoesPair(dataContext.ShoesDictionary[112], new decimal(400.0),
+                          new decimal(0.22), 20, new decimal(0.0)));
 
             dataContext.TransactionCollection.Add(new Invoice(dataContext.ClientList[0], dataContext.ShoesPairList[0], 1,
-                            new decimal(12.0), DateTimeOffset.Now));
+                            new decimal(12.0)));
             dataContext.TransactionCollection.Add(new Invoice(dataContext.ClientList[1], dataContext.ShoesPairList[1], 1,
-                            new decimal(12.0), DateTimeOffset.Now));
+                            new decimal(12.0)));
             dataContext.TransactionCollection.Add(new Invoice(dataContext.ClientList[2], dataContext.ShoesPairList[2], 1,
-                            new decimal(12.0), DateTimeOffset.Now));
+                            new decimal(12.0)));
             dataContext.TransactionCollection.Add(new Invoice(dataContext.ClientList[3], dataContext.ShoesPairList[3], 1,
-                            new decimal(12.0), DateTimeOffset.Now));
+                            new decimal(12.0)));
             dataContext.TransactionCollection.Add(new Invoice(dataContext.ClientList[4], dataContext.ShoesPairList[4], 1,
-                            new decimal(12.0), DateTimeOffset.Now));
+                            new decimal(12.0)));
+            dataContext.TransactionCollection.Add(new Invoice(dataContext.ClientList[0], dataContext.ShoesPairList[5], 1,
+                          new decimal(12.0)));
         }
     }
 }

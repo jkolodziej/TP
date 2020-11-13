@@ -33,9 +33,9 @@ namespace ShoeStore.Logic
         }
 
         // create invoice
-        public void BuyShoes(Client client, ShoesPair shoesPair, int count, decimal shippingCost, DateTimeOffset purchaseDate)
+        public void BuyShoes(Client client, ShoesPair shoesPair, int count, decimal shippingCost)
         {
-            Transaction invoice = new Invoice(client, shoesPair, count, shippingCost, purchaseDate);
+            Transaction invoice = new Invoice(client, shoesPair, count, shippingCost);
             dataRepository.IncreaseStockCount(shoesPair, invoice);           
             dataRepository.AddTransaction(invoice);
         }

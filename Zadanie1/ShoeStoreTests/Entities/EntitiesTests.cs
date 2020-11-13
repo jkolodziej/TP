@@ -43,19 +43,16 @@ namespace ShoeStoreTests.Entities
         }
 
         [TestMethod]
-        public void InvoiceTest()
+        public void TransactionTest()
         {
-            DateTimeOffset purchaseDate = DateTimeOffset.Now;
             Client client = new Client("Jan", "Kowalski", "jan.kowalski@gmail.com", "Pabianice Zamkowa 23b", "+48123456789");
             Shoes shoes = new Shoes("XC89", 39, "Adidas", Shoes.SexEnum.Female);
             ShoesPair shoesPair = new ShoesPair(shoes, new decimal(300.0), new decimal(0.22), 20, new decimal(0.1));
-            Invoice invoice = new Invoice(client, shoesPair, 1, new decimal(12.0), purchaseDate);
+            Transaction invoice = new Invoice(client, shoesPair, 1, new decimal(12.0));
 
             Assert.AreEqual(client, invoice.Client);
             Assert.AreEqual(shoesPair, invoice.ShoesPair);
             Assert.AreEqual(1, invoice.Count);
-            Assert.AreEqual(new decimal(12.0), invoice.ShippingCost);
-            Assert.AreEqual(purchaseDate, invoice.Date);
         }
     }
 }

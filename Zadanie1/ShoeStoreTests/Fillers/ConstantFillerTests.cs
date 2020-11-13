@@ -20,7 +20,7 @@ namespace ShoeStore.Fillers.Tests
             Assert.AreEqual(5, dataRepository.getAllClients().Count());
             Assert.AreEqual(5, dataRepository.getAllShoes().Count());
             Assert.AreEqual(6, dataRepository.getAllShoesPairs().Count());
-            Assert.AreEqual(6, dataRepository.getAllInvoices().Count());
+            Assert.AreEqual(6, dataRepository.getAllTransactions().Count());
         }
     }
 }
