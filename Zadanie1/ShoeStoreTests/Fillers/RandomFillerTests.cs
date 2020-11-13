@@ -6,7 +6,7 @@ using System.Linq;
 namespace ShoeStoreTests.Fillers
 {
     [TestClass]
-    class RandomFillerTests
+    public class RandomFillerTests
     {
         private RandomFiller randomFiller;
         private DataRepository dataRepository;
