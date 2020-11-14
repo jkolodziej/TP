@@ -52,6 +52,7 @@ namespace ShoeStore.Logic.Tests
             //valid argument
             int numberOfTransactions = dataService.GetAllTransactions().Count();
             dataService.BuyShoes(dataService.GetClient(1), dataService.GetShoesPair(1), 1, new decimal(12.0));
+
             Assert.AreEqual(numberOfTransactions + 1, dataService.GetAllTransactions().Count());
             Assert.AreEqual(19, dataService.GetShoesPair(1).StockCount);
 
@@ -65,6 +66,7 @@ namespace ShoeStore.Logic.Tests
         {
             int numberOfTransactions = dataService.GetAllTransactions().Count();
             dataService.ReturnShoes(dataService.GetShoesPair(3), dataService.GetTransaction(3));
+
             Assert.AreEqual(numberOfTransactions, dataService.GetAllTransactions().Count());
             Assert.AreEqual(21, dataService.GetShoesPair(3).StockCount);
         }
@@ -113,6 +115,7 @@ namespace ShoeStore.Logic.Tests
             transaction3.Date = DateTimeOffset.Now.Subtract(new TimeSpan(0, 40, 0));
             DateTimeOffset startDate = DateTimeOffset.Now.Subtract(new TimeSpan(1, 0, 0));
             DateTimeOffset endDate = DateTimeOffset.Now.Subtract(new TimeSpan(0,30,0));
+
             CollectionAssert.AreEqual(new List<Transaction> { transaction1, transaction2, transaction3 },
                         dataService.GetAllInvoicesBetween(startDate, endDate).ToList());
         }
@@ -121,6 +124,7 @@ namespace ShoeStore.Logic.Tests
         public void GetListOfShoesTest()
         {
             List<string> listOfShoes = dataService.GetListOfShoes();
+
             Assert.AreEqual(5, dataService.GetListOfShoes().Count());
             Assert.AreEqual("Shoes model: AD89\nSize: 39\nBrand: Adidas\nSex: Female", listOfShoes[0]);
         }

@@ -43,6 +43,7 @@ namespace ShoeStore.Fillers.Tests
         public void CreateShoesTest()
         {
             Shoes created = randomFiller.CreateShoes();
+
             Assert.IsFalse(created.Brand == null);
             Assert.IsFalse(created.ShoesModel == null);
             Assert.IsTrue(created.Size >= 18 && created.Size <= 45);
@@ -52,6 +53,7 @@ namespace ShoeStore.Fillers.Tests
         public void CreateClientTest()
         {
             Client created = randomFiller.CreateClient();
+
             Assert.IsFalse(created.Address == null);
             Assert.IsFalse(created.EmailAddress == null);
             Assert.IsFalse(created.Name == null);
@@ -64,6 +66,7 @@ namespace ShoeStore.Fillers.Tests
         {
             Shoes shoes = randomFiller.CreateShoes();
             ShoesPair created = randomFiller.CreateShoesPair(shoes);
+
             Assert.IsTrue(created.Discount <= new decimal(0.75) && created.Discount >= new decimal(0.0));
             Assert.IsTrue(created.NettoPrice <= new decimal(500) && created.NettoPrice >= new decimal(50));
             Assert.IsFalse(created.Shoes == null);
@@ -78,6 +81,7 @@ namespace ShoeStore.Fillers.Tests
             ShoesPair shoesPair = randomFiller.CreateShoesPair(shoes);
             Client client = randomFiller.CreateClient();
             Transaction created = randomFiller.CreateInvoice(client, shoesPair);
+
             Assert.IsFalse(created.Client == null);
             Assert.IsFalse(created.ShoesPair == null);
             Assert.AreEqual(created.Count, 1);

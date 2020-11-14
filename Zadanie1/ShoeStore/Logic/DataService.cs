@@ -5,11 +5,11 @@ using System.Linq;
 
 namespace ShoeStore.Logic
 {
-    public class DataService
+    public class DataService : IDataService
     {
-        private DataRepository dataRepository;
+        private IDataRepository dataRepository;
 
-        public DataService(DataRepository dataRepository)
+        public DataService(IDataRepository dataRepository)
         {
             this.dataRepository = dataRepository;
         }

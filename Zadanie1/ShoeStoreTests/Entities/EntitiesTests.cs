@@ -21,6 +21,7 @@ namespace ShoeStoreTests.Entities
         public void ClientTest()
         {
             Client client = new Client("Jan", "Kowalski", "jan.kowalski@gmail.com","Pabianice Zamkowa 23","+48123456789");
+
             Assert.AreEqual("Jan", client.Name);
             Assert.AreEqual("Kowalski", client.Surname);
             Assert.AreEqual("jan.kowalski@gmail.com", client.EmailAddress);
