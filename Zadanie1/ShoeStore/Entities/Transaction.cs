@@ -16,10 +16,5 @@ namespace ShoeStore.Entities
             Count = count;
             Date = DateTimeOffset.Now;
         }
-
-        public void SetDate(DateTimeOffset date)
-        {
-            Date = date;
-        }
     }
 }

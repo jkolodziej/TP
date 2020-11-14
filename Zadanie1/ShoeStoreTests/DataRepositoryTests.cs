@@ -139,7 +139,7 @@ namespace ShoeStore.Tests
 
             // argument exception
             Transaction transaction2 = new Invoice(dataRepository.GetClient(0), dataRepository.GetShoesPair(0), 1, new decimal(12.0));
-            transaction2.SetDate(dataRepository.GetTransaction(0).Date);
+            transaction2.Date = dataRepository.GetTransaction(0).Date;
             Assert.ThrowsException<ArgumentException>(() => dataRepository.AddTransaction(transaction2));
         }
 
@@ -148,7 +148,7 @@ namespace ShoeStore.Tests
         {
             // valid argument
             Transaction transaction = new Invoice(dataRepository.GetClient(1), dataRepository.GetShoesPair(1), 1, new decimal(12.0));
-            transaction.SetDate(dataRepository.GetTransaction(1).Date);
+            transaction.Date = dataRepository.GetTransaction(1).Date;
             Assert.AreEqual(transaction, dataRepository.GetTransaction(1));
 
             // argument exception
@@ -166,7 +166,7 @@ namespace ShoeStore.Tests
         {
             // valid argument
             Transaction transaction1 = new Invoice(dataRepository.GetClient(1), dataRepository.GetShoesPair(1), 2, new decimal(12.0));
-            transaction1.SetDate(dataRepository.GetTransaction(1).Date);
+            transaction1.Date = dataRepository.GetTransaction(1).Date;
             dataRepository.UpdateTransaction(1, transaction1);
             Assert.AreEqual(2, dataRepository.GetTransaction(1).Count);
 

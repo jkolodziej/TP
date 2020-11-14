@@ -101,11 +101,11 @@ namespace ShoeStore.Logic.Tests
         public void GetAllInvoicesBetweenTest()
         {
             Transaction transaction1 = dataRepository.GetTransaction(1);
-            transaction1.SetDate(DateTimeOffset.Now.Subtract(new TimeSpan(0, 50, 0)));
+            transaction1.Date = DateTimeOffset.Now.Subtract(new TimeSpan(0, 50, 0));
             Transaction transaction2 = dataRepository.GetTransaction(2);
-            transaction2.SetDate(DateTimeOffset.Now.Subtract(new TimeSpan(0, 45, 0)));
+            transaction2.Date = DateTimeOffset.Now.Subtract(new TimeSpan(0, 45, 0));
             Transaction transaction3 = dataRepository.GetTransaction(3);
-            transaction3.SetDate(DateTimeOffset.Now.Subtract(new TimeSpan(0, 40, 0)));
+            transaction3.Date = DateTimeOffset.Now.Subtract(new TimeSpan(0, 40, 0));
             DateTimeOffset startDate = DateTimeOffset.Now.Subtract(new TimeSpan(1, 0, 0));
             DateTimeOffset endDate = DateTimeOffset.Now.Subtract(new TimeSpan(0,30,0));
             CollectionAssert.AreEqual(new List<Transaction> { transaction1, transaction2, transaction3 },
