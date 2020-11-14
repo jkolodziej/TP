@@ -1,7 +1,5 @@
-﻿using System;
+﻿using ShoeStore.Entities;
 using System.Collections.Generic;
-using System.Text;
-using ShoeStore.Entities;
 
 namespace ShoeStore
 {
@@ -11,7 +9,7 @@ namespace ShoeStore
 
         public void AddShoes(Shoes shoes);
         public Shoes GetShoes(int key);
-        public IEnumerable<Shoes> getAllShoes();
+        public IEnumerable<Shoes> GetAllShoes();
         public void UpdateShoes(int key, Shoes shoes);
         public void DeleteShoes(int key);
 
@@ -19,7 +17,7 @@ namespace ShoeStore
 
         public void AddClient(Client newClient);
         public Client GetClient(int index);
-        public IEnumerable<Client> getAllClients();
+        public IEnumerable<Client> GetAllClients();
         public void UpdateClient(Client client);
         public void DeleteClient(Client client);
 
@@ -27,7 +25,7 @@ namespace ShoeStore
 
         public void AddTransaction(Transaction newTransaction);
         public Transaction GetTransaction(int index);
-        public IEnumerable<Transaction> getAllTransactions();
+        public IEnumerable<Transaction> GetAllTransactions();
         public void UpdateTransaction(int index, Transaction transaction);
         public void DeleteTransaction(Transaction transaction);
 
@@ -37,7 +35,7 @@ namespace ShoeStore
         public void DecreaseStockCount(ShoesPair shoesPair, Transaction ret);
         public void AddShoesPair(ShoesPair shoesPair);
         public ShoesPair GetShoesPair(int index);
-        public IEnumerable<ShoesPair> getAllShoesPairs();
+        public IEnumerable<ShoesPair> GetAllShoesPairs();
         public void UpdateShoesPair(int index, ShoesPair shoesPair);
         public void DeleteShoesPair(ShoesPair shoesPair);
     }

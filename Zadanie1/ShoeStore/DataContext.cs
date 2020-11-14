@@ -1,6 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using ShoeStore.Entities;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using ShoeStore.Entities;
 
 
 namespace ShoeStore

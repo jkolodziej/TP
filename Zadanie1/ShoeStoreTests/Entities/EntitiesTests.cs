@@ -1,6 +1,5 @@
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using ShoeStore.Entities;
-using System;
 
 namespace ShoeStoreTests.Entities
 {

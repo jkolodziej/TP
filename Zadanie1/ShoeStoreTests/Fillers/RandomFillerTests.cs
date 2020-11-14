@@ -1,7 +1,6 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using System.Linq;
 using ShoeStore.Entities;
-using System;
+using System.Linq;
 
 namespace ShoeStore.Fillers.Tests
 {
@@ -20,10 +19,10 @@ namespace ShoeStore.Fillers.Tests
         [TestMethod]
         public void FillTest()
         {
-            Assert.AreEqual(5, dataRepository.getAllClients().Count());
-            Assert.AreEqual(7, dataRepository.getAllShoes().Count());
-            Assert.AreEqual(7, dataRepository.getAllShoesPairs().Count());
-            Assert.AreEqual(7, dataRepository.getAllTransactions().Count());
+            Assert.AreEqual(5, dataRepository.GetAllClients().Count());
+            Assert.AreEqual(7, dataRepository.GetAllShoes().Count());
+            Assert.AreEqual(7, dataRepository.GetAllShoesPairs().Count());
+            Assert.AreEqual(7, dataRepository.GetAllTransactions().Count());
         }
 
         [TestMethod]

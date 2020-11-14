@@ -1,7 +1,7 @@
-﻿using System;
+﻿using ShoeStore.Entities;
+using System;
 using System.Collections.Generic;
 using System.Linq;
-using ShoeStore.Entities;
 
 namespace ShoeStore.Logic
 {
@@ -50,27 +50,27 @@ namespace ShoeStore.Logic
 
         public IEnumerable<Shoes> GetAllShoes()
         {
-            return dataRepository.getAllShoes();
+            return dataRepository.GetAllShoes();
         }
 
         public IEnumerable<Client> GetAllClients()
         {
-            return dataRepository.getAllClients();
+            return dataRepository.GetAllClients();
         }
 
         public IEnumerable<ShoesPair> GetAllShoesPairs()
         {
-            return dataRepository.getAllShoesPairs();
+            return dataRepository.GetAllShoesPairs();
         }
 
         public IEnumerable<ShoesPair> GetAllShoesPairs(Shoes shoes)
         {
-            return dataRepository.getAllShoesPairs().Where(x => x.Shoes == shoes);
+            return dataRepository.GetAllShoesPairs().Where(x => x.Shoes == shoes);
         }
 
         public IEnumerable<Transaction> GetAllTransactions()
         {
-            return dataRepository.getAllTransactions();
+            return dataRepository.GetAllTransactions();
         }
 
         public IEnumerable<Transaction> GetAllTransactionsForClient(Client client)
@@ -80,14 +80,14 @@ namespace ShoeStore.Logic
 
         public IEnumerable<Transaction> GetAllInvoicesBetween(DateTimeOffset startDate, DateTimeOffset endDate)
         {
-            return dataRepository.getAllTransactions().Where(t => t is Invoice).Where(t => t.Date.CompareTo(startDate) >= 0 && t.Date.CompareTo(endDate) <= 0);
+            return dataRepository.GetAllTransactions().Where(t => t is Invoice).Where(t => t.Date.CompareTo(startDate) >= 0 && t.Date.CompareTo(endDate) <= 0);
         }
 
         public List<string> GetListOfShoes()
         {
             List<string> listOfShoes = new List<string>();
             
-            foreach(Shoes shoes in dataRepository.getAllShoes())
+            foreach(Shoes shoes in dataRepository.GetAllShoes())
             {
                 listOfShoes.Add(shoes.ToString());
             }

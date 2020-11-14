@@ -1,8 +1,8 @@
-﻿using System;
+﻿using ShoeStore.Entities;
+using ShoeStore.Fillers;
+using System;
 using System.Collections.Generic;
 using System.Linq;
-using ShoeStore.Entities;
-using ShoeStore.Fillers;
 
 namespace ShoeStore
 {
@@ -21,9 +21,14 @@ namespace ShoeStore
 
         //SHOES
 
-        public void AddShoes(Shoes shoes)
+        public void AddShoes(Shoes newShoes)
         {
-            DataContext.ShoesDictionary.Add(modelKey, shoes);
+            if (DataContext.ShoesDictionary.Any(shoes => (shoes.Value.ShoesModel.Equals(newShoes.ShoesModel) 
+                    && shoes.Value.Size.Equals(newShoes.Size))))
+            {
+                throw new ArgumentException($"Shoes model: {newShoes.ShoesModel} with size {newShoes.Size} already exist in the repository.");
+            }
+            DataContext.ShoesDictionary.Add(modelKey, newShoes);
             modelKey++;
         }
 
@@ -36,18 +41,17 @@ namespace ShoeStore
             return DataContext.ShoesDictionary[key];
         }
 
-        public IEnumerable<Shoes> getAllShoes()
+        public IEnumerable<Shoes> GetAllShoes()
         {
             return DataContext.ShoesDictionary.Values;
         }
 
-        public void UpdateShoes(int key, Shoes shoes) //do wypełnienia
+        public void UpdateShoes(int key, Shoes shoes) 
         {
             if (!DataContext.ShoesDictionary.ContainsKey(key))
             {
                 throw new ArgumentException($"Shoes with key: {key} don't exist.");
             }
-            //do przetestowania
             DataContext.ShoesDictionary[key] = shoes;
         }
 
@@ -73,25 +77,24 @@ namespace ShoeStore
 
         public Client GetClient(int index)
         {
-            if (DataContext.ClientList[index] == null)
+            if (!(index >=0 && index < DataContext.ClientList.Count))
             {
                 throw new ArgumentException($"Client with index: {index} doesn't exist in the repository");
             }
             return DataContext.ClientList[index];
         }
 
-        public IEnumerable<Client> getAllClients()
+        public IEnumerable<Client> GetAllClients()
         {
             return DataContext.ClientList;
         }
 
-        public void UpdateClient(Client client) //do wypełnienia
+        public void UpdateClient(Client client) 
         {
             if (!DataContext.ClientList.Any(c => c.EmailAddress.Equals(client.EmailAddress)))
             {
                 throw new ArgumentException($"Client with e-mail address {client.EmailAddress} doesn't exist in the repository");
             }
-            //do przetestowania
             int index = DataContext.ClientList.IndexOf(DataContext.ClientList.FirstOrDefault(c => c.EmailAddress.Equals(client.EmailAddress)));
             DataContext.ClientList.Insert(index, client);
         }
@@ -118,21 +121,21 @@ namespace ShoeStore
 
         public Transaction GetTransaction(int index)
         {
-            if (DataContext.TransactionCollection[index] == null)
+            if (!(index >= 0 && index < DataContext.TransactionCollection.Count))
             {
                 throw new ArgumentException($"There's no transaction with index: {index}.");
             }
             return DataContext.TransactionCollection[index];
         }
 
-        public IEnumerable<Transaction> getAllTransactions()
+        public IEnumerable<Transaction> GetAllTransactions()
         {
             return DataContext.TransactionCollection;
         }
 
         public void UpdateTransaction(int index, Transaction transaction)
         {
-            if (DataContext.TransactionCollection[index] == null)
+            if (!(index >= 0 && index < DataContext.TransactionCollection.Count))
             {
                 throw new ArgumentException($"Transaction with index: {index} doesn't exist in the repository");
             }
@@ -181,25 +184,24 @@ namespace ShoeStore
 
         public ShoesPair GetShoesPair(int index)
         {
-            if(DataContext.ShoesPairList[index] == null)
+            if (!(index >= 0 && index < DataContext.ShoesPairList.Count))
             {
                 throw new ArgumentException($"There's no ShoesPair with index: {index}.");
             }
             return DataContext.ShoesPairList[index];
         }
 
-        public IEnumerable<ShoesPair> getAllShoesPairs()
+        public IEnumerable<ShoesPair> GetAllShoesPairs()
         {
             return DataContext.ShoesPairList;
         }
 
-        public void UpdateShoesPair(int index, ShoesPair shoesPair) //do wypełnienia
+        public void UpdateShoesPair(int index, ShoesPair shoesPair)
         {
-            if (DataContext.ShoesPairList[index] == null)
+            if (!(index >= 0 && index < DataContext.ShoesPairList.Count))
             {
                 throw new ArgumentException($"Pair of shoes with: {index} doesn't exist in the repository");
             }
-            //do przetestowania
             DataContext.ShoesPairList.Insert(index, shoesPair);
         }
 

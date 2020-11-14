@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace ShoeStore.Entities
 {
@@ -17,6 +15,11 @@ namespace ShoeStore.Entities
             ShoesPair = shoesPair;
             Count = count;
             Date = DateTimeOffset.Now;
+        }
+
+        public void SetDate(DateTimeOffset date)
+        {
+            Date = date;
         }
     }
 }
