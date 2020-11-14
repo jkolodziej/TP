@@ -138,8 +138,10 @@ namespace ShoeStore.Tests
             Assert.AreEqual(transaction1, dataRepository.GetAllTransactions().Last());
 
             // argument exception
-            Transaction transaction2 = new Invoice(dataRepository.GetClient(0), dataRepository.GetShoesPair(0), 1, new decimal(12.0));
-            transaction2.Date = dataRepository.GetTransaction(0).Date;
+            Transaction transaction2 = new Invoice(dataRepository.GetClient(0), dataRepository.GetShoesPair(0), 1, new decimal(12.0))
+            {
+                Date = dataRepository.GetTransaction(0).Date
+            };
             Assert.ThrowsException<ArgumentException>(() => dataRepository.AddTransaction(transaction2));
         }
 
@@ -147,8 +149,10 @@ namespace ShoeStore.Tests
         public void GetTransactionTest()
         {
             // valid argument
-            Transaction transaction = new Invoice(dataRepository.GetClient(1), dataRepository.GetShoesPair(1), 1, new decimal(12.0));
-            transaction.Date = dataRepository.GetTransaction(1).Date;
+            Transaction transaction = new Invoice(dataRepository.GetClient(1), dataRepository.GetShoesPair(1), 1, new decimal(12.0))
+            {
+                Date = dataRepository.GetTransaction(1).Date
+            };
             Assert.AreEqual(transaction, dataRepository.GetTransaction(1));
 
             // argument exception
@@ -165,8 +169,10 @@ namespace ShoeStore.Tests
         public void UpdateTransactionTest()
         {
             // valid argument
-            Transaction transaction1 = new Invoice(dataRepository.GetClient(1), dataRepository.GetShoesPair(1), 2, new decimal(12.0));
-            transaction1.Date = dataRepository.GetTransaction(1).Date;
+            Transaction transaction1 = new Invoice(dataRepository.GetClient(1), dataRepository.GetShoesPair(1), 2, new decimal(12.0))
+            {
+                Date = dataRepository.GetTransaction(1).Date
+            };
             dataRepository.UpdateTransaction(1, transaction1);
             Assert.AreEqual(2, dataRepository.GetTransaction(1).Count);
 
@@ -264,6 +270,13 @@ namespace ShoeStore.Tests
             Assert.ThrowsException<ArgumentException>(() =>
                     dataRepository.DeleteShoesPair(new ShoesPair(dataRepository.GetShoes(111), new decimal(300.0),
                             new decimal(0.22), 40, new decimal(0.1))));
+        }
+
+        [TestMethod]
+        public void IsShoesPairAvailableTest()
+        {
+            Assert.IsTrue(dataRepository.IsShoesPairAvailable(dataRepository.GetShoesPair(1), 3));
+            Assert.IsFalse(dataRepository.IsShoesPairAvailable(dataRepository.GetShoesPair(1), 100000));
         }
     }
 }

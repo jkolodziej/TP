@@ -35,9 +35,16 @@ namespace ShoeStore.Logic
         // create invoice
         public void BuyShoes(Client client, ShoesPair shoesPair, int count, decimal shippingCost)
         {
-            Transaction invoice = new Invoice(client, shoesPair, count, shippingCost);
-            dataRepository.DecreaseStockCount(shoesPair, invoice);           
-            dataRepository.AddTransaction(invoice);
+            if(dataRepository.IsShoesPairAvailable(shoesPair, count))
+            {
+                Transaction invoice = new Invoice(client, shoesPair, count, shippingCost);
+                dataRepository.DecreaseStockCount(shoesPair, invoice);
+                dataRepository.AddTransaction(invoice);
+            }
+            else
+            {
+                throw new ArgumentException($"No such number of pairs in stock. Current number in stock: {shoesPair.StockCount}");
+            }            
         }
 
         public void ReturnShoes(ShoesPair shoesPair, Transaction invoice)
@@ -93,6 +100,26 @@ namespace ShoeStore.Logic
             }
 
             return listOfShoes;
+        }
+
+        public Shoes GetShoes(int key)
+        {
+            return dataRepository.GetShoes(key);
+        }
+
+        public Client GetClient(int index)
+        {
+            return dataRepository.GetClient(index);
+        }
+
+        public Transaction GetTransaction(int index)
+        {
+            return dataRepository.GetTransaction(index);
+        }
+
+        public ShoesPair GetShoesPair(int index)
+        {
+            return dataRepository.GetShoesPair(index);
         }
     }
 }
