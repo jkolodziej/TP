@@ -23,8 +23,7 @@ namespace ShoeStore
 
         public void AddShoes(Shoes newShoes)
         {
-            if (DataContext.ShoesDictionary.Any(shoes => (shoes.Value.ShoesModel.Equals(newShoes.ShoesModel) 
-                    && shoes.Value.Size.Equals(newShoes.Size))))
+            if (DataContext.ShoesDictionary.Any(shoes => (shoes.Value.Equals(newShoes))))
             {
                 throw new ArgumentException($"Shoes model: {newShoes.ShoesModel} with size {newShoes.Size} already exist in the repository.");
             }
@@ -212,6 +211,18 @@ namespace ShoeStore
                 throw new ArgumentException($"Pair of shoes: {shoesPair} doesn't exist.");
             }
             DataContext.ShoesPairList.Remove(shoesPair);
+        }
+
+        public Boolean IsShoesPairAvailable(ShoesPair shoesPair, int count)
+        {
+            if (shoesPair.StockCount >= count)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
         }
     }
 }

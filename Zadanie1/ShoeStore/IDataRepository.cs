@@ -1,4 +1,5 @@
 ﻿using ShoeStore.Entities;
+using System;
 using System.Collections.Generic;
 
 namespace ShoeStore
@@ -38,6 +39,7 @@ namespace ShoeStore
         public IEnumerable<ShoesPair> GetAllShoesPairs();
         public void UpdateShoesPair(int index, ShoesPair shoesPair);
         public void DeleteShoesPair(ShoesPair shoesPair);
+        public Boolean IsShoesPairAvailable(ShoesPair shoesPair, int count);
     }
 }
 
