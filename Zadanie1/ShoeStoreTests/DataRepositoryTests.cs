@@ -9,8 +9,8 @@ namespace ShoeStore.Tests
     [TestClass()]
     public class DataRepositoryTests
     {
-        private DataRepository dataRepository;
-        private ConstantFiller constantFiller;
+        private IDataRepository dataRepository;
+        private IDataFiller constantFiller;
 
         public DataRepositoryTests()
         {

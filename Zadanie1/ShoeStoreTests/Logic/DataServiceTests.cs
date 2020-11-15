@@ -10,9 +10,9 @@ namespace ShoeStore.Logic.Tests
     [TestClass]
     public class DataServiceTests
     {
-        private ConstantFiller constantFiller;
-        private DataRepository dataRepository;
-        private DataService dataService; 
+        private IDataFiller constantFiller;
+        private IDataRepository dataRepository;
+        private IDataService dataService; 
 
         public DataServiceTests()
         {
