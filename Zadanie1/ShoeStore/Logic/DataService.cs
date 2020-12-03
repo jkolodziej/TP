@@ -1,4 +1,4 @@
-﻿using ShoeStore.Entities;
+﻿using ShoeStore.Data;
 using System;
 using System.Collections.Generic;
 using System.Linq;

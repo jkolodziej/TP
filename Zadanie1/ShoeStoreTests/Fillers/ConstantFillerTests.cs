@@ -1,7 +1,7 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.Linq;
 
-namespace ShoeStore.Fillers.Tests
+namespace ShoeStore.Data.Tests
 {
     [TestClass()]
     public class ConstantFillerTests

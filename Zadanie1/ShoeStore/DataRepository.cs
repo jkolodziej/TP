@@ -1,10 +1,9 @@
-﻿using ShoeStore.Entities;
-using ShoeStore.Fillers;
+﻿
 using System;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace ShoeStore
+namespace ShoeStore.Data
 {
     public class DataRepository : IDataRepository
     {

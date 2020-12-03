@@ -1,6 +1,5 @@
-﻿using ShoeStore.Entities;
-
-namespace ShoeStore.Fillers
+﻿
+namespace ShoeStore.Data
 {
     public class ConstantFiller : IDataFiller
     {

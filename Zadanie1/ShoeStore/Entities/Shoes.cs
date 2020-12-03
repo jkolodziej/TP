@@ -1,7 +1,7 @@
 ﻿using System;
 
 
-namespace ShoeStore.Entities
+namespace ShoeStore.Data
 {
     public class Shoes
     {
