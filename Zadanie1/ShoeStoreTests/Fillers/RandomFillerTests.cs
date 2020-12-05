@@ -1,8 +1,8 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using ShoeStore.Entities;
+using ShoeStore.Data;
 using System.Linq;
 
-namespace ShoeStore.Fillers.Tests
+namespace ShoeStore.Data.Tests
 {
     [TestClass]
     public class RandomFillerTests

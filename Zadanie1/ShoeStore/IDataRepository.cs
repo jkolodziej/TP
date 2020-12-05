@@ -1,8 +1,8 @@
-﻿using ShoeStore.Entities;
+﻿
 using System;
 using System.Collections.Generic;
 
-namespace ShoeStore
+namespace ShoeStore.Data
 {
     public interface IDataRepository
     {

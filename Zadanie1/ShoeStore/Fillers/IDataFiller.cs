@@ -1,4 +1,4 @@
-﻿namespace ShoeStore.Fillers
+﻿namespace ShoeStore.Data
 {
     public interface IDataFiller
     {

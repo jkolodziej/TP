@@ -1,6 +1,5 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using ShoeStore.Entities;
-using ShoeStore.Fillers;
+using ShoeStore.Data;
 using System;
 using System.Linq;
 

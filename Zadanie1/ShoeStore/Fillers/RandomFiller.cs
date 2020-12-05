@@ -1,7 +1,7 @@
-﻿using ShoeStore.Entities;
+﻿using ShoeStore.Data;
 using System;
 
-namespace ShoeStore.Fillers
+namespace ShoeStore.Data
 {
     public class RandomFiller : IDataFiller
     {

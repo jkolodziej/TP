@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace ShoeStore.Entities
+namespace ShoeStore.Data
 {
     public class Invoice : Transaction
     {
