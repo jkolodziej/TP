@@ -1,17 +1,21 @@
-﻿using System;
+﻿using ConsoleSerializer.Data;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Runtime.Serialization;
+using System.Xml.Linq;
 
 namespace ConsoleSerializer.Serializer
 {
-    class CustomSerializer : IFormatter
-    {
-        public ISurrogateSelector SurrogateSelector { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
-        public SerializationBinder Binder { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
-        public StreamingContext Context { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
+    public class CustomSerializer : Formatter
+    { 
+        private List<PropertyInfo> values = new List<PropertyInfo>();
+    
+        public override ISurrogateSelector SurrogateSelector { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
+        public override SerializationBinder Binder { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
+        public override StreamingContext Context { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
 
         private Type type;
 
@@ -20,12 +24,12 @@ namespace ConsoleSerializer.Serializer
             this.type = type;
         }
 
-        public object Deserialize(Stream serializationStream)
+        public object Deserialize(Stream serializationStream, Type objType)
         {
             Object obj = Activator.CreateInstance(type);
 
             using (var streamReader = new StreamReader(serializationStream))
-            {
+            {              
                 // read type name
                 string typeName = streamReader.ReadLine();
 
@@ -42,29 +46,31 @@ namespace ConsoleSerializer.Serializer
                     value = keyValue[1];
 
                     PropertyInfo propertyInfo = type.GetProperty(key);
-                    if(propertyInfo != null)
+                    if (propertyInfo != null)
                     {
                         propertyInfo.SetValue(obj, value, null);
                     }
                 }
-            }
-            
-            
+            }                      
             return obj;
         }
 
-        public void Serialize(Stream serializationStream, object graph)
+        public override void Serialize(Stream serializationStream, object graph)
         {
-            List<PropertyInfo> properties = type.GetProperties().ToList();
-            StreamWriter streamWriter = new StreamWriter(serializationStream);
-            streamWriter.WriteLine(type.Name);
-            foreach (PropertyInfo propertyInfo in properties)
+            ISerializable data = (ISerializable)graph;
+            SerializationInfo info = new SerializationInfo(graph.GetType(), new FormatterConverter());
+            StreamingContext context = new StreamingContext(StreamingContextStates.File);
+            data.GetObjectData(info, context);
+            foreach (SerializationEntry item in info)
+                this.WriteMember(item.Name, item.Value);
+
+            using (StreamWriter streamWriter = new StreamWriter(serializationStream))
             {
-                // formaty( propertyName:propertyValue)
-                streamWriter.WriteLine(String.Format("{0}:{1}", propertyInfo.Name, propertyInfo.GetValue(graph)));
+                foreach (PropertyInfo value in values)
+                {
+                    streamWriter.WriteLine(String.Format("{0}:{1}", value.Name, value.GetValue(graph)));
+                }
             }
-            //save changes
-            streamWriter.Flush();
         }
 
         public void CustomSerialize(Type dataType, object data, string filePath)
@@ -83,11 +89,105 @@ namespace ConsoleSerializer.Serializer
             if (File.Exists(filePath))
             {
                 FileStream fileStream = File.OpenRead(filePath);
-                obj = customSerializer.Deserialize(fileStream);
+                obj = customSerializer.Deserialize(fileStream, dataType);
                 fileStream.Close();
             }
             return obj;
         }
 
+        protected override void WriteArray(object obj, string name, Type memberType)
+        {
+            throw new NotImplementedException();
+        }
+
+        protected override void WriteBoolean(bool val, string name)
+        {
+            throw new NotImplementedException();
+        }
+
+        protected override void WriteByte(byte val, string name)
+        {
+            throw new NotImplementedException();
+        }
+
+        protected override void WriteChar(char val, string name)
+        {
+            throw new NotImplementedException();
+        }
+
+        protected override void WriteDateTime(DateTime val, string name)
+        {
+            throw new NotImplementedException();
+        }
+
+        protected override void WriteDecimal(decimal val, string name)
+        {
+            values.Add(val);
+        }
+
+        protected override void WriteDouble(double val, string name)
+        {
+            throw new NotImplementedException();
+        }
+
+        protected override void WriteInt16(short val, string name)
+        {
+            throw new NotImplementedException();
+        }
+
+        protected override void WriteInt32(int val, string name)
+        {
+            values.Add(new PropertyInfo());
+        }
+
+        protected override void WriteInt64(long val, string name)
+        {
+            throw new NotImplementedException();
+        }
+
+        protected override void WriteObjectRef(object obj, string name, Type memberType)
+        {
+            values.Add(new PropertyInfo();
+        }
+
+        protected override void WriteSByte(sbyte val, string name)
+        {
+            throw new NotImplementedException();
+        }
+
+        protected override void WriteSingle(float val, string name)
+        {
+            throw new NotImplementedException();
+        }
+
+        protected override void WriteTimeSpan(TimeSpan val, string name)
+        {
+            throw new NotImplementedException();
+        }
+
+        protected override void WriteUInt16(ushort val, string name)
+        {
+            throw new NotImplementedException();
+        }
+
+        protected override void WriteUInt32(uint val, string name)
+        {
+            throw new NotImplementedException();
+        }
+
+        protected override void WriteUInt64(ulong val, string name)
+        {
+            throw new NotImplementedException();
+        }
+
+        protected override void WriteValueType(object obj, string name, Type memberType)
+        {
+            values.Add(new PropertyInfo());
+        }
+
+        public override object Deserialize(Stream serializationStream)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

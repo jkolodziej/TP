@@ -13,9 +13,33 @@
       <ShoesPairs>
         <ShoesPair>
           <Shoes>
-            <ShoesModel>N123</ShoesModel>
-            <Size>40</Size>
-            <Brand>Nike</Brand>
+            <ShoesModel>ddd</ShoesModel>
+            <Size>14</Size>
+            <Brand>sdsdd</Brand>
+            <Sex>female</Sex>
+          </Shoes>
+          <NettoPrice>300</NettoPrice>
+          <Tax>0.22</Tax>
+          <StockCount>20</StockCount>
+          <Discount>0.1</Discount>
+        </ShoesPair>
+        <ShoesPair>
+          <Shoes>
+            <ShoesModel>ddd</ShoesModel>
+            <Size>14</Size>
+            <Brand>sdsdd</Brand>
+            <Sex>female</Sex>
+          </Shoes>
+          <NettoPrice>400</NettoPrice>
+          <Tax>0.22</Tax>
+          <StockCount>20</StockCount>
+          <Discount>0.1</Discount>
+        </ShoesPair>
+        <ShoesPair>
+          <Shoes>
+            <ShoesModel>ddd</ShoesModel>
+            <Size>14</Size>
+            <Brand>sdsdd</Brand>
             <Sex>female</Sex>
           </Shoes>
           <NettoPrice>300</NettoPrice>
@@ -25,9 +49,9 @@
         </ShoesPair>
       </ShoesPairs>
       <Count>1</Count>
-      <Date>2020-12-06T20:58:49.2628865+01:00</Date>
+      <Date>2020-12-06T23:12:07.2965024+01:00</Date>
       <ShippingCost>12</ShippingCost>
-      <TotalPrice>378.00</TotalPrice>
+      <TotalPrice>1232.00</TotalPrice>
     </Invoice>
     <Invoice>
       <Client>
@@ -40,9 +64,9 @@
       <ShoesPairs>
         <ShoesPair>
           <Shoes>
-            <ShoesModel>N123</ShoesModel>
-            <Size>40</Size>
-            <Brand>Nike</Brand>
+            <ShoesModel>ddd</ShoesModel>
+            <Size>14</Size>
+            <Brand>sdsdd</Brand>
             <Sex>female</Sex>
           </Shoes>
           <NettoPrice>300</NettoPrice>
@@ -52,21 +76,33 @@
         </ShoesPair>
         <ShoesPair>
           <Shoes>
-            <ShoesModel>A345</ShoesModel>
-            <Size>45</Size>
-            <Brand>Adidas</Brand>
-            <Sex>male</Sex>
+            <ShoesModel>ddd</ShoesModel>
+            <Size>14</Size>
+            <Brand>sdsdd</Brand>
+            <Sex>female</Sex>
           </Shoes>
           <NettoPrice>400</NettoPrice>
           <Tax>0.22</Tax>
           <StockCount>20</StockCount>
           <Discount>0.1</Discount>
         </ShoesPair>
+        <ShoesPair>
+          <Shoes>
+            <ShoesModel>ddd</ShoesModel>
+            <Size>14</Size>
+            <Brand>sdsdd</Brand>
+            <Sex>female</Sex>
+          </Shoes>
+          <NettoPrice>300</NettoPrice>
+          <Tax>0.22</Tax>
+          <StockCount>20</StockCount>
+          <Discount>0.1</Discount>
+        </ShoesPair>
       </ShoesPairs>
       <Count>1</Count>
-      <Date>2020-12-06T20:58:49.2628865+01:00</Date>
+      <Date>2020-12-06T23:12:07.292511+01:00</Date>
       <ShippingCost>10</ShippingCost>
-      <TotalPrice>864.00</TotalPrice>
+      <TotalPrice>1230.00</TotalPrice>
     </Invoice>
   </Transactions>
 </TransactionRecord>

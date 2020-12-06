@@ -101,33 +101,33 @@ namespace ConsoleSerializer
             ///////////
             ///
             Console.WriteLine("A to custom ale formatter");
-            ISerializable clientObj = new Client("Jan", "Kowalski", "jan.kowalski@gmail.com", "Pabianice Zamkowa 23a", "+48123456780");
-            //ISerializable transactionObj = new Invoice(client, shoesPair, 1, new decimal(12.0));
-            Formatter customFormatter = new CustomFormatter();
-            string fileName = "C:\\Users\\Xarria\\source\\repos\\jkolodziej\\TP\\Zadanie2\\transaction.xml";
-            //const string fileName = "C:\\Users\\julka\\source\\repos\\TP1\\Zadanie2\\client.txt";
-            File.Delete(fileName);
-            using (Stream stream = new FileStream(fileName, FileMode.Create))
-                customFormatter.Serialize(stream, clientObj);
-            FileInfo info = new FileInfo(fileName);
-            string content = File.ReadAllText(fileName, Encoding.UTF8);
-            Console.WriteLine(content);
+            //ISerializable clientObj = new Client("Jan", "Kowalski", "jan.kowalski@gmail.com", "Pabianice Zamkowa 23a", "+48123456780");
+            ////ISerializable transactionObj = new Invoice(client, shoesPair, 1, new decimal(12.0));
+            //Formatter customFormatter = new CustomFormatter(typeof(Client));
+            //string fileName = "C:\\Users\\Xarria\\source\\repos\\jkolodziej\\TP\\Zadanie2\\client.xml";
+            ////const string fileName = "C:\\Users\\julka\\source\\repos\\TP1\\Zadanie2\\client.txt";
+            //File.Delete(fileName);
+            //using (Stream stream = new FileStream(fileName, FileMode.Create))
+            //    customFormatter.Serialize(stream, clientObj);
+            //FileInfo info = new FileInfo(fileName);
+            //string content = File.ReadAllText(fileName, Encoding.UTF8);
+            //Console.WriteLine(content);
 
 
             // custom serializer test
 
             Console.WriteLine("A to custom");
-            Client customClient = new Client("Jan", "Kowalski", "jan.kowalski@gmail.com", "Pabianice Zamkowa 23a", "+48123456780");
+            //Client customClient = new Client("Jan", "Kowalski", "jan.kowalski@gmail.com", "Pabianice Zamkowa 23a", "+48123456780");
            
             //string customFilePath = "C:\\Users\\julka\\source\\repos\\TP1\\Zadanie2\\client.xml";
             string customFilePath = "C:\\Users\\Xarria\\source\\repos\\jkolodziej\\TP\\Zadanie2\\transaction.xml";
-            CustomSerializer customSerializer = new CustomSerializer(typeof(Client));
-            Client newClient = null;
-            customSerializer.CustomSerialize(typeof(Client), client, customFilePath);
-            newClient = customSerializer.CustomDeserialize(typeof(Client), customFilePath) as Client;
+            CustomSerializer customSerializer = new CustomSerializer(typeof(TransactionRecord));
+            TransactionRecord tr = null;
+            customSerializer.CustomSerialize(typeof(TransactionRecord), trecord, customFilePath);
+            tr = customSerializer.CustomDeserialize(typeof(TransactionRecord), customFilePath) as TransactionRecord;
 
 
-            Console.WriteLine(newClient);
+            Console.WriteLine(tr);
 
             Console.ReadLine();
         }
