@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Invoice xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <Client>
+    <Name>Jan</Name>
+    <Surname>Kowalski</Surname>
+    <EmailAddress>jan.kowalski@gmail.com</EmailAddress>
+    <Address>Pabianice Zamkowa 23a</Address>
+    <PhoneNumber>+48123456780</PhoneNumber>
+  </Client>
+  <ShoesPairs>
+    <ShoesPair>
+      <Shoes>
+        <ShoesModel>ddd</ShoesModel>
+        <Size>14</Size>
+        <Brand>sdsdd</Brand>
+        <Sex>female</Sex>
+      </Shoes>
+      <NettoPrice>300</NettoPrice>
+      <Tax>0.22</Tax>
+      <StockCount>20</StockCount>
+      <Discount>0.1</Discount>
+    </ShoesPair>
+    <ShoesPair>
+      <Shoes>
+        <ShoesModel>ddd</ShoesModel>
+        <Size>14</Size>
+        <Brand>sdsdd</Brand>
+        <Sex>female</Sex>
+      </Shoes>
+      <NettoPrice>400</NettoPrice>
+      <Tax>0.22</Tax>
+      <StockCount>20</StockCount>
+      <Discount>0.1</Discount>
+    </ShoesPair>
+    <ShoesPair>
+      <Shoes>
+        <ShoesModel>ddd</ShoesModel>
+        <Size>14</Size>
+        <Brand>sdsdd</Brand>
+        <Sex>female</Sex>
+      </Shoes>
+      <NettoPrice>300</NettoPrice>
+      <Tax>0.22</Tax>
+      <StockCount>20</StockCount>
+      <Discount>0.1</Discount>
+    </ShoesPair>
+  </ShoesPairs>
+  <Count>1</Count>
+  <Date>2020-12-06T16:36:18.0908753+01:00</Date>
+  <ShippingCost>12</ShippingCost>
+  <TotalPrice>1232.00</TotalPrice>
+</Invoice>

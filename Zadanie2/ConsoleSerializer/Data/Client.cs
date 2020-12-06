@@ -12,6 +12,8 @@ namespace ConsoleSerializer.Data
         public string Address { get; set; }
         public string PhoneNumber { get; set; }
 
+        public Client() { }
+
         public Client(string name, string surname, string emailAddress, string address, string phoneNumber)
         {
             Name = name;

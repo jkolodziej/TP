@@ -1,15 +1,17 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Reflection;
 using System.Runtime.Serialization;
 using System.Xml;
 using System.Xml.Linq;
 
 namespace ConsoleSerializer.Serializer
 {
-    public class XmlFormatter : Formatter
+    public class CustomFormatter : Formatter
     {
         private List<XElement> values = new List<XElement>();
+
 
         public override ISurrogateSelector SurrogateSelector { get; set; }
         public override SerializationBinder Binder { get; set; }
@@ -17,7 +19,11 @@ namespace ConsoleSerializer.Serializer
 
         public override object Deserialize(Stream serializationStream)
         {
-            throw new NotImplementedException();
+            Object obj = null;
+            StreamReader streamReader = new StreamReader(serializationStream);
+            Console.WriteLine(streamReader.Read());
+            return obj;
+
         }
 
         public override void Serialize(Stream serializationStream, object graph)
@@ -28,10 +34,27 @@ namespace ConsoleSerializer.Serializer
             data.GetObjectData(info, context);
             foreach (SerializationEntry item in info)
                 this.WriteMember(item.Name, item.Value);
-            XmlWriter writer = XmlWriter.Create(serializationStream);
-            XDocument xmlDocument = new XDocument(new XElement("Serialization", values));
-            xmlDocument.Save(writer);
-            writer.Flush();
+
+            using (StreamWriter streamWriter = new StreamWriter(serializationStream))
+            {
+                foreach (XElement value in values)
+                {
+                    streamWriter.WriteLine(String.Format("{0}: {1}", value.Name, value.Value));
+                }
+            }
+
+            //foreach (XElement value in values)
+            //{
+            //    streamWriter.WriteLine(String.Format("{0}:{1}", value.Name, value.Value));
+            //}
+            //save changes
+        
+
+
+            //XmlWriter writer = XmlWriter.Create(serializationStream);
+            //XDocument xmlDocument = new XDocument(new XElement("Serialization", values));
+            //xmlDocument.Save(writer);
+            //writer.Flush();
         }
 
         protected override void WriteArray(object obj, string name, Type memberType)
@@ -86,7 +109,7 @@ namespace ConsoleSerializer.Serializer
 
         protected override void WriteObjectRef(object obj, string name, Type memberType)
         {
-            //
+            values.Add(new XElement(name, obj.ToString()));
         }
 
         protected override void WriteSByte(sbyte val, string name)
@@ -121,7 +144,7 @@ namespace ConsoleSerializer.Serializer
 
         protected override void WriteValueType(object obj, string name, Type memberType)
         {
-            throw new NotImplementedException();
+            values.Add(new XElement(name, obj.ToString()));
         }
     }
 }

@@ -11,6 +11,8 @@ namespace ConsoleSerializer.Data
         public string Brand { get; set; }
         public string Sex { get; set; }
 
+        public Shoes() { }
+
         public Shoes(string shoesModel, int size, string brand, string sex)
         {
             ShoesModel = shoesModel;

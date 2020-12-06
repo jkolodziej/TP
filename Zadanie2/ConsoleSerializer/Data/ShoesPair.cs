@@ -12,6 +12,8 @@ namespace ConsoleSerializer.Data
         public int StockCount { get; set; }
         public decimal Discount { get; set; }
 
+        public ShoesPair() { }
+
         public ShoesPair(Shoes shoes, decimal nettoPrice, decimal tax, int stockCount, decimal discount)
         {
             Shoes = shoes;

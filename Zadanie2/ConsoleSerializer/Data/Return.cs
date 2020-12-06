@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Runtime.Serialization;
 
 namespace ConsoleSerializer.Data
@@ -6,7 +7,9 @@ namespace ConsoleSerializer.Data
     [Serializable]
     public class Return : Transaction, ISerializable 
     {
-        public Return(Client client, ShoesPair shoesPair, int count) : base(client, shoesPair, count)
+        public Return () { }
+
+        public Return(Client client, List<ShoesPair> shoesPairs, int count) : base(client, shoesPairs, count)
         {
         }
 
@@ -25,7 +28,7 @@ namespace ConsoleSerializer.Data
             else
             {
                 Return i = (Return)obj;
-                return this.Client.Equals(i.Client) && this.ShoesPair.Equals(i.ShoesPair)
+                return this.Client.Equals(i.Client) && this.ShoesPairs.Equals(i.ShoesPairs)
                         && this.Count.Equals(i.Count) && this.Date.Equals(i.Date);
 
             }

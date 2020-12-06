@@ -1,5 +1,7 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Runtime.Serialization;
+using System.Xml.Serialization;
 
 namespace ConsoleSerializer.Data
 {
@@ -9,7 +11,9 @@ namespace ConsoleSerializer.Data
         public decimal ShippingCost { get; set; }
         public decimal TotalPrice { get; set; }
 
-        public Invoice(Client client, ShoesPair shoesPair, int count, decimal shippingCost) : base(client, shoesPair, count)
+        public Invoice () { }
+
+        public Invoice(Client client, List<ShoesPair> shoesPairs, int count, decimal shippingCost) : base(client, shoesPairs, count)
         {
             ShippingCost = shippingCost;
             TotalPrice = CalculateTotalPrice();
@@ -32,7 +36,7 @@ namespace ConsoleSerializer.Data
             else
             {
                 Invoice i = (Invoice)obj;
-                return this.Client.Equals(i.Client) && this.ShoesPair.Equals(i.ShoesPair)
+                return this.Client.Equals(i.Client) && this.ShoesPairs.Equals(i.ShoesPairs)
                     && this.TotalPrice.Equals(i.TotalPrice) && this.ShippingCost.Equals(i.ShippingCost)
                     && this.Date.Equals(i.Date);
             }
@@ -40,9 +44,12 @@ namespace ConsoleSerializer.Data
 
         private decimal CalculateTotalPrice()
         {
-            decimal price = (ShoesPair.NettoPrice + ShoesPair.NettoPrice * ShoesPair.Tax);
-            price -= price * ShoesPair.Discount;
-            price *= Count;
+            decimal price = 0;
+            foreach (ShoesPair shoesPair in ShoesPairs)
+            {
+                price += (shoesPair.NettoPrice + shoesPair.NettoPrice * shoesPair.Tax);
+            }
+       
             price += ShippingCost;
             return price;
         }

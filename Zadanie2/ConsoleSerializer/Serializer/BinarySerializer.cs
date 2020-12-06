@@ -13,7 +13,6 @@ namespace ConsoleSerializer.Serializer
             fileStream = File.Create(filePath);
             binaryFormatter.Serialize(fileStream, data);
             fileStream.Close();
-
         }
 
         public object BinaryDeserialize(string filePath)
