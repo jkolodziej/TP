@@ -1,10 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Runtime.Serialization;
+using System.Xml.Serialization;
 
 namespace ConsoleSerializer.Data
 {
     [Serializable]
+    [XmlRoot("Return")]
     public class Return : Transaction, ISerializable 
     {
         public Return () { }

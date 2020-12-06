@@ -7,7 +7,7 @@ using System.Xml.Serialization;
 namespace ConsoleSerializer.Data
 {
     [Serializable]
-    [XmlRoot("Invoice")]
+    [XmlRoot("Transaction")]
     public abstract class Transaction : ISerializable
     {
         public Client Client { get; set; }

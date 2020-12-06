@@ -6,6 +6,7 @@ using System.Xml.Serialization;
 namespace ConsoleSerializer.Data
 {
     [Serializable]
+    [XmlRoot("Invoice")]
     public class Invoice : Transaction, ISerializable
     {
         public decimal ShippingCost { get; set; }

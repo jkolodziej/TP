@@ -8,7 +8,7 @@ using System.Xml.Serialization;
 
 namespace ConsoleSerializer.Serializer
 {
-    class SerializeToXml
+    public class SerializeToXml
     {
         public SerializeToXml() { }
 
