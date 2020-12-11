@@ -52,8 +52,8 @@ namespace ConsoleSerializer
             transactions.Add(transaction2);
             transactions.Add(transaction1);
             TransactionRecord trecord = new TransactionRecord(transactions);
-            string filePath = "C:\\Users\\Xarria\\source\\repos\\jkolodziej\\TP\\Zadanie2\\transactionRecord.xml";
-            //string filePath = "C:\\Users\\julka\\source\\repos\\TP1\\Zadanie2\\transaction.xml";
+            //string filePath = "C:\\Users\\Xarria\\source\\repos\\jkolodziej\\TP\\Zadanie2\\transactionRecord.xml";
+            string filePath = "C:\\Users\\julka\\source\\repos\\TP1\\Zadanie2\\transaction.xml";
             SerializeToXml serializeToXml = new SerializeToXml();
             TransactionRecord t = null;
             serializeToXml.XmlSerialize(typeof(TransactionRecord), trecord, filePath);
@@ -120,14 +120,42 @@ namespace ConsoleSerializer
             //Client customClient = new Client("Jan", "Kowalski", "jan.kowalski@gmail.com", "Pabianice Zamkowa 23a", "+48123456780");
            
             //string customFilePath = "C:\\Users\\julka\\source\\repos\\TP1\\Zadanie2\\client.xml";
-            string customFilePath = "C:\\Users\\Xarria\\source\\repos\\jkolodziej\\TP\\Zadanie2\\transaction";
-            CustomSerializer customSerializer = new CustomSerializer(typeof(Transaction));
-            Transaction tr = null;
-            customSerializer.CustomSerialize(typeof(Transaction), transaction1, customFilePath);
-            tr = customSerializer.CustomDeserialize(typeof(Transaction), customFilePath) as Transaction;
+            ////string customFilePath = "C:\\Users\\Xarria\\source\\repos\\jkolodziej\\TP\\Zadanie2\\transaction";
+            //CustomSerializerOLD customSerializer = new CustomSerializerOLD(typeof(Transaction));
+            //Transaction tr = null;
+            //customSerializer.CustomSerialize(typeof(Transaction), transaction1, customFilePath);
+            //tr = customSerializer.CustomDeserialize(typeof(Transaction), customFilePath) as Transaction;
 
 
-            Console.WriteLine(tr);
+
+            CustomSerializer serializer = new CustomSerializer();
+            ClassA classA = new ClassA("Anna", "Kowalska", 24, 160.5);
+            ClassB classB = new ClassB("Jan", "Kowalski", 54, 180.5);
+            ClassC classC = new ClassC("Anna", "Nowak", 66, 157.5);
+            classA.B = classB;
+            classB.C = classC;
+            classC.A = classA;
+            string customFilePath = "C:\\Users\\julka\\source\\repos\\TP2\\Zadanie2\\test.txt";
+
+            using (FileStream fileStream = new FileStream(customFilePath, FileMode.Create))
+            {
+                serializer.Serialize(fileStream, classA);
+                Console.WriteLine("Done");
+            }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
             Console.ReadLine();
         }

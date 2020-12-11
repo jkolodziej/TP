@@ -1,94 +1,164 @@
-﻿using ConsoleSerializer.Data;
-using System;
-using System.Collections.Generic;
+﻿using System;
+using System.Globalization;
 using System.IO;
-using System.Linq;
-using System.Reflection;
 using System.Runtime.Serialization;
-using System.Xml.Linq;
+using System.Text;
 
 namespace ConsoleSerializer.Serializer
 {
-    public class CustomSerializer : IFormatter
-    { 
-        private List<PropertyInfo> values = new List<PropertyInfo>();
-    
-        public ISurrogateSelector SurrogateSelector { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
-        public SerializationBinder Binder { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
-        public StreamingContext Context { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
+    public class CustomSerializer : Formatter
+    {
+        public override ISurrogateSelector SurrogateSelector { get; set; }
+        public override SerializationBinder Binder { get; set; }
+        public override StreamingContext Context { get; set; }
 
-        private Type type;
+        public CustomBinder CustomBinder;
+        public StringBuilder Builder;
 
-        public CustomSerializer(Type type)
+
+        public CustomSerializer()
         {
-            this.type = type;
+            CustomBinder = new CustomBinder();
+            Builder = new StringBuilder();
         }
 
-        public object Deserialize(Stream serializationStream)
+        public override object Deserialize(Stream serializationStream)
         {
-            Object obj = Activator.CreateInstance(type);
+            throw new NotImplementedException();
+        }
 
-            using (var streamReader = new StreamReader(serializationStream))
-            {              
-                // read type name
-                string typeName = streamReader.ReadLine();
+        public override void Serialize(Stream serializationStream, object graph)
+        {
+            ISerializable data = (ISerializable)graph;
+            SerializationInfo info = new SerializationInfo(graph.GetType(), new FormatterConverter());
+            StreamingContext context = new StreamingContext(StreamingContextStates.File);
+            data.GetObjectData(info, context);
+            foreach (SerializationEntry item in info)
+                this.WriteMember(item.Name, item.Value);
 
-                // read other content
-                string content = streamReader.ReadToEnd();
+            CustomBinder.BindToName(graph.GetType(), out string assemblyName, out string typeName);
 
-                // fetch key : value pairs
-                List<string> keyValuePairs = content.Split(new string[] { "\n", "\r\n" }, StringSplitOptions.RemoveEmptyEntries).ToList();
-                string key, value;
-                foreach (string pair in keyValuePairs)
+            Builder.Append("{" + assemblyName + "}" + ":" + "{" + typeName + "}" + ":" + "{" + m_idGenerator.GetId(graph, out bool firstTime).ToString() + "}");
+            Builder.Append("\n");
+
+            while (m_objectQueue.Count != 0)
+            {
+                Serialize(null, m_objectQueue.Dequeue());
+            }
+
+            if (serializationStream != null)
+            {
+                using (StreamWriter streamWriter = new StreamWriter(serializationStream))
                 {
-                    string[] keyValue = pair.Split(':');
-                    key = keyValue[0];
-                    value = keyValue[1];
+                    streamWriter.Write(Builder.ToString());
+                }
+            }
+        }
 
-                    PropertyInfo propertyInfo = type.GetProperty(key);
-                    if (propertyInfo != null)
+        protected override void WriteArray(object obj, string name, Type memberType)
+        {
+            throw new NotImplementedException();
+        }
+
+        protected override void WriteBoolean(bool val, string name)
+        {
+            throw new NotImplementedException();
+        }
+
+        protected override void WriteByte(byte val, string name)
+        {
+            throw new NotImplementedException();
+        }
+
+        protected override void WriteChar(char val, string name)
+        {
+            throw new NotImplementedException();
+        }
+
+        protected override void WriteDateTime(DateTime val, string name)
+        {
+            throw new NotImplementedException();
+        }
+
+        protected override void WriteDecimal(decimal val, string name)
+        {
+            throw new NotImplementedException();
+        }
+
+        protected override void WriteDouble(double val, string name)
+        {
+            Builder.Append("[" + val.GetType() + "|" + name + "|" + val.ToString(CultureInfo.InvariantCulture) + "]");
+        }
+
+        protected override void WriteInt16(short val, string name)
+        {
+            throw new NotImplementedException();
+        }
+
+        protected override void WriteInt32(int val, string name)
+        {
+            Builder.Append("[" + val.GetType() + "|" + name + "|" + val.ToString(CultureInfo.InvariantCulture) + "]");
+
+        }
+
+        protected override void WriteInt64(long val, string name)
+        {
+            throw new NotImplementedException();
+        }
+
+        protected override void WriteObjectRef(object obj, string name, Type memberType)
+        {
+            if (memberType.Equals(typeof(String)))
+            {
+                Builder.Append("[" + obj.GetType() + "|" + name + "|" + (string)obj + "]");
+            } 
+            else
+            {
+                if (obj != null)
+                {
+                    Builder.Append("[" + obj.GetType() + "|" + name + "|ref" + m_idGenerator.GetId(obj, out bool firstTime).ToString() + "]");
+                    if (firstTime)
                     {
-                        propertyInfo.SetValue(obj, value);
+                        m_objectQueue.Enqueue(obj);
                     }
                 }
-            }                      
-            return obj;
-        }
-
-        public void Serialize(Stream serializationStream, object graph)
-        {
-            List<PropertyInfo> properties = type.GetProperties().ToList();
-            StreamWriter streamWriter = new StreamWriter(serializationStream);
-            streamWriter.WriteLine(type.Name);
-           foreach (PropertyInfo propertyInfo in properties)
-            {
-                // formaty( propertyName:propertyValue)
-                streamWriter.WriteLine(String.Format("{0}:{1}", propertyInfo.Name, propertyInfo.GetValue(graph)));
             }
-            //save changes
-            streamWriter.Flush();
+
         }
 
-        public void CustomSerialize(Type dataType, object data, string filePath)
+        protected override void WriteSByte(sbyte val, string name)
         {
-            CustomSerializer customSerializer = new CustomSerializer(dataType);
-            if(File.Exists(filePath)) File.Delete(filePath);
-            FileStream fileStream = File.Create(filePath);
-            customSerializer.Serialize(fileStream, data);
-            fileStream.Close();
+            throw new NotImplementedException();
         }
 
-        public object CustomDeserialize(Type dataType, string filePath)
+        protected override void WriteSingle(float val, string name)
         {
-            object obj = null;
-            CustomSerializer customSerializer = new CustomSerializer(dataType);
-            if (File.Exists(filePath))
-            {
-                FileStream fileStream = File.OpenRead(filePath);
-                obj = customSerializer.Deserialize(fileStream);
-                fileStream.Close();
-            }
-            return obj;
+            throw new NotImplementedException();
+        }
+
+        protected override void WriteTimeSpan(TimeSpan val, string name)
+        {
+            throw new NotImplementedException();
+        }
+
+        protected override void WriteUInt16(ushort val, string name)
+        {
+            throw new NotImplementedException();
+        }
+
+        protected override void WriteUInt32(uint val, string name)
+        {
+            throw new NotImplementedException();
+        }
+
+        protected override void WriteUInt64(ulong val, string name)
+        {
+            throw new NotImplementedException();
+        }
+
+        protected override void WriteValueType(object obj, string name, Type memberType)
+        {
+            throw new NotImplementedException();
         }
     }
 }
