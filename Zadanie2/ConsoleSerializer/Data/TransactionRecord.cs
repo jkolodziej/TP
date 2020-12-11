@@ -11,7 +11,6 @@ namespace ConsoleSerializer.Data
     [Serializable]
     public class TransactionRecord : ISerializable
     {
-        public int TransactionsCount {get; set; }
         public List<Invoice> Transactions { get; set; }   
 
         public TransactionRecord(){}
@@ -19,12 +18,11 @@ namespace ConsoleSerializer.Data
         public TransactionRecord(List<Invoice> transactions)
         {
             Transactions = transactions;
-            TransactionsCount = transactions.Count;
+           // TransactionsCount = transactions.Count;
         }
 
         protected TransactionRecord(SerializationInfo info, StreamingContext context)
         {
-            TransactionsCount = info.GetInt32("TransactionsCount");
             Transactions = (List<Invoice>)info.GetValue("Transactions", typeof(List<Invoice>));
         }
 
@@ -39,7 +37,7 @@ namespace ConsoleSerializer.Data
             else
             {
                 TransactionRecord i = (TransactionRecord)obj;
-                return this.Transactions.Equals(i.Transactions) && this.TransactionsCount.Equals(i.TransactionsCount);
+                return this.Transactions.Equals(i.Transactions);
             }
         }
 
@@ -51,7 +49,7 @@ namespace ConsoleSerializer.Data
         public override string ToString()
         {
             StringBuilder str = new StringBuilder();
-            str.Append(TransactionsCount);
+            //str.Append(TransactionsCount);
             foreach(Invoice invoice in Transactions)
             {
                 str.Append(invoice.ToString());
@@ -61,7 +59,7 @@ namespace ConsoleSerializer.Data
 
         public void GetObjectData(SerializationInfo info, StreamingContext context)
         {
-            info.AddValue("TransactionsCount", TransactionsCount);
+            //info.AddValue("TransactionsCount", TransactionsCount);
             info.AddValue("Transactions", Transactions);
         }
 

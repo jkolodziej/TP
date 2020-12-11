@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <TransactionRecord xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
-  <TransactionsCount>2</TransactionsCount>
   <Transactions>
     <Invoice>
       <Client>
@@ -49,7 +48,7 @@
         </ShoesPair>
       </ShoesPairs>
       <Count>1</Count>
-      <Date>2020-12-06T23:12:07.2965024+01:00</Date>
+      <Date>2020-12-07T09:19:24.7068988+01:00</Date>
       <ShippingCost>12</ShippingCost>
       <TotalPrice>1232.00</TotalPrice>
     </Invoice>
@@ -100,7 +99,7 @@
         </ShoesPair>
       </ShoesPairs>
       <Count>1</Count>
-      <Date>2020-12-06T23:12:07.292511+01:00</Date>
+      <Date>2020-12-07T09:19:24.7029113+01:00</Date>
       <ShippingCost>10</ShippingCost>
       <TotalPrice>1230.00</TotalPrice>
     </Invoice>

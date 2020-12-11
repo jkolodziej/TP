@@ -120,11 +120,11 @@ namespace ConsoleSerializer
             //Client customClient = new Client("Jan", "Kowalski", "jan.kowalski@gmail.com", "Pabianice Zamkowa 23a", "+48123456780");
            
             //string customFilePath = "C:\\Users\\julka\\source\\repos\\TP1\\Zadanie2\\client.xml";
-            string customFilePath = "C:\\Users\\Xarria\\source\\repos\\jkolodziej\\TP\\Zadanie2\\transaction.xml";
-            CustomSerializer customSerializer = new CustomSerializer(typeof(TransactionRecord));
-            TransactionRecord tr = null;
-            customSerializer.CustomSerialize(typeof(TransactionRecord), trecord, customFilePath);
-            tr = customSerializer.CustomDeserialize(typeof(TransactionRecord), customFilePath) as TransactionRecord;
+            string customFilePath = "C:\\Users\\Xarria\\source\\repos\\jkolodziej\\TP\\Zadanie2\\transaction";
+            CustomSerializer customSerializer = new CustomSerializer(typeof(Transaction));
+            Transaction tr = null;
+            customSerializer.CustomSerialize(typeof(Transaction), transaction1, customFilePath);
+            tr = customSerializer.CustomDeserialize(typeof(Transaction), customFilePath) as Transaction;
 
 
             Console.WriteLine(tr);
