@@ -36,32 +36,32 @@ namespace ConsoleSerializer
 
 
             //Xml transactionRecord attempt
-            Client client = new Client("Jan", "Kowalski", "jan.kowalski@gmail.com", "Pabianice Zamkowa 23a", "+48123456780");
-            Client client1 = new Client("Marian", "Nowak", "marian.nowak@gmail.com", "Pabianice Zamkowa 26a", "+4876556780");
-            Shoes shoes = new Shoes("ddd", 14, "sdsdd", "female");
-            List<ShoesPair> shoesPairs = new ArrayList<ShoesPair>();
-            ShoesPair shoesPair1 = new ShoesPair(shoes, new decimal(300.0), new decimal(0.22), 20, new decimal(0.1));
-            ShoesPair shoesPair2 = new ShoesPair(shoes, new decimal(400.0), new decimal(0.22), 20, new decimal(0.1));
-            ShoesPair shoesPair3 = new ShoesPair(shoes, new decimal(300.0), new decimal(0.22), 20, new decimal(0.1));
-            shoesPairs.Add(shoesPair1);
-            shoesPairs.Add(shoesPair2);
-            shoesPairs.Add(shoesPair3);
-            Invoice transaction1 = new Invoice(client1, shoesPairs, 1, new decimal(10.0));
-            Invoice transaction2 = new Invoice(client, shoesPairs, 1, new decimal(12.0));
-            List<Invoice> transactions = new List<Invoice>();
-            transactions.Add(transaction2);
-            transactions.Add(transaction1);
-            TransactionRecord trecord = new TransactionRecord(transactions);
-            //string filePath = "C:\\Users\\Xarria\\source\\repos\\jkolodziej\\TP\\Zadanie2\\transactionRecord.xml";
-            string filePath = "C:\\Users\\julka\\source\\repos\\TP1\\Zadanie2\\transaction.xml";
-            SerializeToXml serializeToXml = new SerializeToXml();
-            TransactionRecord t = null;
-            serializeToXml.XmlSerialize(typeof(TransactionRecord), trecord, filePath);
-            t = serializeToXml.XmlDeserialize(typeof(TransactionRecord), filePath) as TransactionRecord;
-            Console.WriteLine("Listra transakcji");
-            Console.WriteLine(t);
-            Console.WriteLine("Całość: ");
-            Console.WriteLine(t);
+            //Client client = new Client("Jan", "Kowalski", "jan.kowalski@gmail.com", "Pabianice Zamkowa 23a", "+48123456780");
+            //Client client1 = new Client("Marian", "Nowak", "marian.nowak@gmail.com", "Pabianice Zamkowa 26a", "+4876556780");
+            //Shoes shoes = new Shoes("ddd", 14, "sdsdd", "female");
+            //List<ShoesPair> shoesPairs = new ArrayList<ShoesPair>();
+            //ShoesPair shoesPair1 = new ShoesPair(shoes, new decimal(300.0), new decimal(0.22), 20, new decimal(0.1));
+            //ShoesPair shoesPair2 = new ShoesPair(shoes, new decimal(400.0), new decimal(0.22), 20, new decimal(0.1));
+            //ShoesPair shoesPair3 = new ShoesPair(shoes, new decimal(300.0), new decimal(0.22), 20, new decimal(0.1));
+            //shoesPairs.Add(shoesPair1);
+            //shoesPairs.Add(shoesPair2);
+            //shoesPairs.Add(shoesPair3);
+            //Invoice transaction1 = new Invoice(client1, shoesPairs, 1, new decimal(10.0));
+            //Invoice transaction2 = new Invoice(client, shoesPairs, 1, new decimal(12.0));
+            //List<Invoice> transactions = new List<Invoice>();
+            //transactions.Add(transaction2);
+            //transactions.Add(transaction1);
+            //TransactionRecord trecord = new TransactionRecord(transactions);
+            ////string filePath = "C:\\Users\\Xarria\\source\\repos\\jkolodziej\\TP\\Zadanie2\\transactionRecord.xml";
+            //string filePath = "C:\\Users\\julka\\source\\repos\\TP1\\Zadanie2\\transaction.xml";
+            //SerializeToXml serializeToXml = new SerializeToXml();
+            //TransactionRecord t = null;
+            //serializeToXml.XmlSerialize(typeof(TransactionRecord), trecord, filePath);
+            //t = serializeToXml.XmlDeserialize(typeof(TransactionRecord), filePath) as TransactionRecord;
+            //Console.WriteLine("Listra transakcji");
+            //Console.WriteLine(t);
+            //Console.WriteLine("Całość: ");
+            //Console.WriteLine(t);
 
 
             //Client client = new Client("Jan", "Kowalski", "jan.kowalski@gmail.com", "Pabianice Zamkowa 23a", "+48123456780");

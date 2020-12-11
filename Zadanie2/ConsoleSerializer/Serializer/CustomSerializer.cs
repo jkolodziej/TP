@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
 using System.Runtime.Serialization;
@@ -15,6 +16,7 @@ namespace ConsoleSerializer.Serializer
         public CustomBinder CustomBinder;
         public StringBuilder Builder;
 
+        private List<string> readLines = new List<string>();
 
         public CustomSerializer()
         {
@@ -24,7 +26,30 @@ namespace ConsoleSerializer.Serializer
 
         public override object Deserialize(Stream serializationStream)
         {
-            throw new NotImplementedException();
+            if (serializationStream != null)
+            {
+                using (StreamReader reader = new StreamReader(serializationStream))
+                {
+                    while (!reader.EndOfStream)
+                    {
+                        readLines.Add(reader.ReadLine());
+                    }
+
+                    for (int i = 0; i < readLines.Count; i++)
+                    {
+                        readLines[i].Remove(0, 1);
+                        readLines[i].Remove(readLines[i].Length - 1);
+                        string[] values = readLines[i].Split(':');
+                        Type type = Binder.BindToType(values[0], values[1]);
+                        long id = long.Parse(values[2]);
+
+                        //SerializationInfo serializationInfo = new SerializationInfo()
+                    }
+
+                    
+                }
+            }
+            return null;
         }
 
         public override void Serialize(Stream serializationStream, object graph)
@@ -38,7 +63,7 @@ namespace ConsoleSerializer.Serializer
 
             CustomBinder.BindToName(graph.GetType(), out string assemblyName, out string typeName);
 
-            Builder.Append("{" + assemblyName + "}" + ":" + "{" + typeName + "}" + ":" + "{" + m_idGenerator.GetId(graph, out bool firstTime).ToString() + "}");
+            Builder.Append("{" + assemblyName  + ":"  + typeName +  ":" +  m_idGenerator.GetId(graph, out bool firstTime).ToString() + "}" + "\n" );
             Builder.Append("\n");
 
             while (m_objectQueue.Count != 0)
