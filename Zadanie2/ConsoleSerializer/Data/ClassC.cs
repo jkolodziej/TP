@@ -5,11 +5,13 @@ namespace ConsoleSerializer.Data
 {
     public class ClassC : ISerializable
     {
-        [DataMember] public string Name { get; set; }
-        [DataMember] public string LastName { get; set; }
-        [DataMember] public int Age { get; set; }
-        [DataMember] public double Height { get; set; }
-        [DataMember] public ClassA A { get; set; }
+        public string Name { get; set; }
+        public string LastName { get; set; }
+        public int Age { get; set; }
+        public double Height { get; set; }
+        public ClassA A { get; set; }
+
+        public ClassC() { }
 
         public ClassC(string name, string lastName, int age, double height)
         {
