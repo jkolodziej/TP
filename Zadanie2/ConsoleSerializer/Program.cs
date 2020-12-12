@@ -23,22 +23,15 @@ namespace ConsoleSerializer
             //XML
             //serialize
             SerializeToXml serializeToXml = new SerializeToXml();
-            using (FileStream fileStream = new FileStream(xmlPath, FileMode.Create))
-            {
-                serializeToXml.XmlSerialize(classA, xmlPath);
-                Console.WriteLine("XML DONE");
-            }
+            serializeToXml.XmlSerialize(typeof(ClassA), classA, xmlPath);
+            Console.WriteLine("XML DONE");
+ 
 
             //deserialize
             SerializeToXml deserializeFromXml = new SerializeToXml();
             ClassA res = null;
-            using (FileStream fileStream = new FileStream(xmlPath, FileMode.Open))
-            {
-                res = (ClassA) deserializeFromXml.XmlDeserialize(typeof(ClassA), xmlPath);
-
-                Console.WriteLine(res.ToString());
-            }
-
+            res = (ClassA)deserializeFromXml.XmlDeserialize(typeof(ClassA), xmlPath);
+            Console.WriteLine(res.ToString());
 
             //CUSTOM
             // serialize

@@ -8,12 +8,12 @@ using System.Threading.Tasks;
 namespace ConsoleSerializer.Data
 {
     public class ClassB : ISerializable
-    { 
-        public string Name { get; set; }
-        public string LastName { get; set; }
-        public int Age { get; set; }
-        public double Height { get; set; }
-        public ClassC C { get; set; }
+    {
+        [DataMember] public string Name { get; set; }
+        [DataMember] public string LastName { get; set; }
+        [DataMember] public int Age { get; set; }
+        [DataMember] public double Height { get; set; }
+        [DataMember] public ClassC C { get; set; }
 
         public ClassB(string name, string lastName, int age, double height)
         {
