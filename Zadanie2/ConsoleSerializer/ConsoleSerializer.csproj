@@ -46,26 +46,13 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ArrayList.cs" />
-    <Compile Include="DataContext.cs" />
     <Compile Include="Data\ClassA.cs" />
     <Compile Include="Data\ClassB.cs" />
     <Compile Include="Data\ClassC.cs" />
-    <Compile Include="Data\Client.cs" />
-    <Compile Include="Data\Invoice.cs" />
-    <Compile Include="Data\TransactionRecord.cs" />
-    <Compile Include="Data\Return.cs" />
-    <Compile Include="Data\Shoes.cs" />
-    <Compile Include="Data\ShoesPair.cs" />
-    <Compile Include="Data\Transaction.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Serializer\BinarySerializer.cs" />
     <Compile Include="Serializer\CustomBinder.cs" />
     <Compile Include="Serializer\CustomSerializer.cs" />
-    <Compile Include="Serializer\CustomSerializerOLD.cs" />
-    <Compile Include="Serializer\JsonSerializer.cs" />
-    <Compile Include="Serializer\CustomFormatter.cs" />
     <Compile Include="Serializer\SerializeToXml.cs" />
   </ItemGroup>
   <ItemGroup>

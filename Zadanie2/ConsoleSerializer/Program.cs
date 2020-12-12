@@ -1,10 +1,7 @@
 ﻿using ConsoleSerializer.Data;
 using ConsoleSerializer.Serializer;
 using System;
-using System.Collections.Generic;
 using System.IO;
-using System.Runtime.Serialization;
-using System.Text;
 
 namespace ConsoleSerializer
 {
@@ -12,122 +9,7 @@ namespace ConsoleSerializer
     {
         static void Main(string[] args)
         {
-            // BINARY SERIALIZATION TEST with transaction
-
-            //Client client = new Client("Jan", "Kowalski", "jan.kowalski@gmail.com", "Pabianice Zamkowa 23a", "+48123456780");
-            //Shoes shoes = new Shoes("ddd", 14, "sdsdd","female");
-            //ShoesPair shoesPair = new ShoesPair(shoes, new decimal(300.0), new decimal(0.22), 20, new decimal(0.1));
-            ////Transaction transaction = new Return(client, shoesPair, 1);
-            //Transaction transaction = new Invoice(client, shoesPair, 1, new decimal(12.0));
-            //string filePath = "clientTest";
-            //BinarySerializer binarySerializer = new BinarySerializer();
-            //Transaction t = null;
-            //binarySerializer.BinarySerialize(transaction, filePath);
-            //if(transaction is Invoice)
-            //{
-            //t = binarySerializer.BinaryDeserialize(filePath) as Invoice;
-            //}
-            //else
-            //{
-            //    t = binarySerializer.BinaryDeserialize(filePath) as Return;
-            //}
-
-            // xml serializer test
-
-
-            //Xml transactionRecord attempt
-            //Client client = new Client("Jan", "Kowalski", "jan.kowalski@gmail.com", "Pabianice Zamkowa 23a", "+48123456780");
-            //Client client1 = new Client("Marian", "Nowak", "marian.nowak@gmail.com", "Pabianice Zamkowa 26a", "+4876556780");
-            //Shoes shoes = new Shoes("ddd", 14, "sdsdd", "female");
-            //List<ShoesPair> shoesPairs = new ArrayList<ShoesPair>();
-            //ShoesPair shoesPair1 = new ShoesPair(shoes, new decimal(300.0), new decimal(0.22), 20, new decimal(0.1));
-            //ShoesPair shoesPair2 = new ShoesPair(shoes, new decimal(400.0), new decimal(0.22), 20, new decimal(0.1));
-            //ShoesPair shoesPair3 = new ShoesPair(shoes, new decimal(300.0), new decimal(0.22), 20, new decimal(0.1));
-            //shoesPairs.Add(shoesPair1);
-            //shoesPairs.Add(shoesPair2);
-            //shoesPairs.Add(shoesPair3);
-            //Invoice transaction1 = new Invoice(client1, shoesPairs, 1, new decimal(10.0));
-            //Invoice transaction2 = new Invoice(client, shoesPairs, 1, new decimal(12.0));
-            //List<Invoice> transactions = new List<Invoice>();
-            //transactions.Add(transaction2);
-            //transactions.Add(transaction1);
-            //TransactionRecord trecord = new TransactionRecord(transactions);
-            ////string filePath = "C:\\Users\\Xarria\\source\\repos\\jkolodziej\\TP\\Zadanie2\\transactionRecord.xml";
-            //string filePath = "C:\\Users\\julka\\source\\repos\\TP1\\Zadanie2\\transaction.xml";
-            //SerializeToXml serializeToXml = new SerializeToXml();
-            //TransactionRecord t = null;
-            //serializeToXml.XmlSerialize(typeof(TransactionRecord), trecord, filePath);
-            //t = serializeToXml.XmlDeserialize(typeof(TransactionRecord), filePath) as TransactionRecord;
-            //Console.WriteLine("Listra transakcji");
-            //Console.WriteLine(t);
-            //Console.WriteLine("Całość: ");
-            //Console.WriteLine(t);
-
-
-            //Client client = new Client("Jan", "Kowalski", "jan.kowalski@gmail.com", "Pabianice Zamkowa 23a", "+48123456780");
-            //Shoes shoes = new Shoes("ddd", 14, "sdsdd", "female");
-            //List<ShoesPair> shoesPairs = new ArrayList<ShoesPair>();
-            //ShoesPair shoesPair1 = new ShoesPair(shoes, new decimal(300.0), new decimal(0.22), 20, new decimal(0.1));
-            //ShoesPair shoesPair2 = new ShoesPair(shoes, new decimal(400.0), new decimal(0.22), 20, new decimal(0.1));
-            //ShoesPair shoesPair3 = new ShoesPair(shoes, new decimal(300.0), new decimal(0.22), 20, new decimal(0.1));
-            //shoesPairs.Add(shoesPair1);
-            //shoesPairs.Add(shoesPair2);
-            //shoesPairs.Add(shoesPair3);
-            //Transaction transaction = new Return(client, shoesPair, 1);
-            //Transaction transaction = new Invoice(client, shoesPairs, 1, new decimal(12.0));
-            //string filePath = "C:\\Users\\julka\\source\\repos\\TP1\\Zadanie2\\transaction.xml";
-            //string filePath = "C:\\Users\\Xarria\\source\\repos\\jkolodziej\\TP\\Zadanie2\\transaction.xml";
-            //SerializeToXml serializeToXml = new SerializeToXml();
-            //Transaction t = null;
-            //Client c = null;
-            //serializeToXml.XmlSerialize(typeof(Invoice), transaction, filePath);
-            //if (transaction is Invoice)
-            //{
-            //    t = serializeToXml.XmlDeserialize(typeof(Invoice), filePath) as Invoice;
-            //}
-            //else
-            //{
-            //    t = serializeToXml.XmlDeserialize(typeof(Return), filePath) as Return;
-            //}
-            //Console.WriteLine("sam client");
-            //Console.WriteLine(t.Client);
-
-
-            //Console.WriteLine(t);
-
-
-            //////////////////////////////////////
-
-            ///////////
-            ///
-            Console.WriteLine("A to custom ale formatter");
-            //ISerializable clientObj = new Client("Jan", "Kowalski", "jan.kowalski@gmail.com", "Pabianice Zamkowa 23a", "+48123456780");
-            ////ISerializable transactionObj = new Invoice(client, shoesPair, 1, new decimal(12.0));
-            //Formatter customFormatter = new CustomFormatter(typeof(Client));
-            //string fileName = "C:\\Users\\Xarria\\source\\repos\\jkolodziej\\TP\\Zadanie2\\client.xml";
-            ////const string fileName = "C:\\Users\\julka\\source\\repos\\TP1\\Zadanie2\\client.txt";
-            //File.Delete(fileName);
-            //using (Stream stream = new FileStream(fileName, FileMode.Create))
-            //    customFormatter.Serialize(stream, clientObj);
-            //FileInfo info = new FileInfo(fileName);
-            //string content = File.ReadAllText(fileName, Encoding.UTF8);
-            //Console.WriteLine(content);
-
-
             // custom serializer test
-
-            Console.WriteLine("A to custom");
-            //Client customClient = new Client("Jan", "Kowalski", "jan.kowalski@gmail.com", "Pabianice Zamkowa 23a", "+48123456780");
-           
-            //string customFilePath = "C:\\Users\\julka\\source\\repos\\TP1\\Zadanie2\\client.xml";
-            ////string customFilePath = "C:\\Users\\Xarria\\source\\repos\\jkolodziej\\TP\\Zadanie2\\transaction";
-            //CustomSerializerOLD customSerializer = new CustomSerializerOLD(typeof(Transaction));
-            //Transaction tr = null;
-            //customSerializer.CustomSerialize(typeof(Transaction), transaction1, customFilePath);
-            //tr = customSerializer.CustomDeserialize(typeof(Transaction), customFilePath) as Transaction;
-
-
-
             CustomSerializer serializer = new CustomSerializer();
             ClassA classA = new ClassA("Anna", "Kowalska", 24, 160.5);
             ClassB classB = new ClassB("Jan", "Kowalski", 54, 180.5);
@@ -135,27 +17,15 @@ namespace ConsoleSerializer
             classA.B = classB;
             classB.C = classC;
             classC.A = classA;
-            string customFilePath = "C:\\Users\\julka\\source\\repos\\TP2\\Zadanie2\\test.txt";
+            Console.WriteLine(Directory.GetCurrentDirectory());
+            string filePath = Directory.GetCurrentDirectory() + "\\serialized.txt";
 
-            using (FileStream fileStream = new FileStream(customFilePath, FileMode.Create))
+            // serialize
+            using (FileStream fileStream = new FileStream(filePath, FileMode.Create))
             {
-                serializer.Serialize(fileStream, classA);
+                serializer.Serialize(fileStream, classB);
                 Console.WriteLine("Done");
             }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
             Console.ReadLine();
         }

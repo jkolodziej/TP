@@ -23,7 +23,7 @@ namespace ConsoleSerializer.Data
             Height = height;
         }
 
-        protected ClassB(SerializationInfo info, StreamingContext context)
+        public ClassB(SerializationInfo info, StreamingContext context)
         {
             Name = info.GetString("Name");
             LastName = info.GetString("LastName");
@@ -40,9 +40,10 @@ namespace ConsoleSerializer.Data
             info.AddValue("Height", Height);
             info.AddValue("ClassC", C);
         }
+
+        public override string ToString()
+        {
+            return "Name: " + Name + "\nLastName: " + LastName + "\nAge: " + Age + "\nHeight: " + Height + "\nClassC: " + C.GetType().Name;
+        }
     }
-
-
-
-
 }

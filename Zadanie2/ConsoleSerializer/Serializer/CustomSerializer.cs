@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
+using System.Linq;
 using System.Runtime.Serialization;
 using System.Text;
 
@@ -12,59 +13,36 @@ namespace ConsoleSerializer.Serializer
         public override ISurrogateSelector SurrogateSelector { get; set; }
         public override SerializationBinder Binder { get; set; }
         public override StreamingContext Context { get; set; }
-
-        public CustomBinder CustomBinder;
         public StringBuilder Builder;
 
-        private List<string> readLines = new List<string>();
+        private List<string> readLines;
 
         public CustomSerializer()
         {
-            CustomBinder = new CustomBinder();
+            Binder = new CustomBinder();
             Builder = new StringBuilder();
+            readLines = new List<string>();
         }
 
         public override object Deserialize(Stream serializationStream)
         {
-            if (serializationStream != null)
-            {
-                using (StreamReader reader = new StreamReader(serializationStream))
-                {
-                    while (!reader.EndOfStream)
-                    {
-                        readLines.Add(reader.ReadLine());
-                    }
-
-                    for (int i = 0; i < readLines.Count; i++)
-                    {
-                        readLines[i].Remove(0, 1);
-                        readLines[i].Remove(readLines[i].Length - 1);
-                        string[] values = readLines[i].Split(':');
-                        Type type = Binder.BindToType(values[0], values[1]);
-                        long id = long.Parse(values[2]);
-
-                        //SerializationInfo serializationInfo = new SerializationInfo()
-                    }
-
-                    
-                }
-            }
-            return null;
+            throw new NotImplementedException();
         }
+
 
         public override void Serialize(Stream serializationStream, object graph)
         {
             ISerializable data = (ISerializable)graph;
             SerializationInfo info = new SerializationInfo(graph.GetType(), new FormatterConverter());
             StreamingContext context = new StreamingContext(StreamingContextStates.File);
+
+            Binder.BindToName(graph.GetType(), out string assemblyName, out string typeName);
+            Builder.Append(assemblyName + ":" + typeName + ":" + m_idGenerator.GetId(graph, out bool firstTime).ToString() + "\n");
+
             data.GetObjectData(info, context);
+
             foreach (SerializationEntry item in info)
                 this.WriteMember(item.Name, item.Value);
-
-            CustomBinder.BindToName(graph.GetType(), out string assemblyName, out string typeName);
-
-            Builder.Append("{" + assemblyName  + ":"  + typeName +  ":" +  m_idGenerator.GetId(graph, out bool firstTime).ToString() + "}" + "\n" );
-            Builder.Append("\n");
 
             while (m_objectQueue.Count != 0)
             {
@@ -76,6 +54,36 @@ namespace ConsoleSerializer.Serializer
                 using (StreamWriter streamWriter = new StreamWriter(serializationStream))
                 {
                     streamWriter.Write(Builder.ToString());
+                }
+            }
+        }
+
+        protected override void WriteDouble(double val, string name)
+        {
+            Builder.Append(val.GetType() + ":" + name + ":" + val.ToString(CultureInfo.InvariantCulture) + "\n");
+        }
+
+        protected override void WriteInt32(int val, string name)
+        {
+            Builder.Append(val.GetType() + ":" + name + ":" + val.ToString(CultureInfo.InvariantCulture) + "\n");
+
+        }
+
+        protected override void WriteObjectRef(object obj, string name, Type memberType)
+        {
+            if (obj != null)
+            {
+                if (!memberType.Equals(typeof(String)))
+                {
+                    Builder.Append(obj.GetType() + ":" + name + ":" + m_idGenerator.GetId(obj, out bool firstTime).ToString() + "_reference" + "\n");
+                    if (firstTime)
+                    {
+                        m_objectQueue.Enqueue(obj);
+                    }
+                }
+                else
+                {
+                    Builder.Append(obj.GetType() + ":" + name + ":" + (string)obj + "\n");
                 }
             }
         }
@@ -110,45 +118,14 @@ namespace ConsoleSerializer.Serializer
             throw new NotImplementedException();
         }
 
-        protected override void WriteDouble(double val, string name)
-        {
-            Builder.Append("[" + val.GetType() + "|" + name + "|" + val.ToString(CultureInfo.InvariantCulture) + "]");
-        }
-
         protected override void WriteInt16(short val, string name)
         {
             throw new NotImplementedException();
         }
 
-        protected override void WriteInt32(int val, string name)
-        {
-            Builder.Append("[" + val.GetType() + "|" + name + "|" + val.ToString(CultureInfo.InvariantCulture) + "]");
-
-        }
-
         protected override void WriteInt64(long val, string name)
         {
             throw new NotImplementedException();
-        }
-
-        protected override void WriteObjectRef(object obj, string name, Type memberType)
-        {
-            if (memberType.Equals(typeof(String)))
-            {
-                Builder.Append("[" + obj.GetType() + "|" + name + "|" + (string)obj + "]");
-            } 
-            else
-            {
-                if (obj != null)
-                {
-                    Builder.Append("[" + obj.GetType() + "|" + name + "|ref" + m_idGenerator.GetId(obj, out bool firstTime).ToString() + "]");
-                    if (firstTime)
-                    {
-                        m_objectQueue.Enqueue(obj);
-                    }
-                }
-            }
-
         }
 
         protected override void WriteSByte(sbyte val, string name)
