@@ -18,14 +18,49 @@ namespace ConsoleSerializer
             classB.C = classC;
             classC.A = classA;
             Console.WriteLine(Directory.GetCurrentDirectory());
-            string filePath = Directory.GetCurrentDirectory() + "\\serialized.txt";
+            string filePath = Directory.GetCurrentDirectory() + "\\serializedCustom.txt";
+            string xmlPath = Directory.GetCurrentDirectory() + "\\serializedXML.xml";
+            //XML
+            //serialize
+            SerializeToXml serializeToXml = new SerializeToXml();
+            using (FileStream fileStream = new FileStream(xmlPath, FileMode.Create))
+            {
+                serializeToXml.XmlSerialize(classA, xmlPath);
+                Console.WriteLine("XML DONE");
+            }
 
+            //deserialize
+            SerializeToXml deserializeFromXml = new SerializeToXml();
+            ClassA res = null;
+            using (FileStream fileStream = new FileStream(xmlPath, FileMode.Open))
+            {
+                res = (ClassA) deserializeFromXml.XmlDeserialize(typeof(ClassA), xmlPath);
+
+                Console.WriteLine(res.ToString());
+            }
+
+
+            //CUSTOM
             // serialize
             using (FileStream fileStream = new FileStream(filePath, FileMode.Create))
             {
                 serializer.Serialize(fileStream, classB);
                 Console.WriteLine("Done");
             }
+
+            //deserialize
+            CustomSerializer deserializer = new CustomSerializer();
+            ClassB result = null;
+            using (Stream stream = File.Open(filePath, FileMode.Open))
+            {
+                result = (ClassB)deserializer.Deserialize(stream);
+                Console.WriteLine("Deserialized");
+            }
+
+            Console.WriteLine(result);
+            Console.WriteLine(result.C);
+            Console.WriteLine(result.C.A);
+
 
             Console.ReadLine();
         }

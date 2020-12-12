@@ -4,6 +4,8 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Xml;
+using System.Runtime.Serialization;
 using System.Xml.Serialization;
 
 namespace ConsoleSerializer.Serializer
@@ -12,27 +14,28 @@ namespace ConsoleSerializer.Serializer
     {
         public SerializeToXml() { }
 
-        public void XmlSerialize(Type dataType, object data, string filePath)
-        {
-            XmlSerializer xmlSerializer = new XmlSerializer(dataType);
-            if (File.Exists(filePath)) File.Delete(filePath);
-            TextWriter writer = new StreamWriter(filePath);
-            xmlSerializer.Serialize(writer, data);
-            writer.Close();
-        }
-
         public object XmlDeserialize(Type dataType, string filePath)
         {
-            object obj = null;
-
-            XmlSerializer xmlSerializer = new XmlSerializer(dataType);
+            object obj = null;                    
             if (File.Exists(filePath))
             {
-                TextReader textReader = new StreamReader(filePath);
-                obj = xmlSerializer.Deserialize(textReader);
-                textReader.Close();
+                XmlDictionaryReader xmlDictionaryReader = XmlDictionaryReader.CreateTextReader(filePath, new XmlDictionaryReaderQuotas());
+                DataContractSerializer dataContractSerializer = new DataContractSerializer(dataType);
+                obj = dataContractSerializer.ReadObject(xmlDictionaryReader, true);
+                xmlDictionaryReader.Close();                
             }
             return obj;
         }
+
+        public void XmlSerialize(object data, string filePath)
+        {
+            DataContractSerializer dataContractSerializer = new DataContractSerializer(data.GetType(), null, int.MaxValue, false, true, null, null);
+            XmlWriter xmlWriter = xmlWriter.Create(filePath, new XmlWriterSettings() { indent = true });
+            if (File.Exists(filePath)) File.Delete(filePath);
+            dataContractSerializer.WriteObject(xmlWriter, data);
+            xmlWriter.Close();
+        }
+
+        
     }
 }
