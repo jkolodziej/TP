@@ -1,8 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<Client xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
-  <Name>Jan</Name>
-  <Surname>Kowalski</Surname>
-  <EmailAddress>jan.kowalski@gmail.com</EmailAddress>
-  <Address>Pabianice Zamkowa 23a</Address>
-  <PhoneNumber>+48123456780</PhoneNumber>
-</Client>
