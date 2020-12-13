@@ -45,7 +45,26 @@ namespace ConsoleSerializer.Data
 
         public override string ToString()
         {
-            return "Name: " + Name + "\nLastName: " + LastName + "\nAge: " + Age + "\nHeight: " + Height + "\nClassB: " + B.GetType().Name;
+            return "\nA:" + "\nName: " + Name + "\nLastName: " + LastName + "\nAge: " + Age + "\nHeight: " + Height + "\nClassB: " + B.GetType().Name;
+        }
+
+        public override bool Equals(object obj)
+        {
+            if ((obj == null) || !this.GetType().Equals(obj.GetType()))
+            {
+                return false;
+            }
+            else
+            {
+                ClassA i = (ClassA)obj;
+                return this.Name.Equals(i.Name) && this.LastName.Equals(i.LastName) && 
+                    this.Age.Equals(i.Age) && this.Height.Equals(i.Height);;
+            }
+        }
+
+        public override int GetHashCode()
+        {
+            return base.GetHashCode();
         }
     }
 
