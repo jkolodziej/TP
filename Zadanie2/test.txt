@@ -1,3 +1,0 @@
-[System.String|Name|Anna][System.String|LastName|Kowalska][System.Int32|Age|24][System.Double|Height|160.5][ConsoleSerializer.Data.ClassB|ClassB|ref1]{ConsoleSerializer, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null}:{ConsoleSerializer.Data.ClassA}:{2}
-[System.String|Name|Jan][System.String|LastName|Kowalski][System.Int32|Age|54][System.Double|Height|180.5][ConsoleSerializer.Data.ClassC|ClassC|ref3]{ConsoleSerializer, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null}:{ConsoleSerializer.Data.ClassB}:{1}
-[System.String|Name|Anna][System.String|LastName|Nowak][System.Int32|Age|66][System.Double|Height|157.5][ConsoleSerializer.Data.ClassA|ClassA|ref2]{ConsoleSerializer, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null}:{ConsoleSerializer.Data.ClassC}:{3}
