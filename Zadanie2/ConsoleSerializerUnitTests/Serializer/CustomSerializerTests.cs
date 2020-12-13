@@ -1,10 +1,6 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using ConsoleSerializer.Serializer;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using ConsoleSerializer.Data;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
+using System.IO;
 
 namespace ConsoleSerializer.Serializer.Tests
 {
