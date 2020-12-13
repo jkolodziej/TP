@@ -2,18 +2,18 @@ using System.Reflection;
 using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 
-[assembly: AssemblyTitle("SerializationUnitTests")]
+[assembly: AssemblyTitle("ConsoleSerializerUnitTests")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("HP Inc.")]
-[assembly: AssemblyProduct("SerializationUnitTests")]
+[assembly: AssemblyProduct("ConsoleSerializerUnitTests")]
 [assembly: AssemblyCopyright("Copyright © HP Inc. 2020")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
 [assembly: ComVisible(false)]
 
-[assembly: Guid("fad59cef-e7ed-4913-8d80-0647208568b6")]
+[assembly: Guid("0ed08c94-177e-4c00-a52c-0f942af4fd96")]
 
 // [assembly: AssemblyVersion("1.0.*")]
 [assembly: AssemblyVersion("1.0.0.0")]
