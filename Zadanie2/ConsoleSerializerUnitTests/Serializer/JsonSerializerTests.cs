@@ -23,12 +23,12 @@ namespace ConsoleSerializer.Serializer.Tests
         }
 
         [TestMethod()]
-        public void JsonSerializeTest()
+        public void JsonSerializeClassAObjectTest()
         {
-            JsonSerializer jsonSerializer3 = new JsonSerializer();
+            JsonSerializer jsonSerializer = new JsonSerializer();
             using (FileStream fileStream = new FileStream(filePath, FileMode.Create))
             {
-                jsonSerializer3.JsonSerialize(fileStream, classA);
+                jsonSerializer.JsonSerialize(fileStream, classA);
             }
             FileInfo info = new FileInfo(filePath);
             Assert.IsTrue(info.Exists);
@@ -36,7 +36,7 @@ namespace ConsoleSerializer.Serializer.Tests
         }
 
         [TestMethod()]
-        public void JsonDeserializeTest()
+        public void JsonDeserializeClassAObjectTest()
         {
             JsonSerializer jsonSerializer = new JsonSerializer();
             using (FileStream fileStream = new FileStream(filePath, FileMode.Create))
@@ -52,6 +52,70 @@ namespace ConsoleSerializer.Serializer.Tests
             Assert.AreEqual(classC, resultObject.B.C);
             Assert.AreSame(resultObject.B.C.A.B, resultObject.B);
             Assert.AreSame(resultObject.B.C.A.B.C, resultObject.B.C);
+        }
+
+        [TestMethod()]
+        public void JsonSerializeClassBObjectTest()
+        {
+            JsonSerializer jsonSerializer = new JsonSerializer();
+            using (FileStream fileStream = new FileStream(filePath, FileMode.Create))
+            {
+                jsonSerializer.JsonSerialize(fileStream, classB);
+            }
+            FileInfo info = new FileInfo(filePath);
+            Assert.IsTrue(info.Exists);
+            Assert.IsTrue(info.Length >= 300);
+        }
+
+        [TestMethod()]
+        public void JsonDeserializeClassBObjectTest()
+        {
+            JsonSerializer jsonSerializer = new JsonSerializer();
+            using (FileStream fileStream = new FileStream(filePath, FileMode.Create))
+            {
+                jsonSerializer.JsonSerialize(fileStream, classB);
+            }
+            ClassB resultObject = null;
+            resultObject = (ClassB)jsonSerializer.JsonDeserialize(filePath);
+
+            Assert.IsNotNull(resultObject);
+            Assert.AreEqual(classB, resultObject);
+            Assert.AreEqual(classC, resultObject.C);
+            Assert.AreEqual(classA, resultObject.C.A);
+            Assert.AreSame(resultObject.C.A.B.C, resultObject.C);
+            Assert.AreSame(resultObject.C.A.B.C.A, resultObject.C.A);
+        }
+
+        [TestMethod()]
+        public void JsonSerializeClassCObjectTest()
+        {
+            JsonSerializer jsonSerializer3 = new JsonSerializer();
+            using (FileStream fileStream = new FileStream(filePath, FileMode.Create))
+            {
+                jsonSerializer3.JsonSerialize(fileStream, classC);
+            }
+            FileInfo info = new FileInfo(filePath);
+            Assert.IsTrue(info.Exists);
+            Assert.IsTrue(info.Length >= 300);
+        }
+
+        [TestMethod()]
+        public void JsonDeserializeClassCObjectTest()
+        {
+            JsonSerializer jsonSerializer = new JsonSerializer();
+            using (FileStream fileStream = new FileStream(filePath, FileMode.Create))
+            {
+                jsonSerializer.JsonSerialize(fileStream, classC);
+            }
+            ClassC resultObject = null;
+            resultObject = (ClassC)jsonSerializer.JsonDeserialize(filePath);
+
+            Assert.IsNotNull(resultObject);
+            Assert.AreEqual(classC, resultObject);
+            Assert.AreEqual(classA, resultObject.A);
+            Assert.AreEqual(classB, resultObject.A.B);
+            Assert.AreSame(resultObject.A.B.C.A, resultObject.A);
+            Assert.AreSame(resultObject.A.B.C.A.B, resultObject.A.B);
         }
     }
 }
