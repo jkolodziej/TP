@@ -133,20 +133,17 @@ namespace ConsoleSerializer.Serializer
 
         protected override void WriteObjectRef(object obj, string name, Type memberType)
         {
-            if (obj != null)
+            if (!memberType.Equals(typeof(String)))
             {
-                if (!memberType.Equals(typeof(String)))
+                Builder.Append(obj.GetType() + ":" + name + ":" + m_idGenerator.GetId(obj, out bool firstTime).ToString() + "_reference" + "\n");
+                if (firstTime)
                 {
-                    Builder.Append(obj.GetType() + ":" + name + ":" + m_idGenerator.GetId(obj, out bool firstTime).ToString() + "_reference" + "\n");
-                    if (firstTime)
-                    {
-                        m_objectQueue.Enqueue(obj);
-                    }
+                    m_objectQueue.Enqueue(obj);
                 }
-                else
-                {
-                    Builder.Append(obj.GetType() + ":" + name + ":" + (string)obj + "\n");
-                }
+            }
+            else
+            {
+                Builder.Append(obj.GetType() + ":" + name + ":" + (String)obj + "\n");
             }
         }
 

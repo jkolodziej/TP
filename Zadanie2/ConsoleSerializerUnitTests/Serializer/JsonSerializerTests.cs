@@ -47,12 +47,11 @@ namespace ConsoleSerializer.Serializer.Tests
             resultObject = (ClassA)jsonSerializer.JsonDeserialize(filePath);
 
             Assert.IsNotNull(resultObject);
-            Assert.AreEqual("Anna", resultObject.Name);
-            Assert.AreEqual("Kowalska", resultObject.LastName);
-            Assert.AreEqual(24, resultObject.Age);
-            Assert.AreEqual(160.5, resultObject.Height);
+            Assert.AreEqual(classA, resultObject);
             Assert.AreEqual(classB, resultObject.B);
             Assert.AreEqual(classC, resultObject.B.C);
+            Assert.AreSame(resultObject.B.C.A.B, resultObject.B);
+            Assert.AreSame(resultObject.B.C.A.B.C, resultObject.B.C);
         }
     }
 }

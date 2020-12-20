@@ -20,7 +20,6 @@ namespace ConsoleSerializer.Serializer.Tests
             classA.B = classB;
             classB.C = classC;
             classC.A = classA;
-
         }
 
         [TestMethod()]
@@ -40,11 +39,9 @@ namespace ConsoleSerializer.Serializer.Tests
             }
 
             Assert.IsNotNull(resultObject);
-            Assert.AreEqual("Anna", resultObject.Name);
-            Assert.AreEqual("Kowalska", resultObject.LastName);
-            Assert.AreEqual(24, resultObject.Age);
-            Assert.AreEqual(160.5, resultObject.Height);
-            Assert.AreEqual(classB, resultObject.B);
+            Assert.AreEqual(classA, resultObject);
+            Assert.AreSame(resultObject.B.C.A.B, resultObject.B);
+            Assert.AreSame(resultObject.B.C.A.B.C, resultObject.B.C);
         }
 
         [TestMethod()]
@@ -79,11 +76,9 @@ namespace ConsoleSerializer.Serializer.Tests
             }
 
             Assert.IsNotNull(resultObject);
-            Assert.AreEqual("Jan", resultObject.Name);
-            Assert.AreEqual("Kowalski", resultObject.LastName);
-            Assert.AreEqual(54, resultObject.Age);
-            Assert.AreEqual(180.5, resultObject.Height);
-            Assert.AreEqual(classC, resultObject.C);
+            Assert.AreEqual(classB, resultObject);
+            Assert.AreSame(resultObject.C.A.B.C, resultObject.C);
+            Assert.AreSame(resultObject.C.A.B.C.A, resultObject.C.A);
         }
 
         [TestMethod()]
@@ -118,11 +113,9 @@ namespace ConsoleSerializer.Serializer.Tests
             }
 
             Assert.IsNotNull(resultObject);
-            Assert.AreEqual("Hermenegilda", resultObject.Name);
-            Assert.AreEqual("Nowak", resultObject.LastName);
-            Assert.AreEqual(66, resultObject.Age);
-            Assert.AreEqual(157.5, resultObject.Height);
-            Assert.AreEqual(classA, resultObject.A);
+            Assert.AreEqual(classC, resultObject);
+            Assert.AreSame(resultObject.A.B.C.A, resultObject.A);
+            Assert.AreSame(resultObject.A.B.C.A.B, resultObject.A.B);
         }
 
         [TestMethod()]
