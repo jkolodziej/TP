@@ -1,0 +1,18 @@
+﻿<?xml version="1.0" encoding="utf-8"?><Database Name="AdventureWorks2019" Class="ProductVendorDataContext" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
+  <Connection Mode="AppSettings" ConnectionString="Data Source=LAPTOP-TLE78IRO;Initial Catalog=AdventureWorks2019;Integrated Security=True" SettingsObjectName="Zadanie3.Properties.Settings" SettingsPropertyName="AdventureWorks2019ConnectionString" Provider="System.Data.SqlClient" />
+  <Table Name="Purchasing.ProductVendor" Member="ProductVendors">
+    <Type Name="ProductVendor">
+      <Column Name="ProductID" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="BusinessEntityID" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="AverageLeadTime" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="StandardPrice" Type="System.Decimal" DbType="Money NOT NULL" CanBeNull="false" />
+      <Column Name="LastReceiptCost" Type="System.Decimal" DbType="Money" CanBeNull="true" />
+      <Column Name="LastReceiptDate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="MinOrderQty" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="MaxOrderQty" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="OnOrderQty" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="UnitMeasureCode" Type="System.String" DbType="NChar(3) NOT NULL" CanBeNull="false" />
+      <Column Name="ModifiedDate" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+    </Type>
+  </Table>
+</Database>
