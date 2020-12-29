@@ -23,10 +23,15 @@ namespace Zadanie3
             List<Product> newList4 = DatabaseQueries.GetProductsWithNRecentReviews(6);
             Console.WriteLine(newList4[0]);
             Console.WriteLine(newList4.Count());
+            List<Product> recentlyReviewedProducts = DatabaseQueries.GetNRecentlyReviewedProducts(3);
+            Console.WriteLine(recentlyReviewedProducts.Count);
+            Console.WriteLine(recentlyReviewedProducts[0].ProductID);
+            Console.WriteLine(recentlyReviewedProducts[1].ProductID);
+            Console.WriteLine(recentlyReviewedProducts[2].ProductID);
             List<Product> newList5 = DatabaseQueries.GetNProductsFromCategory("Bikes", 20);
-            Console.WriteLine(newList5[0].Name);
-            Console.WriteLine(newList5[1].Name);
-            Console.WriteLine(newList5[2].Name);
+            Console.WriteLine(newList5[0].ProductID);
+            Console.WriteLine(newList5[1].ProductID);
+            Console.WriteLine(newList5[2].ProductID);
             Console.WriteLine(newList5[3].Name);
             Console.WriteLine(newList5[15].Name);
             Console.WriteLine(newList5[16].Name);
