@@ -47,10 +47,9 @@ namespace Zadanie3.Tests
         public void GetProductsWithNRecentReviewsTest()
         {
             List<Product> productsWithRecentReviews = DatabaseQueries.GetProductsWithNRecentReviews(3);
-            Assert.AreEqual(3, productsWithRecentReviews.Count);
-            Assert.AreEqual(937, productsWithRecentReviews[0].ProductID);
-            Assert.AreEqual(798, productsWithRecentReviews[1].ProductID);
-            Assert.AreEqual(937, productsWithRecentReviews[2].ProductID);
+            Assert.AreEqual(2, productsWithRecentReviews.Count);
+            Assert.AreEqual(709, productsWithRecentReviews[0].ProductID);
+            Assert.AreEqual(937, productsWithRecentReviews[1].ProductID);
         }
 
         [TestMethod()]
@@ -59,7 +58,7 @@ namespace Zadanie3.Tests
             List<Product> recentlyReviewedProducts = DatabaseQueries.GetNRecentlyReviewedProducts(3);
             Assert.AreEqual(3, recentlyReviewedProducts.Count);
             Assert.AreEqual(709, recentlyReviewedProducts[0].ProductID);
-            Assert.AreEqual(798, recentlyReviewedProducts[1].ProductID);
+            Assert.AreEqual(937, recentlyReviewedProducts[1].ProductID);
             Assert.AreEqual(937, recentlyReviewedProducts[2].ProductID);
 
         }
@@ -69,20 +68,18 @@ namespace Zadanie3.Tests
         {
             List<Product> productsFromCategory = DatabaseQueries.GetNProductsFromCategory("Bikes", 4);
             Assert.AreEqual(4, productsFromCategory.Count);
-            Assert.AreEqual(775, productsFromCategory[0].ProductID);
-            Assert.AreEqual(776, productsFromCategory[1].ProductID);
-            Assert.AreEqual(777, productsFromCategory[2].ProductID);
+            Assert.AreEqual(771, productsFromCategory[0].ProductID);
+            Assert.AreEqual(772, productsFromCategory[1].ProductID);
+            Assert.AreEqual(773, productsFromCategory[2].ProductID);
         }
 
         [TestMethod()]
         public void GetTotalStandardCostByCategoryTest()
         {
-            ProductCategoryDataContext db = new ProductCategoryDataContext();
-            ProductCategory productCategory = (from category in db.GetTable<ProductCategory>()
-                                               where category.ProductCategoryID == 1
-                                               select category).ToList().First();
+            ProductionDataContext db = new ProductionDataContext();
+            ProductCategory productCategory = db.ProductCategories.ToList().First();
             int totalCost = DatabaseQueries.GetTotalStandardCostByCategory(productCategory);
-            Assert.AreEqual(92040, totalCost);
+            Assert.AreEqual(92092, totalCost);
 
         }
     }

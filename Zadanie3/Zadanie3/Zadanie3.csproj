@@ -44,31 +44,14 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CollectionMethods.cs" />
+    <Compile Include="ExtensionMethods.cs" />
     <Compile Include="DatabaseQueries.cs" />
-    <Compile Include="Product.designer.cs">
+    <Compile Include="MyProduct.cs" />
+    <Compile Include="Production.designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>Product.dbml</DependentUpon>
-    </Compile>
-    <Compile Include="ProductCategory.designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>ProductCategory.dbml</DependentUpon>
-    </Compile>
-    <Compile Include="ProductReview.designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>ProductReview.dbml</DependentUpon>
-    </Compile>
-    <Compile Include="ProductSubcategory.designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>ProductSubcategory.dbml</DependentUpon>
-    </Compile>
-    <Compile Include="ProductVendor.designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>ProductVendor.dbml</DependentUpon>
+      <DependentUpon>Production.dbml</DependentUpon>
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -77,65 +60,20 @@
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
       <DependentUpon>Settings.settings</DependentUpon>
     </Compile>
-    <Compile Include="Vendor.designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Vendor.dbml</DependentUpon>
-    </Compile>
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
-    <None Include="Product.dbml">
+    <None Include="Production.dbml">
       <Generator>MSLinqToSQLGenerator</Generator>
-      <LastGenOutput>Product.designer.cs</LastGenOutput>
+      <LastGenOutput>Production.designer.cs</LastGenOutput>
       <SubType>Designer</SubType>
     </None>
-    <None Include="Product.dbml.layout">
-      <DependentUpon>Product.dbml</DependentUpon>
-    </None>
-    <None Include="ProductCategory.dbml">
-      <Generator>MSLinqToSQLGenerator</Generator>
-      <LastGenOutput>ProductCategory.designer.cs</LastGenOutput>
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="ProductCategory.dbml.layout">
-      <DependentUpon>ProductCategory.dbml</DependentUpon>
-    </None>
-    <None Include="ProductReview.dbml">
-      <Generator>MSLinqToSQLGenerator</Generator>
-      <LastGenOutput>ProductReview.designer.cs</LastGenOutput>
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="ProductReview.dbml.layout">
-      <DependentUpon>ProductReview.dbml</DependentUpon>
-    </None>
-    <None Include="ProductSubcategory.dbml">
-      <Generator>MSLinqToSQLGenerator</Generator>
-      <LastGenOutput>ProductSubcategory.designer.cs</LastGenOutput>
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="ProductSubcategory.dbml.layout">
-      <DependentUpon>ProductSubcategory.dbml</DependentUpon>
-    </None>
-    <None Include="ProductVendor.dbml">
-      <Generator>MSLinqToSQLGenerator</Generator>
-      <LastGenOutput>ProductVendor.designer.cs</LastGenOutput>
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="ProductVendor.dbml.layout">
-      <DependentUpon>ProductVendor.dbml</DependentUpon>
+    <None Include="Production.dbml.layout">
+      <DependentUpon>Production.dbml</DependentUpon>
     </None>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
-    </None>
-    <None Include="Vendor.dbml">
-      <Generator>MSLinqToSQLGenerator</Generator>
-      <LastGenOutput>Vendor.designer.cs</LastGenOutput>
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="Vendor.dbml.layout">
-      <DependentUpon>Vendor.dbml</DependentUpon>
     </None>
   </ItemGroup>
   <ItemGroup>
