@@ -57,6 +57,7 @@
     <Otherwise />
   </Choose>
   <ItemGroup>
+    <Compile Include="CollectionMethodsTests.cs" />
     <Compile Include="DatabaseQueriesTests.cs" />
     <Compile Include="ExtensionMethodsTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
