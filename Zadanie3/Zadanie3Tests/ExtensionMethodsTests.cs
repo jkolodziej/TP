@@ -8,31 +8,67 @@ namespace Zadanie3.Tests
     public class ExtensionMethodsTests
     {
         [TestMethod()]
-        public void GetProductsWithoutCategoryTest()
+        public void GetProductsWithoutCategoryMethodTest()
         {
             ProductionDataContext db = new ProductionDataContext();
-            List<Product> productsWithoutCategory = db.Products.ToList().GetProductsWithoutCategory();           
+            List<Product> productsWithoutCategory = db.Products.ToList().GetProductsWithoutCategoryMethod();           
             Assert.AreEqual(209, productsWithoutCategory.Count);
             Assert.AreEqual("Adjustable Race", productsWithoutCategory[0].Name);
             Assert.IsNull(productsWithoutCategory[0].ProductSubcategoryID);
         }
 
         [TestMethod()]
-        public void GetProductsPageTest()
+        public void GetProductsWithoutCategoryQueryTest()
         {
             ProductionDataContext db = new ProductionDataContext();
-            List<Product> productPage1 = db.Products.ToList().GetProductsPage(200, 1);
-            List<Product> productPage2 = db.Products.ToList().GetProductsPage(200, 2);
-            List<Product> productPage3 = db.Products.ToList().GetProductsPage(200, 3);
+            List<Product> productsWithoutCategory = db.Products.ToList().GetProductsWithoutCategoryQuery();
+            Assert.AreEqual(209, productsWithoutCategory.Count);
+            Assert.AreEqual("Adjustable Race", productsWithoutCategory[0].Name);
+            Assert.IsNull(productsWithoutCategory[0].ProductSubcategoryID);
+        }
+
+        [TestMethod()]
+        public void GetProductsPageMethodTest()
+        {
+            ProductionDataContext db = new ProductionDataContext();
+            List<Product> productPage1 = db.Products.ToList().GetProductsPageMethod(200, 1);
+            List<Product> productPage2 = db.Products.ToList().GetProductsPageMethod(200, 2);
+            List<Product> productPage3 = db.Products.ToList().GetProductsPageMethod(200, 3);
             Assert.AreEqual(200, productPage1.Count);
             Assert.AreEqual(200, productPage2.Count);
             Assert.AreEqual(104, productPage3.Count);
         }
 
         [TestMethod()]
-        public void getProductNamesWithVendorsTest()
+        public void GetProductsPageQueryTest()
         {
-            Assert.Fail();
+            ProductionDataContext db = new ProductionDataContext();
+            List<Product> productPage1 = db.Products.ToList().GetProductsPageQuery(200, 1);
+            List<Product> productPage2 = db.Products.ToList().GetProductsPageQuery(200, 2);
+            List<Product> productPage3 = db.Products.ToList().GetProductsPageQuery(200, 3);
+            Assert.AreEqual(200, productPage1.Count);
+            Assert.AreEqual(200, productPage2.Count);
+            Assert.AreEqual(104, productPage3.Count);
+        }
+
+        [TestMethod()]
+        public void getProductNamesWithVendorsMethodTest()
+        {
+            ProductionDataContext db = new ProductionDataContext();
+            string productsAndVendors = db.Products.ToList().getProductNamesWithVendorsMethod();
+            Assert.IsNotNull(productsAndVendors);
+            Assert.IsTrue(productsAndVendors.Length > 1000);
+            Assert.IsTrue(productsAndVendors.Contains("Adjustable Race"));
+        }
+
+        [TestMethod()]
+        public void getProductNamesWithVendorsQueryTest()
+        {
+            ProductionDataContext db = new ProductionDataContext();
+            string productsAndVendors = db.Products.ToList().getProductNamesWithVendorsQuery();
+            Assert.IsNotNull(productsAndVendors);
+            Assert.IsTrue(productsAndVendors.Length > 1000);
+            Assert.IsTrue(productsAndVendors.Contains("Adjustable Race"));
         }
     }
 }

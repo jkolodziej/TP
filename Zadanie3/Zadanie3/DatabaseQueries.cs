@@ -10,9 +10,9 @@ namespace Zadanie3
 
         public static List<Product> GetProductsByName(string namePart)
         {
-            return (from product in db.Products
-                    where product.Name.Contains(namePart)
-                    select product).ToList();
+            return (from p in db.Products
+                    where p.Name.Contains(namePart)
+                    select p).ToList();
         }
 
         public static List<Product> GetProductsByVendorName(string vendorName)

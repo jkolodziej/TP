@@ -60,6 +60,8 @@
     <Compile Include="CollectionMethodsTests.cs" />
     <Compile Include="DatabaseQueriesTests.cs" />
     <Compile Include="ExtensionMethodsTests.cs" />
+    <Compile Include="MyProduction\MyMethodsTests.cs" />
+    <Compile Include="MyProduction\MyQueriesTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
