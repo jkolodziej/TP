@@ -10,75 +10,99 @@ namespace Zadanie3.Tests
         [TestMethod()]
         public void GetProductsByNameTest()
         {
-            List<Product> productsByName = CollectionMethods.GetProductsByName("Blade");
-            Assert.AreEqual(1, productsByName.Count);
-            Assert.AreEqual("Blade", productsByName[0].Name);
+            using(CollectionMethods cm = new CollectionMethods())
+            {
+                List<Product> productsByName = cm.GetProductsByName("Blade");
+                Assert.AreEqual(1, productsByName.Count);
+                Assert.AreEqual("Blade", productsByName[0].Name);
+            }
         }
 
         [TestMethod()]
         public void GetProductsByVendorNameTest()
         {
-            List<Product> productsByVendorName = CollectionMethods.GetProductsByVendorName("Training Systems");
-            Assert.AreEqual(3, productsByVendorName.Count);
-            Assert.AreEqual(320, productsByVendorName[0].ProductID);
-            Assert.AreEqual(321, productsByVendorName[1].ProductID);
-            Assert.AreEqual(322, productsByVendorName[2].ProductID);
+            using(CollectionMethods cm = new CollectionMethods())
+            {
+                List<Product> productsByVendorName = cm.GetProductsByVendorName("Training Systems");
+                Assert.AreEqual(3, productsByVendorName.Count);
+                Assert.AreEqual(320, productsByVendorName[0].ProductID);
+                Assert.AreEqual(321, productsByVendorName[1].ProductID);
+                Assert.AreEqual(322, productsByVendorName[2].ProductID);
+            }
         }
 
         [TestMethod()]
         public void GetProductNamesByVendorNameTest()
         {
-            List<string> productNamesByVendorName = CollectionMethods.GetProductNamesByVendorName("Training Systems");
-            Assert.AreEqual(3, productNamesByVendorName.Count);
-            Assert.AreEqual("Chainring Bolts", productNamesByVendorName[0]);
-            Assert.AreEqual("Chainring Nut", productNamesByVendorName[1]);
-            Assert.AreEqual("Chainring", productNamesByVendorName[2]);
+            using(CollectionMethods cm = new CollectionMethods())
+            {
+                List<string> productNamesByVendorName = cm.GetProductNamesByVendorName("Training Systems");
+                Assert.AreEqual(3, productNamesByVendorName.Count);
+                Assert.AreEqual("Chainring Bolts", productNamesByVendorName[0]);
+                Assert.AreEqual("Chainring Nut", productNamesByVendorName[1]);
+                Assert.AreEqual("Chainring", productNamesByVendorName[2]);
+            }
         }
 
         [TestMethod()]
         public void GetProductVendorByProductNameTest()
         {
-            string productVendorByProductName = CollectionMethods.GetProductVendorByProductName("Chainring");
-            Assert.AreEqual("Training Systems", productVendorByProductName);
+            using(CollectionMethods cm = new CollectionMethods())
+            {
+                string productVendorByProductName = cm.GetProductVendorByProductName("Chainring");
+                Assert.AreEqual("Training Systems", productVendorByProductName);
+            } 
         }
 
         [TestMethod()]
         public void GetProductsWithNRecentReviewsTest()
         {
-            List<Product> productsWithRecentReviews = CollectionMethods.GetProductsWithNRecentReviews(3);
-            Assert.AreEqual(2, productsWithRecentReviews.Count);
-            Assert.AreEqual(709, productsWithRecentReviews[0].ProductID);
-            Assert.AreEqual(937, productsWithRecentReviews[1].ProductID);
+            using(CollectionMethods cm = new CollectionMethods())
+            {
+                List<Product> productsWithRecentReviews = cm.GetProductsWithNRecentReviews(3);
+                Assert.AreEqual(2, productsWithRecentReviews.Count);
+                Assert.AreEqual(709, productsWithRecentReviews[0].ProductID);
+                Assert.AreEqual(937, productsWithRecentReviews[1].ProductID);
+            }
         }
 
         [TestMethod()]
         public void GetNRecentlyReviewedProductsTest()
         {
-            List<Product> recentlyReviewedProducts = CollectionMethods.GetNRecentlyReviewedProducts(3);
-            Assert.AreEqual(3, recentlyReviewedProducts.Count);
-            Assert.AreEqual(709, recentlyReviewedProducts[0].ProductID);
-            Assert.AreEqual(937, recentlyReviewedProducts[1].ProductID);
-            Assert.AreEqual(937, recentlyReviewedProducts[2].ProductID);
+            using(CollectionMethods cm = new CollectionMethods())
+            {
+                List<Product> recentlyReviewedProducts = cm.GetNRecentlyReviewedProducts(3);
+                Assert.AreEqual(3, recentlyReviewedProducts.Count);
+                Assert.AreEqual(709, recentlyReviewedProducts[0].ProductID);
+                Assert.AreEqual(937, recentlyReviewedProducts[1].ProductID);
+                Assert.AreEqual(937, recentlyReviewedProducts[2].ProductID);
+            }
 
         }
 
         [TestMethod()]
         public void GetNProductsFromCategoryTest()
         {
-            List<Product> productsFromCategory = CollectionMethods.GetNProductsFromCategory("Bikes", 4);
-            Assert.AreEqual(4, productsFromCategory.Count);
-            Assert.AreEqual(771, productsFromCategory[0].ProductID);
-            Assert.AreEqual(772, productsFromCategory[1].ProductID);
-            Assert.AreEqual(773, productsFromCategory[2].ProductID);
+            using(CollectionMethods cm = new CollectionMethods())
+            {
+                List<Product> productsFromCategory = cm.GetNProductsFromCategory("Bikes", 4);
+                Assert.AreEqual(4, productsFromCategory.Count);
+                Assert.AreEqual(771, productsFromCategory[0].ProductID);
+                Assert.AreEqual(772, productsFromCategory[1].ProductID);
+                Assert.AreEqual(773, productsFromCategory[2].ProductID);
+            }
         }
 
         [TestMethod()]
         public void GetTotalStandardCostByCategoryTest()
         {
-            ProductionDataContext db = new ProductionDataContext();
-            ProductCategory productCategory = db.ProductCategories.ToList().First();
-            int totalCost = CollectionMethods.GetTotalStandardCostByCategory(productCategory);
-            Assert.AreEqual(92092, totalCost);
+            using(CollectionMethods cm = new CollectionMethods())
+            {
+                ProductionDataContext db = new ProductionDataContext();
+                ProductCategory productCategory = db.ProductCategories.ToList().First();
+                int totalCost = cm.GetTotalStandardCostByCategory(productCategory);
+                Assert.AreEqual(92092, totalCost);
+            }
 
         }
     }

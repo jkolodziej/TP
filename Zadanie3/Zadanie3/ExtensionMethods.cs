@@ -32,29 +32,31 @@ namespace Zadanie3
 
         public static string getProductNamesWithVendorsQuery(this List<Product> products)
         {
-            ProductionDataContext db = new ProductionDataContext();
+            using(ProductionDataContext db = new ProductionDataContext()){
 
-            var productAndVendor = from p in products
-                                   from pv in db.ProductVendors
-                                   where pv.ProductID == p.ProductID
-                                   select new { productName = pv.Product.Name, vendorName = pv.Vendor.Name };
-            string[] rows= productAndVendor.Select(l => l.productName + " - " + l.vendorName).ToArray();
+                var productAndVendor = from p in products
+                                       from pv in db.ProductVendors
+                                       where pv.ProductID == p.ProductID
+                                       select new { productName = pv.Product.Name, vendorName = pv.Vendor.Name };
+                string[] rows= productAndVendor.Select(l => l.productName + " - " + l.vendorName).ToArray();
 
-            return string.Join("\n", rows);
+                return string.Join("\n", rows);
+            }
         }
 
         public static string getProductNamesWithVendorsMethod(this List<Product> products)
         {
-            ProductionDataContext db = new ProductionDataContext();
+            using (ProductionDataContext db = new ProductionDataContext())
+            {
+                var productAndVendor = products.Join(
+                                db.ProductVendors,
+                                p => p.ProductID, pv => pv.ProductID,
+                                (p, pv) => new { productName = p.Name, vendorName = pv.Vendor.Name });
 
-            var productAndVendor = products.Join(
-                            db.ProductVendors,
-                            p => p.ProductID, pv => pv.ProductID,
-                            (p, pv) => new { productName = p.Name, vendorName = pv.Vendor.Name });
+                string[] rows = productAndVendor.Select(l => l.productName + " - " + l.vendorName).ToArray();
 
-            string[] rows = productAndVendor.Select(l => l.productName + " - " + l.vendorName).ToArray();
-
-            return string.Join("\n", rows);
+                return string.Join("\n", rows);
+            }               
         }
 
     }

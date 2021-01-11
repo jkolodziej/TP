@@ -1,19 +1,20 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using System;
 
 namespace Zadanie3
 {
-    public class CollectionMethods
+    public class CollectionMethods : IDisposable
     {
-        private static ProductionDataContext db = new ProductionDataContext();
+        private ProductionDataContext db = new ProductionDataContext();
 
-        public static List<Product> GetProductsByName(string namePart)
+        public List<Product> GetProductsByName(string namePart)
         {
             return db.Products
                 .Where(p => p.Name.Contains(namePart)).ToList();
         }
 
-        public static List<Product> GetProductsByVendorName(string vendorName)
+        public List<Product> GetProductsByVendorName(string vendorName)
         {
             return db.ProductVendors
                 .Where(pv => pv.Vendor.Name.Equals(vendorName))
@@ -21,14 +22,14 @@ namespace Zadanie3
             
         }
 
-        public static List<string> GetProductNamesByVendorName(string vendorName)
+        public List<string> GetProductNamesByVendorName(string vendorName)
         {
             return db.ProductVendors
                 .Where(pv => pv.Vendor.Name.Equals(vendorName))
                 .Select(pv => pv.Product.Name).ToList();
         }
 
-        public static string GetProductVendorByProductName(string productName)
+        public string GetProductVendorByProductName(string productName)
         {
             return db.ProductVendors
                 .Where(pv => pv.Product.Name.Equals(productName))
@@ -36,7 +37,7 @@ namespace Zadanie3
 
         }
 
-        public static List<Product> GetProductsWithNRecentReviews(int howManyReviews)
+        public List<Product> GetProductsWithNRecentReviews(int howManyReviews)
         {
             return db.ProductReviews
                 .OrderBy(pr => pr.ReviewDate)
@@ -44,26 +45,30 @@ namespace Zadanie3
 
         }
 
-        public static List<Product> GetNRecentlyReviewedProducts(int howManyProducts)
+        public List<Product> GetNRecentlyReviewedProducts(int howManyProducts)
         {
             return db.ProductReviews
                 .OrderBy(pr => pr.ReviewDate)
                 .Select(pr => pr.Product).Take(howManyProducts).ToList();
         }
 
-        public static List<Product> GetNProductsFromCategory(string categoryName, int n)
+        public List<Product> GetNProductsFromCategory(string categoryName, int n)
         {
             return db.Products
                .Where(p => p.ProductSubcategory.ProductCategory.Name.Equals(categoryName))
                .Take(n).ToList();
         }
 
-        public static int GetTotalStandardCostByCategory(ProductCategory productCategory)
+        public int GetTotalStandardCostByCategory(ProductCategory productCategory)
         {
             return (int)db.Products
                 .Where(p => p.ProductSubcategory.ProductCategory.ProductCategoryID == productCategory.ProductCategoryID)
                 .Select(p => p.StandardCost).Sum();
 
+        }
+
+        public void Dispose(){
+            db.Dispose();
         }
     }
 
