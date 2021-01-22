@@ -15,7 +15,13 @@ namespace ViewModel
         public string Name { get; set; }
         public decimal CostRate { get; set; }
         public decimal Availability { get; set; }
- 
+
+        private IModel model;
+        private MyLocation location;
+        private ObservableCollection<MyLocation> locations;
+
+
+
         public DataBinding AddLocation { get; set; }
        // public DataBinding GetLocation { get; set; }
         public DataBinding GetAllLocations { get; set; }
@@ -24,7 +30,8 @@ namespace ViewModel
 
         public ViewModel()
         {
-            Model = new Model.Model();
+            model = new Model.Model();
+          
             Locations = new ObservableCollection<MyLocation>(model.GetAllLocations());
             AddLocation = new DataBinding(AddNewLocation);
             GetAllLocations = new DataBinding(DisplayAllLocations);
@@ -34,7 +41,7 @@ namespace ViewModel
 
         public ObservableCollection<MyLocation> Locations
         {
-            get { return locations; }
+            get { return Locations; }
             set
             {
                 locations = value;
@@ -95,9 +102,7 @@ namespace ViewModel
             this.PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
 
-        private IModel model;
-        private MyLocation location;
-        private ObservableCollection<MyLocation> locations;
+   
 
     }
 }

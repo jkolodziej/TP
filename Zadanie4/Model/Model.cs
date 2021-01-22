@@ -1,6 +1,7 @@
 ﻿using Service;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 
 namespace Model
@@ -9,9 +10,18 @@ namespace Model
     {
         public IDataService dataService { get; set; }
 
+        public ObservableCollection<MyLocation> locations { get; set; }
+
         public Model()
         {
             this.dataService = new DataService();
+            this.locations = FillCollection();
+        }
+
+        public Model(IDataService dataService)
+        {
+            this.dataService = dataService;
+            this.locations = FillCollection();
         }
 
         public string AddLocation(short id, string name, decimal costRate, decimal availability, DateTime modifiedDate)
@@ -40,15 +50,16 @@ namespace Model
             return dataService.DeleteLocation(id);
         }
 
-        //private void fillCollection(List<Location> data)
-        //{
-        //    foreach(Location location in data)
-        //    {
-        //        locations.Add(new Location(location.LocationID, location.Name, location.CostRate, location.Availability, location.ModifiedDate));
-        //    }
-        //}
-
-
-
+        private ObservableCollection<MyLocation> FillCollection()
+        {
+            IEnumerable<Service.MyLocation> data = dataService.GetAllLocations();
+            ObservableCollection<MyLocation> collection = new ObservableCollection<MyLocation>();
+            foreach (Service.MyLocation location in data)
+            {
+                collection.Add(new MyLocation(location.LocationID, location.Name, location.CostRate, location.Availability, location.ModifiedDate));
+            }
+            return collection;
+        }
+        
     }
 }

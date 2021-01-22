@@ -24,15 +24,5 @@ namespace Service
             Availability = availability;
             ModifiedDate = modifiedDate;
         }
-
-        public global::Model.MyLocation FirstOrDefault(Func<object, global::Model.MyLocation> p)
-        {
-            throw new NotImplementedException();
-        }
-
-        public global::Model.MyLocation Select(Func<object, global::Model.MyLocation> p)
-        {
-            throw new NotImplementedException();
-        }
     }
 }

@@ -1,4 +1,5 @@
-﻿using System.Windows;
+﻿using System;
+using System.Windows;
 
 
 namespace View
@@ -12,9 +13,16 @@ namespace View
         {
             InitializeComponent();
 
-            var viewModel = new ViewModel.ViewModel();
-            DataContext = viewModel;
+            //var viewModel = new ViewModel.ViewModel();
+            //DataContext = viewModel;
 
+        }
+
+        protected override void OnInitialized(EventArgs e)
+        {
+            base.OnInitialized(e);
+            ViewModel.ViewModel _vm = (ViewModel.ViewModel)DataContext;
         }
     }
 }
+
