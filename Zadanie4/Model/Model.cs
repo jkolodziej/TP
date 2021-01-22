@@ -24,6 +24,12 @@ namespace Model
             this.locations = FillCollection();
         }
 
+        public void InitLocations()
+        {
+            locations.Clear();
+            locations = FillCollection();
+        }
+
         public string AddLocation(short id, string name, decimal costRate, decimal availability, DateTime modifiedDate)
         {
             return dataService.CreateLocation(id, name, costRate, availability, modifiedDate);

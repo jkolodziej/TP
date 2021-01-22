@@ -3,16 +3,21 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:View"
+        xmlns:local="clr-namespace:View" xmlns:ViewModel="clr-namespace:ViewModel;assembly=ViewModel"
         mc:Ignorable="d"
         Title="MainWindow" Height="400" Width="650">
+
+    <Window.DataContext>
+        <ViewModel:ViewModel/>
+    </Window.DataContext>
+
     <Grid>
-        <ListView x:Name="LocationList" ItemsSource="{Binding Locations}" SelectedItem="{Binding Location}" HorizontalAlignment="Left" Height="338" Margin="59,10,0,0" VerticalAlignment="Top" Width="300">
+        <ListView x:Name="LocationList" ItemsSource="{Binding Locations}" SelectedItem="{Binding Location}" HorizontalAlignment="Left" Height="298" Margin="59,10,0,0" VerticalAlignment="Top" Width="329">
             <ListView.View>
                 <GridView>
                     <GridView.Columns>
-                        <GridViewColumn DisplayMemberBinding="{Binding LocationID}" Header="Location ID" Width="150" />
-                        <GridViewColumn DisplayMemberBinding="{Binding Name}" Header="Name" Width="150" />
+                        <GridViewColumn DisplayMemberBinding="{Binding LocationID}" Header="Location ID" Width="80" />
+                        <GridViewColumn DisplayMemberBinding="{Binding Name}" Header="Name" Width="220" />
                     </GridView.Columns>
                 </GridView>
             </ListView.View>
@@ -21,7 +26,9 @@
         <TextBox HorizontalAlignment="Left" Height="23" Margin="450,60,0,0" TextWrapping="Wrap" Text="{Binding Name}" VerticalAlignment="Top" Width="120"/>
         <TextBox HorizontalAlignment="Left" Height="23" Margin="450,88,0,0" TextWrapping="Wrap" Text="{Binding CostRate}" VerticalAlignment="Top" Width="120"/>
         <TextBox HorizontalAlignment="Left" Height="23" Margin="450,116,0,0" TextWrapping="Wrap" Text="{Binding Availability}" VerticalAlignment="Top" Width="120"/>
-        <Button Content="Confirm" Command="{Binding AddNewLocation}" HorizontalAlignment="Left" Margin="450,144,0,0" VerticalAlignment="Top" Width="120"/>
+        <Button Content="Confirm" Command="{Binding AddLocation}" HorizontalAlignment="Left" Margin="450,144,0,0" VerticalAlignment="Top" Width="120"/>
+        <Button Content="Refresh" Command="{Binding InitLocations}" HorizontalAlignment="Left" Margin="181,313,0,0" VerticalAlignment="Top" Width="75"/>
+        <Button Content="Delete" Command="{Binding RemoveLocation}" HorizontalAlignment="Left" Margin="412,289,0,0" VerticalAlignment="Top" Width="75"/>
 
     </Grid>
 </Window>

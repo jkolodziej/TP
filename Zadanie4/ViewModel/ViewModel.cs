@@ -16,7 +16,7 @@ namespace ViewModel
         public decimal CostRate { get; set; }
         public decimal Availability { get; set; }
 
-        private IModel model;
+        private Model.Model model;
         private MyLocation location;
         private ObservableCollection<MyLocation> locations;
 
@@ -27,25 +27,36 @@ namespace ViewModel
         public DataBinding GetAllLocations { get; set; }
         //public DataBinding UpdateLocation { get; set; }
         public DataBinding RemoveLocation { get; set; }
+        public DataBinding InitLocations { get; set; }
 
         public ViewModel()
         {
-            model = new Model.Model();
-          
+            model = new Model.Model();   
             Locations = new ObservableCollection<MyLocation>(model.GetAllLocations());
+            location = Locations[0];
             AddLocation = new DataBinding(AddNewLocation);
-            GetAllLocations = new DataBinding(DisplayAllLocations);
             RemoveLocation = new DataBinding(RemoveChosenLocation);
+            InitLocations = new DataBinding(InitList);
 
+        }
+
+        public ViewModel(Model.Model model)
+        {
+            this.model = model;
+            Locations = new ObservableCollection<MyLocation>(model.GetAllLocations());
+            location = Locations[0];
+            AddLocation = new DataBinding(AddNewLocation);
+            RemoveLocation = new DataBinding(RemoveChosenLocation);
+            InitLocations = new DataBinding(InitList);
         }
 
         public ObservableCollection<MyLocation> Locations
         {
-            get { return Locations; }
+            get { return locations; }
             set
             {
                 locations = value;
-                OnPropertyChanged();
+                OnPropertyChanged(nameof(Locations));
             }
         }
 
@@ -55,54 +66,49 @@ namespace ViewModel
             set
             {
                 location = value;
-                OnPropertyChanged();
+                OnPropertyChanged(nameof(Location));
             }
         }
 
-        public IModel Model { 
+        public Model.Model Model { 
             get { return model; }
             set
             {
                 model = value;
+                Locations = new ObservableCollection<MyLocation>(value.locations);
             }
         }
 
+        public void InitList()
+        {
+            Task.Run(() =>
+            {
+                model.InitLocations();
+            });
+        }
 
         public void AddNewLocation()
         {
-            if(Name == null || Name == "")
-            {
-
-            }
-            else
-            {
-                MyLocation myLocation = new MyLocation();
-                myLocation.Name = Name;
-                myLocation.LocationID = 23;
-                myLocation.ModifiedDate = DateTime.Now;
-
                 Task.Run(() => {
-                    
+                    model.AddLocation(0, Name, CostRate, Availability, DateTime.Now);
+                    Locations = model.locations;
                 });
-            }
-        }
-
-        public void DisplayAllLocations()
-        {
-            //
         }
 
         public void RemoveChosenLocation()
         {
-            //
+            Task.Run(() => {
+                model.DeleteLocation(location.LocationID);
+                Locations = model.locations;
+            });
         }
 
-        protected void OnPropertyChanged([CallerMemberName] string propertyName = null)
+        protected void OnPropertyChanged(string propertyName)
         {
-            this.PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+            if (PropertyChanged != null)
+            {
+                PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+            }
         }
-
-   
-
     }
 }
