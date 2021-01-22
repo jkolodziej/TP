@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Service
 {
-    public class DataService
+    public class DataService : IDataService
     {
         private IDataRepository dataRepository; 
 
