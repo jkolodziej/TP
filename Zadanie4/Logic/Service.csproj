@@ -46,6 +46,7 @@
     <Compile Include="DataService.cs" />
     <Compile Include="IDataRepository.cs" />
     <Compile Include="IDataService.cs" />
+    <Compile Include="MyLocation.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

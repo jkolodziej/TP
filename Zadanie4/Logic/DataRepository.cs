@@ -2,22 +2,29 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Service
 {
     public class DataRepository : IDataRepository, IDisposable
     {
         private DatabaseDataContext dbContext;
+        private List<DataLocation> dataLocations;
 
-        DataRepository()
+        public DataRepository(DatabaseDataContext dataContext)
         {
-            this.dbContext = new DatabaseDataContext();
+            this.dbContext = dataContext;
+            dataLocations = dbContext.Location.AsEnumerable().Select(location => new DataLocation(location)).ToList();
         }
 
-        public string AddLocation(Location location)
+        public string AddLocation(DataLocation dataLocation)
         {
+            Location location = new Location();
+            location.LocationID = dataLocation.LocationID;
+            location.Name = dataLocation.Name;
+            location.CostRate = dataLocation.CostRate;
+            location.Availability = dataLocation.Availability;
+            location.ModifiedDate = dataLocation.ModifiedDate;
+
             dbContext.Location.InsertOnSubmit(location);
             try
             {
@@ -32,25 +39,42 @@ namespace Service
             return "Location added successfully";
         }
 
-        public List<Location> GetAllLocations()
+        public List<DataLocation> GetAllLocations()
         {
-            return (from location in dbContext.Location
+            return (from location in dataLocations
                     select location).ToList();
-
         }
 
-        public Location GetLocation(short locationID)
+        public DataLocation GetLocation(short locationID)
         {
-            return (from location in dbContext.Location
+            return (from location in dataLocations
                     where location.LocationID.Equals(locationID)
                     select location).FirstOrDefault();
         }
 
+        public string UpdateLocation(short locationID, DataLocation newLocation)
+        {
+            Location toUpdate = dbContext.Location.SingleOrDefault(location => location.LocationID == locationID);
+
+            toUpdate.Name = newLocation.Name;
+            toUpdate.CostRate = newLocation.CostRate;
+            toUpdate.Availability = newLocation.Availability;
+            toUpdate.ModifiedDate = newLocation.ModifiedDate;
+
+            try
+            {
+                dbContext.SubmitChanges();
+            }
+            catch
+            {
+                return "Could not submit changes";
+            }
+            return "Changes submitted successfully";
+        }
+
         public string RemoveLocation(short locationID)
         {
-            Location toRemove = (from location in dbContext.Location
-                                 where location.LocationID.Equals(locationID)
-                                 select location).FirstOrDefault();
+            Location toRemove = dbContext.Location.SingleOrDefault(location => location.LocationID == locationID);
 
             if (toRemove != null)
             {
@@ -66,28 +90,6 @@ namespace Service
                 }
             }
             return "Location removed successfully";
-        }
-
-        public string UpdateLocation(short locationID, Location newLocation)
-        {
-            Location toUpdate = (from location in dbContext.Location
-                                 where location.LocationID.Equals(locationID)
-                                 select location).FirstOrDefault();
-            toUpdate.Name = newLocation.Name;
-            toUpdate.CostRate = newLocation.CostRate;
-            toUpdate.Availability = newLocation.Availability;
-            toUpdate.ModifiedDate = newLocation.ModifiedDate;
-
-            try
-            {
-                dbContext.SubmitChanges();
-            }
-            catch
-            {
-                return "Could not submit changes";
-            }
-            return "Changes submitted successfully";
-
         }
 
         public void Dispose()

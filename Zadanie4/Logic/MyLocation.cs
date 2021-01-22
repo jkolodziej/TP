@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Model
+namespace Service
 {
-    public class LocationModel
+    public class MyLocation
     {
         public short LocationID { get; set; }
         public string Name { get; set; }
@@ -14,9 +14,9 @@ namespace Model
         public decimal Availability { get; set; }
         public DateTime ModifiedDate { get; set; }
 
-        public LocationModel() { }
+        public MyLocation() { }
 
-        public LocationModel(short locationID, string name, decimal costRate, decimal availability, DateTime modifiedDate)
+        public MyLocation(short locationID, string name, decimal costRate, decimal availability, DateTime modifiedDate)
         {
             LocationID = locationID;
             Name = name;
@@ -24,6 +24,5 @@ namespace Model
             Availability = availability;
             ModifiedDate = modifiedDate;
         }
-
     }
 }

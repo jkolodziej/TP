@@ -7,12 +7,12 @@ using System.Threading.Tasks;
 
 namespace Service
 {
-    interface IDataRepository
+    public interface IDataRepository
     {
-        string AddLocation(Location location);
-        Location GetLocation(short locationID);
-        List<Location> GetAllLocations();       
-        string UpdateLocation(short id, Location location);
+        string AddLocation(DataLocation location);
+        DataLocation GetLocation(short locationID);
+        List<DataLocation> GetAllLocations();       
+        string UpdateLocation(short id, DataLocation location);
         string RemoveLocation(short locationID);
     }
 }

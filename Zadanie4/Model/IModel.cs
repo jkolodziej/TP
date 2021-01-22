@@ -1,16 +1,16 @@
-﻿using Data;
+﻿using Service;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Service
+namespace Model
 {
-    public interface IDataService
+    public interface IModel
     {
-        string CreateLocation(short id, string name, decimal costRate, decimal availability, DateTime modifiedDate);
-        MyLocation GetLocationById(short id);
+        string AddLocation(short id, string name, decimal costRate, decimal availability, DateTime modifiedDate);
+        MyLocation GetLocation(short id);
         List<MyLocation> GetAllLocations();
         string UpdateLocation(short id, string name, decimal costRate, decimal availability, DateTime modifiedDate);
         string DeleteLocation(short id);
