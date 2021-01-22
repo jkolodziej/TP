@@ -1,15 +1,13 @@
 ﻿using Model;
 using System;
-using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.ComponentModel;
-using System.Linq;
-using System.Text;
+using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
-using System.Windows.Input;
 
 namespace ViewModel
 {
-    class ViewModel : INotifyPropertyChanged
+    public class ViewModel : INotifyPropertyChanged
     {
         public event PropertyChangedEventHandler PropertyChanged;
 
@@ -24,21 +22,47 @@ namespace ViewModel
         //public DataBinding UpdateLocation { get; set; }
         public DataBinding RemoveLocation { get; set; }
 
-        private IModel model;
-
-        public ViewModel(IModel model)
+        public ViewModel()
         {
-            this.model = model;
+            Model = new Model.Model();
+            Locations = new ObservableCollection<MyLocation>(model.GetAllLocations());
             AddLocation = new DataBinding(AddNewLocation);
             GetAllLocations = new DataBinding(DisplayAllLocations);
             RemoveLocation = new DataBinding(RemoveChosenLocation);
 
         }
 
+        public ObservableCollection<MyLocation> Locations
+        {
+            get { return locations; }
+            set
+            {
+                locations = value;
+                OnPropertyChanged();
+            }
+        }
+
+        public MyLocation Location
+        {
+            get { return location; }
+            set
+            {
+                location = value;
+                OnPropertyChanged();
+            }
+        }
+
+        public IModel Model { 
+            get { return model; }
+            set
+            {
+                model = value;
+            }
+        }
+
+
         public void AddNewLocation()
         {
-          
-
             if(Name == null || Name == "")
             {
 
@@ -66,7 +90,14 @@ namespace ViewModel
             //
         }
 
+        protected void OnPropertyChanged([CallerMemberName] string propertyName = null)
+        {
+            this.PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        }
 
+        private IModel model;
+        private MyLocation location;
+        private ObservableCollection<MyLocation> locations;
 
     }
 }

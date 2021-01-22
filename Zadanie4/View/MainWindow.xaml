@@ -5,20 +5,23 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:View"
         mc:Ignorable="d"
-        Title="MainWindow" Height="400" Width="800">
+        Title="MainWindow" Height="400" Width="650">
     <Grid>
-        <ListView x:Name="LocationList" HorizontalAlignment="Left" Height="332" Margin="10,10,0,0" VerticalAlignment="Top" Width="480">
+        <ListView x:Name="LocationList" ItemsSource="{Binding Locations}" SelectedItem="{Binding Location}" HorizontalAlignment="Left" Height="338" Margin="59,10,0,0" VerticalAlignment="Top" Width="300">
             <ListView.View>
                 <GridView>
-                    <GridViewColumn/>
+                    <GridView.Columns>
+                        <GridViewColumn DisplayMemberBinding="{Binding LocationID}" Header="Location ID" Width="150" />
+                        <GridViewColumn DisplayMemberBinding="{Binding Name}" Header="Name" Width="150" />
+                    </GridView.Columns>
                 </GridView>
             </ListView.View>
         </ListView>
-        <Label Content="Add new location:" HorizontalAlignment="Left" Margin="600,10,0,0" VerticalAlignment="Top" Height="36" Width="120"/>
-        <TextBox HorizontalAlignment="Left" Height="23" Margin="590,46,0,0" TextWrapping="Wrap" Text="{Binding Name}" VerticalAlignment="Top" Width="120"/>
-        <TextBox HorizontalAlignment="Left" Height="23" Margin="590,74,0,0" TextWrapping="Wrap" Text="{Binding CostRate}" VerticalAlignment="Top" Width="120"/>
-        <TextBox HorizontalAlignment="Left" Height="23" Margin="590,102,0,0" TextWrapping="Wrap" Text="{Binding Availability}" VerticalAlignment="Top" Width="120"/>
-        <Button Content="Confirm" Command="{Binding AddNewLocation}" HorizontalAlignment="Left" Margin="842,151,0,0" VerticalAlignment="Top" Width="75"/>
+        <Label Content="Add new location:" HorizontalAlignment="Left" Margin="450,10,0,0" VerticalAlignment="Top" Height="36" Width="120"/>
+        <TextBox HorizontalAlignment="Left" Height="23" Margin="450,60,0,0" TextWrapping="Wrap" Text="{Binding Name}" VerticalAlignment="Top" Width="120"/>
+        <TextBox HorizontalAlignment="Left" Height="23" Margin="450,88,0,0" TextWrapping="Wrap" Text="{Binding CostRate}" VerticalAlignment="Top" Width="120"/>
+        <TextBox HorizontalAlignment="Left" Height="23" Margin="450,116,0,0" TextWrapping="Wrap" Text="{Binding Availability}" VerticalAlignment="Top" Width="120"/>
+        <Button Content="Confirm" Command="{Binding AddNewLocation}" HorizontalAlignment="Left" Margin="450,144,0,0" VerticalAlignment="Top" Width="120"/>
 
     </Grid>
 </Window>

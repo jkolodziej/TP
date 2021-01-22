@@ -1,6 +1,7 @@
 ﻿using Service;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace Model
 {
@@ -20,12 +21,13 @@ namespace Model
 
         public MyLocation GetLocation(short id)
         {
-            return dataService.GetLocationById(id);
+            Service.MyLocation location = dataService.GetLocationById(id);
+            return new MyLocation(location.LocationID, location.Name, location.CostRate, location.Availability, location.ModifiedDate);
         }
 
         public List<MyLocation> GetAllLocations()
         {
-            return dataService.GetAllLocations();
+            return dataService.GetAllLocations().Select(l => new MyLocation(l.LocationID, l.Name, l.CostRate, l.Availability, l.ModifiedDate)).ToList();
         }
 
         public string UpdateLocation(short id, string name, decimal costRate, decimal availability, DateTime modifiedDate)
