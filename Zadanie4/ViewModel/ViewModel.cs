@@ -4,6 +4,7 @@ using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
+using System.Windows;
 
 namespace ViewModel
 {
@@ -16,6 +17,7 @@ namespace ViewModel
         public decimal Availability { get; set; }
         public bool Async { get; set; }
         public INewWindow LocationDetails { get; set; }
+       // public IMessageBox MessageBox { get; set; }
 
         private IModel model;
         private MyLocation location;
@@ -119,41 +121,74 @@ namespace ViewModel
 
         public void AddNewLocation()
         {
-            runAsynchronously(() =>
+            if(Name == null || Name == "")
             {
-                model.AddLocation(0, Name, CostRate, Availability, DateTime.Now);
-                GetAllLocations.Execute(null);
-            });
+                MessageBox.Show("You provided incorrect value", "Error message");
+            }
+            else
+            {
+                runAsynchronously(() =>
+                {
+                    model.AddLocation(0, Name, CostRate, Availability, DateTime.Now);
+                    GetAllLocations.Execute(null);
+                });
+            }
         }
 
         public void RemoveChosenLocation()
         {
-            runAsynchronously(() =>
+            if (location == null)
             {
-                model.DeleteLocation(location.LocationID);
-                GetAllLocations.Execute(null);
+                MessageBox.Show("Choose element to remove", "Error message");
+            }
+            else
+            {
+                runAsynchronously(() =>
+                {
+                    model.DeleteLocation(location.LocationID);
+                    GetAllLocations.Execute(null);
 
-            });
+                });
+            }
         }
 
         public void UpdateChosenLocation()
         {
-            runAsynchronously(() =>
+            if (location == null)
             {
-                model.UpdateLocation(location.LocationID, Name, CostRate, Availability, DateTime.Now);
-                GetAllLocations.Execute(null);
-            });
+                MessageBox.Show("Choose element to update", "Error message");
+            }
+            else if (Name == null || Name == "")
+            {
+                MessageBox.Show("You provided incorrect value", "Error message");
+            }
+            else
+            {
+                runAsynchronously(() =>
+                {
+                    model.UpdateLocation(location.LocationID, Name, CostRate, Availability, DateTime.Now);
+                    GetAllLocations.Execute(null);
+                });
+
+            }
         }
 
         public void GoToLocationDetails()
         {
-            runAsynchronously(() =>
+            if(location == null)
             {
-                LocationsInfo = new ObservableCollection<MyLocation>();
-                LocationsInfo.Add(model.GetLocation(location.LocationID));
-                LocationInfo = model.GetLocation(location.LocationID);
-            });
-            LocationDetails.OpenNewWindow(this);
+                MessageBox.Show("Choose element to display details", "Error message");
+            }
+            else
+            {
+                runAsynchronously(() =>
+                {
+                    LocationsInfo = new ObservableCollection<MyLocation>();
+                    LocationsInfo.Add(model.GetLocation(location.LocationID));
+                    LocationInfo = model.GetLocation(location.LocationID);
+                });
+                LocationDetails.OpenNewWindow(this);
+            }
         }
 
         protected void OnPropertyChanged(string propertyName)

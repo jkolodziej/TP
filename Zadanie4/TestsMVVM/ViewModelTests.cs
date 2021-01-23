@@ -1,5 +1,4 @@
-﻿using ViewModel;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.Linq;
 using TestsMVVM;
 
@@ -27,7 +26,6 @@ namespace ViewModel.Tests
             viewModel.AddLocation.Execute(null);
             viewModel.GetAllLocations.Execute(null);
             Assert.AreEqual(7, viewModel.Locations.Count());
-
         }
 
         [TestMethod()]
@@ -43,6 +41,14 @@ namespace ViewModel.Tests
             viewModel.Location = viewModel.Locations.Last();
             viewModel.RemoveLocation.Execute(null);
             Assert.AreEqual(6, viewModel.Locations.Count());
+        }
+
+        [TestMethod()]
+        public void RemoveChosenLocationNull()
+        {
+            viewModel.Name = "";
+            viewModel.AddLocation.Execute(null);
+            viewModel.GetAllLocations.Execute(null);
         }
 
         [TestMethod()]
