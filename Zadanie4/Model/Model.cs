@@ -30,9 +30,9 @@ namespace Model
             locations = FillCollection();
         }
 
-        public string AddLocation(short id, string name, decimal costRate, decimal availability, DateTime modifiedDate)
+        public void AddLocation(short id, string name, decimal costRate, decimal availability, DateTime modifiedDate)
         {
-            return dataService.CreateLocation(id, name, costRate, availability, modifiedDate);
+            dataService.CreateLocation(id, name, costRate, availability, modifiedDate);
         }
 
         public MyLocation GetLocation(short id)
@@ -46,14 +46,14 @@ namespace Model
             return dataService.GetAllLocations().Select(l => new MyLocation(l.LocationID, l.Name, l.CostRate, l.Availability, l.ModifiedDate)).ToList();
         }
 
-        public string UpdateLocation(short id, string name, decimal costRate, decimal availability, DateTime modifiedDate)
+        public void UpdateLocation(short id, string name, decimal costRate, decimal availability, DateTime modifiedDate)
         {
-            return dataService.UpdateLocation(id, name, costRate, availability, modifiedDate);
+            dataService.UpdateLocation(id, name, costRate, availability, modifiedDate);
         }
 
-        public string DeleteLocation(short id)
+        public void DeleteLocation(short id)
         {
-            return dataService.DeleteLocation(id);
+            dataService.DeleteLocation(id);
         }
 
         private ObservableCollection<MyLocation> FillCollection()
