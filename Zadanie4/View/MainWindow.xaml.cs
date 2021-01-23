@@ -14,15 +14,10 @@ namespace View
             InitializeComponent();
 
             var viewModel = new ViewModel.ViewModel();
+            viewModel.LocationDetails = new NewWindow(); 
             DataContext = viewModel;
 
         }
-
-        /*protected override void OnInitialized(EventArgs e)
-        {
-            base.OnInitialized(e);
-            ViewModel.ViewModel _vm = (ViewModel.ViewModel)DataContext;
-        }*/
     }
 }
 

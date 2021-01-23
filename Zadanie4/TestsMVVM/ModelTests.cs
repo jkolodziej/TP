@@ -1,62 +1,57 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Model;
 using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using TestsMVVM;
 
 namespace Model.Tests
 {
     [TestClass()]
     public class ModelTests
     {
-        [TestMethod()]
-        public void ModelTest()
-        {
-            Assert.Fail();
-        }
+        private ViewModel.ViewModel viewModel;
 
-        [TestMethod()]
-        public void ModelTest1()
+        [TestInitialize()]
+        public void Initialize()
         {
-            Assert.Fail();
-        }
-
-        [TestMethod()]
-        public void InitLocationsTest()
-        {
-            Assert.Fail();
+            viewModel = new ViewModel.ViewModel(new TestingContext());
         }
 
         [TestMethod()]
         public void AddLocationTest()
         {
-            Assert.Fail();
+            viewModel.Model.AddLocation(110, "TestLocation", new decimal(12.34), new decimal(56.78), DateTime.Now);
+            Assert.AreEqual(viewModel.Model.GetAllLocations().Last().Name, "TestLocation");
+            Assert.AreEqual(7, viewModel.Model.GetAllLocations().Count);
         }
 
         [TestMethod()]
         public void GetLocationTest()
         {
-            Assert.Fail();
+            MyLocation location = viewModel.Model.GetLocation(102);
+            Assert.AreEqual(location.Name, "Location2");
+            Assert.AreEqual(location.CostRate, new decimal(12.35));
+            Assert.AreEqual(location.Availability, new decimal(12.35));
         }
 
         [TestMethod()]
         public void GetAllLocationsTest()
         {
-            Assert.Fail();
+            Assert.AreEqual(6, viewModel.Model.GetAllLocations().Count());
         }
 
         [TestMethod()]
         public void UpdateLocationTest()
         {
-            Assert.Fail();
+            viewModel.Model.UpdateLocation(101, "LocationUpdated", new decimal(12.34), new decimal(12.34), DateTime.Now);
+            Assert.AreEqual("LocationUpdated", viewModel.Model.GetAllLocations().First().Name);
         }
 
         [TestMethod()]
         public void DeleteLocationTest()
         {
-            Assert.Fail();
+            viewModel.Model.DeleteLocation(106);
+            Assert.AreEqual(viewModel.Model.GetAllLocations().Last().Name, "Location5");
+            Assert.AreEqual(5, viewModel.Model.GetAllLocations().Count);
         }
     }
 }

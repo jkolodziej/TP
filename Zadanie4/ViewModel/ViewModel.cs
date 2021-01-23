@@ -11,43 +11,47 @@ namespace ViewModel
     {
         public event PropertyChangedEventHandler PropertyChanged;
 
-        // input data
         public string Name { get; set; }
         public decimal CostRate { get; set; }
         public decimal Availability { get; set; }
+        public bool Async { get; set; }
+        public INewWindow LocationDetails { get; set; }
 
-        private Model.Model model;
+        private IModel model;
         private MyLocation location;
+        private MyLocation locationInfo;
         private ObservableCollection<MyLocation> locations;
+        private ObservableCollection<MyLocation> locationsInfo;
 
-
-
+        //public DataBinding OpenLocationDetails { get; set; }
         public DataBinding AddLocation { get; set; }
-       // public DataBinding GetLocation { get; set; }
+        public DataBinding GetLocation { get; set; }
         public DataBinding GetAllLocations { get; set; }
-        //public DataBinding UpdateLocation { get; set; }
+        public DataBinding UpdateLocation { get; set; }
         public DataBinding RemoveLocation { get; set; }
         public DataBinding InitLocations { get; set; }
 
         public ViewModel()
         {
-            model = new Model.Model();   
+            model = new Model.Model();
             Locations = new ObservableCollection<MyLocation>(model.GetAllLocations());
             location = Locations[0];
+            //OpenLocationDetails = new DataBinding(GoToLocationDetails);
             AddLocation = new DataBinding(AddNewLocation);
+            GetLocation = new DataBinding(DisplayLocation);
+            GetAllLocations = new DataBinding(() => Model = new Model.Model());
             RemoveLocation = new DataBinding(RemoveChosenLocation);
-            InitLocations = new DataBinding(InitList);
-
         }
 
-        public ViewModel(Model.Model model)
+        public ViewModel(IModel model)
         {
             this.model = model;
             Locations = new ObservableCollection<MyLocation>(model.GetAllLocations());
             location = Locations[0];
             AddLocation = new DataBinding(AddNewLocation);
+            GetLocation = new DataBinding(DisplayLocation);
+            GetAllLocations = new DataBinding(() => Locations = Locations = new ObservableCollection<MyLocation>(model.GetAllLocations()));
             RemoveLocation = new DataBinding(RemoveChosenLocation);
-            InitLocations = new DataBinding(InitList);
         }
 
         public ObservableCollection<MyLocation> Locations
@@ -57,6 +61,16 @@ namespace ViewModel
             {
                 locations = value;
                 OnPropertyChanged(nameof(Locations));
+            }
+        }
+
+        public ObservableCollection<MyLocation> LocationsInfo
+        {
+            get { return locationsInfo; }
+            set
+            {
+                locationsInfo = value;
+                OnPropertyChanged(nameof(LocationsInfo));
             }
         }
 
@@ -70,37 +84,76 @@ namespace ViewModel
             }
         }
 
-        public Model.Model Model { 
+        public MyLocation LocationInfo
+        {
+            get { return locationInfo; }
+            set
+            {
+                locationInfo = value;
+                OnPropertyChanged(nameof(LocationInfo));
+            }
+        }
+
+        public IModel Model
+        {
             get { return model; }
             set
             {
                 model = value;
-                Locations = new ObservableCollection<MyLocation>(value.locations);
+                Locations = new ObservableCollection<MyLocation>(value.GetAllLocations());
             }
         }
 
-        public void InitList()
+
+        public void runAsynchronously(Action action)
         {
-            Task.Run(() =>
+            if (Async)
             {
-                model.InitLocations();
-            });
+                Task.Run(action);
+            }
+            else
+            {
+                action();
+            }
         }
 
         public void AddNewLocation()
         {
-                Task.Run(() => {
-                    model.AddLocation(0, Name, CostRate, Availability, DateTime.Now);
-                    Locations = model.locations;
-                });
+            runAsynchronously(() =>
+            {
+                model.AddLocation(0, Name, CostRate, Availability, DateTime.Now);
+                GetAllLocations.Execute(null);
+            });
         }
 
         public void RemoveChosenLocation()
         {
-            Task.Run(() => {
+            runAsynchronously(() =>
+            {
                 model.DeleteLocation(location.LocationID);
-                Locations = model.locations;
+                GetAllLocations.Execute(null);
+
             });
+        }
+
+        public void GoToLocationDetails()
+        {
+            runAsynchronously(() =>
+            {
+                LocationsInfo = new ObservableCollection<MyLocation>();
+                LocationsInfo.Add(model.GetLocation(location.LocationID));
+                LocationInfo = model.GetLocation(location.LocationID);
+            });
+            LocationDetails.OpenNewWindow(this);
+        }
+
+        public void DisplayLocation()
+        {
+            GoToLocationDetails();
+            //runAsynchronously(() =>
+            //{
+            //    model.GetLocation();
+            //})
         }
 
         protected void OnPropertyChanged(string propertyName)

@@ -27,8 +27,8 @@
         <TextBox HorizontalAlignment="Left" Height="23" Margin="450,88,0,0" TextWrapping="Wrap" Text="{Binding CostRate}" VerticalAlignment="Top" Width="120"/>
         <TextBox HorizontalAlignment="Left" Height="23" Margin="450,116,0,0" TextWrapping="Wrap" Text="{Binding Availability}" VerticalAlignment="Top" Width="120"/>
         <Button Content="Confirm" Command="{Binding AddLocation}" HorizontalAlignment="Left" Margin="450,144,0,0" VerticalAlignment="Top" Width="120"/>
-        <Button Content="Refresh" Command="{Binding InitLocations}" HorizontalAlignment="Left" Margin="181,313,0,0" VerticalAlignment="Top" Width="75"/>
-        <Button Content="Delete" Command="{Binding RemoveLocation}" HorizontalAlignment="Left" Margin="412,289,0,0" VerticalAlignment="Top" Width="75"/>
+        <Button Content="Delete" Command="{Binding RemoveLocation}" HorizontalAlignment="Left" Margin="180, 310,0,0" VerticalAlignment="Top" Width="75"/>
+        <Button Content="Show Details" Command="{Binding GetLocation}" HorizontalAlignment="Left" Margin="180,335,0,0" VerticalAlignment="Top" Width="75"/>
 
     </Grid>
 </Window>

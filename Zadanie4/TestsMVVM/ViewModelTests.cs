@@ -1,44 +1,47 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using ViewModel;
-using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using TestsMVVM;
 
 namespace ViewModel.Tests
 {
     [TestClass()]
     public class ViewModelTests
     {
-        [TestMethod()]
-        public void ViewModelTest()
-        {
-            Assert.Fail();
-        }
+        private ViewModel viewModel;
 
-        [TestMethod()]
-        public void ViewModelTest1()
+        [TestInitialize()]
+        public void Initialize()
         {
-            Assert.Fail();
-        }
-
-        [TestMethod()]
-        public void InitListTest()
-        {
-            Assert.Fail();
+            viewModel = new ViewModel(new TestingContext());
+            viewModel.Async = false;
         }
 
         [TestMethod()]
         public void AddNewLocationTest()
         {
-            Assert.Fail();
+            viewModel.Name = "TestLocation";
+            viewModel.CostRate = new decimal(12.34);
+            viewModel.Availability = new decimal(12.34);
+
+            viewModel.AddLocation.Execute(null);
+            viewModel.GetAllLocations.Execute(null);
+            Assert.AreEqual(7, viewModel.Locations.Count());
+            
         }
 
         [TestMethod()]
         public void RemoveChosenLocationTest()
         {
-            Assert.Fail();
+            viewModel.Name = "TestLocation";
+            viewModel.CostRate = new decimal(12.34);
+            viewModel.Availability = new decimal(12.34);
+           
+            viewModel.AddLocation.Execute(null);
+            viewModel.GetAllLocations.Execute(null);
+
+            viewModel.Location = viewModel.Locations.Last();
+            viewModel.RemoveLocation.Execute(null);
+            Assert.AreEqual(6, viewModel.Locations.Count());
         }
     }
 }
