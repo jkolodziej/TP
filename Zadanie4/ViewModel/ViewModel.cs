@@ -23,7 +23,6 @@ namespace ViewModel
         private ObservableCollection<MyLocation> locations;
         private ObservableCollection<MyLocation> locationsInfo;
 
-        //public DataBinding OpenLocationDetails { get; set; }
         public DataBinding AddLocation { get; set; }
         public DataBinding GetLocation { get; set; }
         public DataBinding GetAllLocations { get; set; }
@@ -36,10 +35,10 @@ namespace ViewModel
             model = new Model.Model();
             Locations = new ObservableCollection<MyLocation>(model.GetAllLocations());
             location = Locations[0];
-            //OpenLocationDetails = new DataBinding(GoToLocationDetails);
             AddLocation = new DataBinding(AddNewLocation);
-            GetLocation = new DataBinding(DisplayLocation);
+            GetLocation = new DataBinding(GoToLocationDetails);
             GetAllLocations = new DataBinding(() => Model = new Model.Model());
+            UpdateLocation = new DataBinding(UpdateChosenLocation);
             RemoveLocation = new DataBinding(RemoveChosenLocation);
         }
 
@@ -49,8 +48,9 @@ namespace ViewModel
             Locations = new ObservableCollection<MyLocation>(model.GetAllLocations());
             location = Locations[0];
             AddLocation = new DataBinding(AddNewLocation);
-            GetLocation = new DataBinding(DisplayLocation);
+            GetLocation = new DataBinding(GoToLocationDetails);
             GetAllLocations = new DataBinding(() => Locations = Locations = new ObservableCollection<MyLocation>(model.GetAllLocations()));
+            UpdateLocation = new DataBinding(UpdateChosenLocation);
             RemoveLocation = new DataBinding(RemoveChosenLocation);
         }
 
@@ -136,6 +136,15 @@ namespace ViewModel
             });
         }
 
+        public void UpdateChosenLocation()
+        {
+            runAsynchronously(() =>
+            {
+                model.UpdateLocation(location.LocationID, Name, CostRate, Availability, DateTime.Now);
+                GetAllLocations.Execute(null);
+            });
+        }
+
         public void GoToLocationDetails()
         {
             runAsynchronously(() =>
@@ -145,15 +154,6 @@ namespace ViewModel
                 LocationInfo = model.GetLocation(location.LocationID);
             });
             LocationDetails.OpenNewWindow(this);
-        }
-
-        public void DisplayLocation()
-        {
-            GoToLocationDetails();
-            //runAsynchronously(() =>
-            //{
-            //    model.GetLocation();
-            //})
         }
 
         protected void OnPropertyChanged(string propertyName)

@@ -22,13 +22,15 @@
                 </GridView>
             </ListView.View>
         </ListView>
-        <Label Content="Add new location:" HorizontalAlignment="Left" Margin="450,10,0,0" VerticalAlignment="Top" Height="36" Width="120"/>
+        <TextBlock HorizontalAlignment="Left" Margin="450,14,0,0" TextWrapping="Wrap" Text="Add or update the location:" TextAlignment="Center" VerticalAlignment="Top" Height="41" Width="120"/>
         <TextBox HorizontalAlignment="Left" Height="23" Margin="450,60,0,0" TextWrapping="Wrap" Text="{Binding Name}" VerticalAlignment="Top" Width="120"/>
         <TextBox HorizontalAlignment="Left" Height="23" Margin="450,88,0,0" TextWrapping="Wrap" Text="{Binding CostRate}" VerticalAlignment="Top" Width="120"/>
         <TextBox HorizontalAlignment="Left" Height="23" Margin="450,116,0,0" TextWrapping="Wrap" Text="{Binding Availability}" VerticalAlignment="Top" Width="120"/>
-        <Button Content="Confirm" Command="{Binding AddLocation}" HorizontalAlignment="Left" Margin="450,144,0,0" VerticalAlignment="Top" Width="120"/>
-        <Button Content="Delete" Command="{Binding RemoveLocation}" HorizontalAlignment="Left" Margin="180, 310,0,0" VerticalAlignment="Top" Width="75"/>
-        <Button Content="Show Details" Command="{Binding GetLocation}" HorizontalAlignment="Left" Margin="180,335,0,0" VerticalAlignment="Top" Width="75"/>
+        <Button Content="Confirm" Command="{Binding AddLocation}" HorizontalAlignment="Left" Margin="450,144,0,0" VerticalAlignment="Top" Width="120" Height="20"/>
+        <Button Content="Delete" Command="{Binding RemoveLocation}" HorizontalAlignment="Left" Margin="180, 310,0,0" VerticalAlignment="Top" Width="75" Height="20"/>
+        <Button Content="Show Details" Command="{Binding GetLocation}" HorizontalAlignment="Left" Margin="180,335,0,0" VerticalAlignment="Top" Width="75" Height="20"/>
+        <Button Content="Update" Command="{Binding UpdateLocation}" HorizontalAlignment="Left" Margin="450,168,0,0" VerticalAlignment="Top" Width="120" Height="20"/>
+        
 
     </Grid>
 </Window>
