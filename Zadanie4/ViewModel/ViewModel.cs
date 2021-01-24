@@ -16,6 +16,7 @@ namespace ViewModel
         public decimal CostRate { get; set; }
         public decimal Availability { get; set; }
         public bool Async { get; set; }
+        public bool DisplayMessageBoxes { get; set; }
         public INewWindow LocationDetails { get; set; }
        // public IMessageBox MessageBox { get; set; }
 
@@ -37,6 +38,7 @@ namespace ViewModel
             model = new Model.Model();
             Locations = new ObservableCollection<MyLocation>(model.GetAllLocations());
             location = Locations[0];
+            DisplayMessageBoxes = true;
             AddLocation = new DataBinding(AddNewLocation);
             GetLocation = new DataBinding(GoToLocationDetails);
             GetAllLocations = new DataBinding(() => Model = new Model.Model());
@@ -49,6 +51,7 @@ namespace ViewModel
             this.model = model;
             Locations = new ObservableCollection<MyLocation>(model.GetAllLocations());
             location = Locations[0];
+            DisplayMessageBoxes = true;
             AddLocation = new DataBinding(AddNewLocation);
             GetLocation = new DataBinding(GoToLocationDetails);
             GetAllLocations = new DataBinding(() => Locations = Locations = new ObservableCollection<MyLocation>(model.GetAllLocations()));
@@ -121,9 +124,16 @@ namespace ViewModel
 
         public void AddNewLocation()
         {
-            if(Name == null || Name == "")
+            if(Name == null || Name == "" || CostRate < 0 || Availability < 0)
             {
-                MessageBox.Show("You provided incorrect value", "Error message");
+                if (DisplayMessageBoxes)
+                {
+                    MessageBox.Show("You provided incorrect value", "Error message");
+                }             
+                else
+                {
+                    throw new FormatException();
+                }
             }
             else
             {
@@ -139,7 +149,14 @@ namespace ViewModel
         {
             if (location == null)
             {
-                MessageBox.Show("Choose element to remove", "Error message");
+                if (DisplayMessageBoxes)
+                {
+                    MessageBox.Show("Choose element to remove", "Error message");
+                }
+                else
+                {
+                    throw new NullReferenceException();
+                }    
             }
             else
             {
@@ -156,11 +173,25 @@ namespace ViewModel
         {
             if (location == null)
             {
-                MessageBox.Show("Choose element to update", "Error message");
+                if (DisplayMessageBoxes)
+                {
+                    MessageBox.Show("Choose element to update", "Error message");
+                }
+                else
+                {
+                    throw new NullReferenceException();
+                }
             }
-            else if (Name == null || Name == "")
+            else if (Name == null || Name == "" || CostRate < 0 || Availability < 0)
             {
-                MessageBox.Show("You provided incorrect value", "Error message");
+                if (DisplayMessageBoxes)
+                {
+                    MessageBox.Show("You provided incorrect value", "Error message");
+                }
+                else
+                {
+                    throw new FormatException();
+                }               
             }
             else
             {
@@ -177,7 +208,14 @@ namespace ViewModel
         {
             if(location == null)
             {
-                MessageBox.Show("Choose element to display details", "Error message");
+                if (DisplayMessageBoxes)
+                {
+                    MessageBox.Show("Choose element to display details", "Error message");
+                }
+                else
+                {
+                    throw new NullReferenceException();
+                }              
             }
             else
             {

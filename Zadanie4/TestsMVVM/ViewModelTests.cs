@@ -1,4 +1,5 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+using System;
 using System.Linq;
 using TestsMVVM;
 
@@ -14,6 +15,7 @@ namespace ViewModel.Tests
         {
             viewModel = new ViewModel(new TestingContext());
             viewModel.Async = false;
+            viewModel.DisplayMessageBoxes = false;
         }
 
         [TestMethod()]
@@ -44,10 +46,47 @@ namespace ViewModel.Tests
         }
 
         [TestMethod()]
-        public void RemoveChosenLocationNull()
+        [ExpectedException(typeof(FormatException))]
+        public void AddLocationInvalidTest()
         {
             viewModel.Name = "";
             viewModel.AddLocation.Execute(null);
+            viewModel.GetAllLocations.Execute(null);
+        }
+
+        [TestMethod()]
+        [ExpectedException(typeof(FormatException))]
+        public void UpdateChosenLocationInvalidTest()
+        {
+            viewModel.Name = "TestLocation";
+            viewModel.CostRate = new decimal(12.34);
+            viewModel.Availability = new decimal(12.34);
+
+            viewModel.AddLocation.Execute(null);
+            viewModel.GetAllLocations.Execute(null);
+
+            viewModel.Location = viewModel.Locations.Last();
+            viewModel.Name = "TestName";
+            viewModel.CostRate = new decimal(-3);
+            viewModel.UpdateLocation.Execute(null);
+            viewModel.GetAllLocations.Execute(null);
+        }
+
+        [TestMethod()]
+        [ExpectedException(typeof(NullReferenceException))]
+        public void RemoveChosenLocationNullTest()
+        {
+            viewModel.Location = null;
+            viewModel.RemoveLocation.Execute(null);
+            viewModel.GetAllLocations.Execute(null);
+        }
+
+        [TestMethod()]
+        [ExpectedException(typeof(NullReferenceException))]
+        public void DetailsChosenLocationNullTest()
+        {
+            viewModel.Location = null;
+            viewModel.GetLocation.Execute(null);
             viewModel.GetAllLocations.Execute(null);
         }
 
