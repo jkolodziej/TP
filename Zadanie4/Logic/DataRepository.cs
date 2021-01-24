@@ -5,15 +5,17 @@ using System.Linq;
 
 namespace Service
 {
-    public class DataRepository : IDataRepository, IDisposable
+    public class DataRepository : IDataRepository
     {
         private DatabaseDataContext dbContext;
         private List<DataLocation> dataLocations;
 
-        public DataRepository(DatabaseDataContext dataContext)
+        public DataRepository()
         {
-            this.dbContext = dataContext;
-            dataLocations = dbContext.Location.AsEnumerable().Select(location => new DataLocation(location)).ToList();
+            using (dbContext = new DatabaseDataContext())
+            {
+                dataLocations = dbContext.Location.AsEnumerable().Select(location => new DataLocation(location)).ToList();
+            }
         }
 
         public string AddLocation(DataLocation dataLocation)
@@ -25,76 +27,87 @@ namespace Service
             location.Availability = dataLocation.Availability;
             location.ModifiedDate = dataLocation.ModifiedDate;
 
-            dbContext.Location.InsertOnSubmit(location);
-            try
+            using (dbContext = new DatabaseDataContext())
             {
-                dbContext.SubmitChanges();
-            }
-            catch (Exception e)
-            {
-                dbContext.Location.DeleteOnSubmit(location);
-                return "Could not add a location";
-            }
-
-            return "Location added successfully";
-        }
-
-        public List<DataLocation> GetAllLocations()
-        {
-            return (from location in dataLocations
-                    select location).ToList();
-        }
-
-        public DataLocation GetLocation(short locationID)
-        {
-            return (from location in dataLocations
-                    where location.LocationID.Equals(locationID)
-                    select location).FirstOrDefault();
-        }
-
-        public string UpdateLocation(short locationID, DataLocation newLocation)
-        {
-            Location toUpdate = dbContext.Location.SingleOrDefault(location => location.LocationID == locationID);
-
-            toUpdate.Name = newLocation.Name;
-            toUpdate.CostRate = newLocation.CostRate;
-            toUpdate.Availability = newLocation.Availability;
-            toUpdate.ModifiedDate = newLocation.ModifiedDate;
-
-            try
-            {
-                dbContext.SubmitChanges();
-            }
-            catch
-            {
-                return "Could not submit changes";
-            }
-            return "Changes submitted successfully";
-        }
-
-        public string RemoveLocation(short locationID)
-        {
-            Location toRemove = dbContext.Location.SingleOrDefault(location => location.LocationID == locationID);
-
-            if (toRemove != null)
-            {
-                dbContext.Location.DeleteOnSubmit(toRemove);
+                dbContext.Location.InsertOnSubmit(location);
                 try
                 {
                     dbContext.SubmitChanges();
                 }
                 catch (Exception e)
                 {
-                    dbContext.Location.InsertOnSubmit(toRemove);
-                    return $"Location with ID: {locationID} does not exist";
+                    dbContext.Location.DeleteOnSubmit(location);
+                    return "Could not add a location";
                 }
+                return "Location added successfully";
             }
-            return "Location removed successfully";
         }
 
-        public void Dispose()
+        public List<DataLocation> GetAllLocations()
         {
-            dbContext.Dispose();
+            using (dbContext = new DatabaseDataContext())
+            {
+                return (from location in dataLocations
+                        select location).ToList();
+            }
+        }
+
+        public DataLocation GetLocation(short locationID)
+        {
+            using (dbContext = new DatabaseDataContext())
+            {
+                return (from location in dataLocations
+                        where location.LocationID.Equals(locationID)
+                        select location).FirstOrDefault();
+            }
+
+        }
+
+        public string UpdateLocation(short locationID, DataLocation newLocation)
+        {
+            using (dbContext = new DatabaseDataContext())
+            {
+                Location toUpdate = dbContext.Location.SingleOrDefault(location => location.LocationID == locationID);
+
+                toUpdate.Name = newLocation.Name;
+                toUpdate.CostRate = newLocation.CostRate;
+                toUpdate.Availability = newLocation.Availability;
+                toUpdate.ModifiedDate = newLocation.ModifiedDate;
+
+                try
+                {
+                    dbContext.SubmitChanges();
+                }
+                catch
+                {
+                    return "Could not submit changes";
+                }
+                return "Changes submitted successfully";
+            }
+
+        }
+
+        public string RemoveLocation(short locationID)
+        {
+            using (dbContext = new DatabaseDataContext())
+            {
+                Location toRemove = dbContext.Location.SingleOrDefault(location => location.LocationID == locationID);
+
+                if (toRemove != null)
+                {
+                    dbContext.Location.DeleteOnSubmit(toRemove);
+                    try
+                    {
+                        dbContext.SubmitChanges();
+                    }
+                    catch (Exception e)
+                    {
+                        dbContext.Location.InsertOnSubmit(toRemove);
+                        return $"Location with ID: {locationID} does not exist";
+                    }
+                }
+                return "Location removed successfully";
+            }
         }
     }
 }

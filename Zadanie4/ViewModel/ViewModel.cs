@@ -2,7 +2,6 @@
 using System;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
-using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
 using System.Windows;
 
@@ -11,21 +10,12 @@ namespace ViewModel
     public class ViewModel : INotifyPropertyChanged
     {
         public event PropertyChangedEventHandler PropertyChanged;
-
         public string Name { get; set; }
         public decimal CostRate { get; set; }
         public decimal Availability { get; set; }
         public bool Async { get; set; }
         public bool DisplayMessageBoxes { get; set; }
         public INewWindow LocationDetails { get; set; }
-       // public IMessageBox MessageBox { get; set; }
-
-        private IModel model;
-        private MyLocation location;
-        private MyLocation locationInfo;
-        private ObservableCollection<MyLocation> locations;
-        private ObservableCollection<MyLocation> locationsInfo;
-
         public DataBinding AddLocation { get; set; }
         public DataBinding GetLocation { get; set; }
         public DataBinding GetAllLocations { get; set; }
@@ -108,6 +98,12 @@ namespace ViewModel
                 Locations = new ObservableCollection<MyLocation>(value.GetAllLocations());
             }
         }
+
+        private IModel model;
+        private MyLocation location;
+        private MyLocation locationInfo;
+        private ObservableCollection<MyLocation> locations;
+        private ObservableCollection<MyLocation> locationsInfo;
 
 
         public void runAsynchronously(Action action)

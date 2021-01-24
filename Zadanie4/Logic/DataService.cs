@@ -11,7 +11,7 @@ namespace Service
 
         public DataService()
         {
-            dataRepository = new DataRepository(new DatabaseDataContext());
+            dataRepository = new DataRepository();
         }
 
         public string CreateLocation(short id, string name, decimal costRate, decimal availability, DateTime modifiedDate)        {
