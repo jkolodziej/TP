@@ -26,7 +26,7 @@ namespace Data.Properties {
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.SpecialSettingAttribute(global::System.Configuration.SpecialSetting.ConnectionString)]
-        [global::System.Configuration.DefaultSettingValueAttribute("Data Source=TEST;Initial Catalog=AdventureWorks2019;Integrated Securit" +
+        [global::System.Configuration.DefaultSettingValueAttribute("Data Source=DESKTOP-19QR801;Initial Catalog=AdventureWorks2019;Integrated Securit" +
             "y=True")]
         public string AdventureWorks2019ConnectionString {
             get {

@@ -13,10 +13,6 @@ namespace View
         {
             InitializeComponent();
 
-            var viewModel = new ViewModel.ViewModel();
-            viewModel.LocationDetails = new NewWindow(); 
-            DataContext = viewModel;
-
         }
     }
 }
